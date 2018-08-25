@@ -13,18 +13,55 @@ import './create-event.scss';
 
 // Reactstrap
 import { Container, Row, Col } from 'reactstrap';
+import Redirect from "react-router-dom/es/Redirect";
 
 class CreateEventContainer extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {redirect: false};
     }
 
     submit = (values) => {
         this.props.createEvent(values);
     };
 
+    isEmpty = (obj) => {
+        for(var key in obj) {
+            if(obj.hasOwnProperty(key))
+                return false;
+        }
+        return true;
+    };
+
+    componentWillUpdate(nextProps) {
+        if(!this.state.redirect) {
+            const {newEvent} = this.props;
+            if (this.isEmpty(newEvent)) {
+                this.setState({redirect: true});
+                return true;
+            }
+            if(nextProps.title !== newEvent.title) {
+                this.setState({redirect: true});
+                return true;
+            }
+            return false
+        } else {
+            return true;
+        }
+    }
+
     render() {
+
+        const { loggedOut, newEvent } = this.props;
+
+        if (loggedOut && (localStorage.getItem('user') === null))
+            return (<Redirect to='/'/>);
+
+        if(this.state.redirect)
+            return (<Redirect to={`/event/${newEvent._id}`} />);
+
         return (
             <main className='create-event'>
                 <Container fluid={true} className='pl-0'>
@@ -44,7 +81,9 @@ class CreateEventContainer extends Component {
     }
 }
 
-// Todo redirect cuando hace el post
+const mapStateToProps = state => {
+    return { loggedOut: state.user.loggedOut, redirectLogin: state.user.redirectLogin, newEvent: state.events.newEvent };
+};
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -52,4 +91,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(null, mapDispatchToProps)(CreateEventContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateEventContainer);

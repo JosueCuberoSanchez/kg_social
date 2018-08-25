@@ -24,6 +24,7 @@ import Login from './pages/login/';
 import SignUp from './pages/signup/';
 import Dashboard from './pages/dashboard';
 import CreateEvent from './pages/createEvent';
+import Event from './pages/event';
 
 // Font awesome
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -41,6 +42,7 @@ const App = () => {
                         <Route exact path='/signup' component={SignUp} />
                         <Route exact path='/dashboard' component={Dashboard} />
                         <Route exact path='/createEvent' component={CreateEvent} />
+                        <Route exact path='/event/:id' component={Event} />
                     </Switch>
                     <Footer />
                 </div>

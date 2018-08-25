@@ -17,11 +17,11 @@ export const login = (credentials) => {
         try {
             const result = await axios.post(`${Constants.BASE_URL}${Constants.LOGIN}`, credentials);
             const user = await result;
-            localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem('user', JSON.stringify(user.data));
             // Update payload in reducer on success
             dispatch({
                 type: t.GET_LOGIN_SUCCESS,
-                payload: user.data.user
+                payload: user.data
             })
         } catch (err) {
             // Update error in reducer on failure
@@ -91,13 +91,15 @@ export const createEvent = (values) => {
             type: t.GET_CREATE_REQUEST
         });
         try {
-            const result = await axios.post(`${Constants.BASE_URL}${Constants.EVENT}`, values);
+            let body = values;
+            body['owner'] = JSON.parse(localStorage.getItem('user')).email;
+            const result = await axios.post(`${Constants.BASE_URL}${Constants.EVENT}`, body);
             const newEvent = await result;
             console.log(newEvent); // Testing
             dispatch({
                 type: t.GET_CREATE_SUCCESS,
                 payload: newEvent.data.event
-            })
+            });
         } catch (err) {
             // Update error in reducer on failure
             dispatch({
