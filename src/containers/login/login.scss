@@ -1,0 +1,24 @@
+header,
+footer {
+  display: none;
+}
+
+.login {
+
+  &__aside {
+    background: url(../../assets/img/social.jpg) no-repeat;
+    background-size: cover;
+    height: 100vh;
+  }
+}
+
+// media quieries for responsiveness
+
+@media screen and (max-width: 578px) {
+  .login {
+
+    &__aside-col {
+      display: none;
+    }
+  }
+}

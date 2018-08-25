@@ -1,0 +1,15 @@
+header,
+footer {
+  display: block;
+}
+
+.dashboard {
+
+  .container {
+    max-width: 95%;
+  }
+
+  &__events {
+    min-height: 85vh;
+  }
+}

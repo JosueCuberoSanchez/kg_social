@@ -1,0 +1,73 @@
+{
+  "name": "kg_social",
+  "version": "1.0.0",
+  "description": "KG Social app",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --open --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JosueCuberoSanchez/kg_social.git"
+  },
+  "keywords": [],
+  "author": "Josué David Cubero Sánchez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JosueCuberoSanchez/kg_social/issues"
+  },
+  "engines": {
+    "npm": "5.7.1",
+    "node": "9.5.0"
+  },
+  "homepage": "https://github.com/JosueCuberoSanchez/kg_social#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.2",
+    "@fortawesome/free-solid-svg-icons": "^5.2.0",
+    "@fortawesome/react-fontawesome": "^0.1.2",
+    "axios": "^0.18.0",
+    "bootstrap": "^4.1.3",
+    "ramda": "^0.25.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-icons-kit": "^1.1.7",
+    "react-router-dom": "^4.3.1",
+    "react-s3": "^1.3.1",
+    "react-sidenav": "^2.1.3",
+    "reactstrap": "^6.3.1",
+    "redux-form": "^7.4.2",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^1.0.0",
+    "file-loader": "^1.1.11",
+    "history": "^4.7.2",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.9.2",
+    "prop-types": "^15.6.2",
+    "react-bootstrap-table-next": "^1.0.0",
+    "react-bootstrap-table2-paginator": "^1.0.0",
+    "react-bootstrap-table2-toolkit": "^1.0.0",
+    "react-redux": "^5.0.7",
+    "react-router-redux": "^4.0.8",
+    "redux": "^4.0.0",
+    "redux-devtools": "^3.4.1",
+    "redux-devtools-extension": "^2.13.5",
+    "redux-logger": "^3.0.6",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.22.0",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5"
+  }
+}

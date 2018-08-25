@@ -1,0 +1,10 @@
+.aside {
+  position: fixed;
+  background-color: #f8f9fa;
+  margin-top: 15vh;
+  width: 20%;
+
+  &__link:hover {
+    text-decoration: none;
+  }
+}
