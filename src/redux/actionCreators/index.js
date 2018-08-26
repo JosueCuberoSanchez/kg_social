@@ -62,14 +62,9 @@ export const getEvents = (filter) => {
             type: t.GET_EVENTS_REQUEST
         });
         try {
-            let result;
-            if(filter !== null) {
-                result = await axios.get(`${Constants.BASE_URL}${Constants.EVENT}`, filter);
-            } else {
-                result = await axios.get(`${Constants.BASE_URL}${Constants.EVENT}`);
-            }
+            const user = JSON.parse(localStorage.getItem('user')).email;
+            const result = await axios.get(`${Constants.BASE_URL}${Constants.EVENT}`, {params: {filter: filter,user: user}});
             const events = await result;
-            console.log(events);
             // Update payload in reducer on success
             dispatch({
                 type: t.GET_EVENTS_SUCCESS,
@@ -95,7 +90,6 @@ export const createEvent = (values) => {
             body['owner'] = JSON.parse(localStorage.getItem('user')).email;
             const result = await axios.post(`${Constants.BASE_URL}${Constants.EVENT}`, body);
             const newEvent = await result;
-            console.log(newEvent); // Testing
             dispatch({
                 type: t.GET_CREATE_SUCCESS,
                 payload: newEvent.data.event
@@ -104,6 +98,52 @@ export const createEvent = (values) => {
             // Update error in reducer on failure
             dispatch({
                 type: t.GET_CREATE_FAILURE,
+                error: err
+            })
+        }
+    }
+};
+
+export const getEvent = (filter, id) => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_EVENT_REQUEST
+        });
+        try {
+            const user = JSON.parse(localStorage.getItem('user')).email;
+            const result = await axios.get(`${Constants.BASE_URL}${Constants.EVENT}`, {params: {filter: filter,user: user, id: id}});
+            const event = await result;
+            dispatch({
+                type: t.GET_EVENT_SUCCESS,
+                payload: event.data.events
+            });
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_EVENT_FAILURE,
+                error: err
+            })
+        }
+    }
+};
+
+export const updateEventImage = (image,id) => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_EVENT_IMAGE_REQUEST
+        });
+        try {
+            const result = await axios.post(`${Constants.BASE_URL}${Constants.EVENT_IMAGE}`,{image: image.location, id: id});
+            const event = await result;
+            console.log(event);
+            dispatch({
+                type: t.GET_EVENT_IMAGE_SUCCESS,
+                payload: event.data.event
+            });
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_EVENT_IMAGE_FAILURE,
                 error: err
             })
         }

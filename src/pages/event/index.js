@@ -3,15 +3,21 @@
  * @author Josué David Cubero Sánchez.
  */
 
-import React from 'react';
+import React, { Component } from 'react';
 
 import EventContainer from "../../containers/event/";
 
-let Event = ()  => {
+class Event extends Component{
 
-    return (
-        <EventContainer />
-    );
-};
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <EventContainer id={this.props.match.params.id} isLoading={true}/>
+        );
+    }
+}
 
 export default Event;

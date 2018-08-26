@@ -1,5 +1,5 @@
 /**
- * Create event page.
+ * Create event-item page.
  * @author Josué David Cubero Sánchez.
  */
 

@@ -24,7 +24,10 @@ import './dashboard.scss';
 
 // Components
 import Aside from '../../components/aside';
-import Event from '../../components/event';
+import EventItem from '../../components/event-item';
+
+// Filters
+import * as filters from '../../helpers/filters';
 
 
 class DashboardContainer extends Component {
@@ -34,10 +37,10 @@ class DashboardContainer extends Component {
     }
 
     async componentDidMount () {
-        this.props.getEvents(null);
+        this.props.getEvents(filters.ALL);
     }
 
-    eventCreator = event => <Event key={event.title} event={event} />;
+    eventCreator = event => <EventItem key={event.title} event={event} />;
 
     render() {
 

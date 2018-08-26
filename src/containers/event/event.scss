@@ -1,0 +1,21 @@
+.event {
+
+  .container {
+    max-width: 95%;
+  }
+
+  &__info {
+    min-height: 70vh;
+    background-color: #fff;
+  }
+
+  &__edit-image {
+    cursor: pointer;
+  }
+
+  &__modal-body > div{
+    margin: 0 auto;
+    width: 80% !important;
+    border: 1px solid #e9ecef !important;
+  }
+}
