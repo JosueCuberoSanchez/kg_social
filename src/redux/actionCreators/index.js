@@ -62,7 +62,7 @@ export const getEvents = (filter) => {
             type: t.GET_EVENTS_REQUEST
         });
         try {
-            const user = JSON.parse(localStorage.getItem('user')).email;
+            const user = JSON.parse(localStorage.getItem('user')).username;
             const result = await axios.get(`${Constants.BASE_URL}${Constants.EVENT}`, {params: {filter: filter,user: user}});
             const events = await result;
             // Update payload in reducer on success
@@ -80,7 +80,7 @@ export const getEvents = (filter) => {
     }
 };
 
-export const createEvent = (values) => {
+export const updateEvent = (values, create, id) => {
     return async dispatch => {
         dispatch({
             type: t.GET_CREATE_REQUEST
@@ -88,6 +88,8 @@ export const createEvent = (values) => {
         try {
             let body = values;
             body['owner'] = JSON.parse(localStorage.getItem('user')).username;
+            body['create'] = create;
+            body['id'] = id;
             if(body.private === undefined)
                 body['private'] = false;
             const result = await axios.post(`${Constants.BASE_URL}${Constants.EVENT}`, body);

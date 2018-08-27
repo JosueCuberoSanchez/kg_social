@@ -4,7 +4,9 @@
 
 .form {
 
-
+  &__button {
+    cursor: pointer;
+  }
 
   &__dropzone > div {
     margin: 0 auto;

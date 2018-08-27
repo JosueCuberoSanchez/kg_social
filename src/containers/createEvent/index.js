@@ -24,7 +24,7 @@ class CreateEventContainer extends Component {
     }
 
     submit = (values) => {
-        this.props.createEvent(values);
+        this.props.updateEvent(values, true, null);
     };
 
     isEmpty = (obj) => {
@@ -70,8 +70,8 @@ class CreateEventContainer extends Component {
                             <Col xs='12' sm='12' md='3' lg='3'>
                                 <Aside />
                             </Col>
-                            <Col xs='12' sm='12' md='9' lg='9' className='pl-4'>
-                                <EventForm onSubmit={this.submit} />
+                            <Col xs='12' sm='12' md='9' lg='9' className='pl-4 pt-5'>
+                                <EventForm onSubmit={this.submit} update={false} toggleDataModal={null} event={null} />
                             </Col>
                         </Row>
                     </Container>
@@ -87,7 +87,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        createEvent: (values) => dispatch(actions.createEvent(values))
+        updateEvent: (values, create, id) => dispatch(actions.updateEvent(values, create, id))
     };
 };
 

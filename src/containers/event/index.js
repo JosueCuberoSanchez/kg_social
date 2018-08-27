@@ -43,7 +43,7 @@ class EventContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {modal: false, files: [], user: JSON.parse(localStorage.getItem('user'))};
+        this.state = {imageModal: false,dataModal: false, files: [], user: JSON.parse(localStorage.getItem('user'))};
     }
 
     componentDidMount() {
@@ -52,13 +52,19 @@ class EventContainer extends Component {
         this.props.getComments(id);
     }
 
-    toggle = () => {
+    toggleImageModal = () => {
         this.setState({
-            modal: !this.state.modal
+            imageModal: !this.state.imageModal
         });
-        if(this.state.modal && this.state.files.length > 0) {
+        if(this.state.imageModal && this.state.files.length > 0) {
             this.submitImage();
         }
+    };
+
+    toggleDataModal = () => {
+        this.setState({
+            dataModal: !this.state.dataModal
+        });
     };
 
     submitImage = async () => {
@@ -71,6 +77,13 @@ class EventContainer extends Component {
                 this.setState({files:[]})
             })
             .catch(err => console.error(err))
+    };
+
+    submitData = (values) => {
+
+        const { id } = this.props;
+
+        this.props.updateEvent(values,false, id);
     };
 
     onPreviewDrop = (files) => {
@@ -98,6 +111,26 @@ class EventContainer extends Component {
         this.props.getComments(id);
     };
 
+    starCreator = () => {
+
+        const { event } = this.props;
+
+        switch (event.stars) {
+            case 5:
+                return <ul className='list-unstyled list-inline mb-0'><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
+            case 4:
+                return <ul className='list-unstyled list-inline'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
+            case 3:
+                return <ul className='list-unstyled list-inline'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
+            case 2:
+                return <ul className='list-unstyled list-inline'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
+            case 1:
+                return <ul className='list-unstyled list-inline'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
+            case 0:
+                return <ul className='list-unstyled list-inline mt-3'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li></ul>;
+        }
+    };
+
     commentCreator = comment => <CommentItem key={comment._id} comment={comment} />;
 
     render() {
@@ -122,15 +155,27 @@ class EventContainer extends Component {
                                 <article className='ml-5 mt-3 px-4 pt-4 event__info'>
                                     {
                                         event.owner === this.state.user.username
-                                        ? <FontAwesomeIcon icon="edit" onClick={this.toggle} className='event__edit-btn float-right'/>
+                                        ? <FontAwesomeIcon icon="edit" onClick={this.toggleDataModal} className='event__edit-btn float-right'/>
                                         : null
                                     }
-                                    <h2 className='text-center mb-4 pt-4'>{event.title}</h2>
+                                    <div className='mb-4 pt-4'>
+                                        <h2 className='text-center d-inline-block mb-0'>
+                                            {event.title}
+                                        </h2>
+                                        <div className='float-right d-inline-block'>
+                                            {this.starCreator()}
+                                        </div>
+                                    </div>
                                     <Row className='mb-4'>
-                                        <Col xs='6' sm='6' md='6' lg='6'>
+                                        <Col xs='12' sm='6' md='6' lg='6'>
                                             <img src={event.image} className='d-block mx-auto w-100' />
+                                            {
+                                                event.owner === this.state.user.username
+                                                    ? <FontAwesomeIcon icon="edit" onClick={this.toggleImageModal} className='event__edit-btn float-left mt-2'/>
+                                                    : null
+                                            }
                                         </Col>
-                                        <Col xs='6' sm='6' md='6' lg='6'>
+                                        <Col xs='12' sm='6' md='6' lg='6'>
                                             <p className='pr-5'>{event.description}</p>
                                         </Col>
                                     </Row>
@@ -177,8 +222,8 @@ class EventContainer extends Component {
                                 </div>
                             </Col>
                         </Row>
-                        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                            <ModalHeader toggle={this.toggle}>Change event photo</ModalHeader>
+                        <Modal isOpen={this.state.imageModal} toggle={this.toggleImageModal} className={this.props.className}>
+                            <ModalHeader toggle={this.toggleImageModal}>Change event photo</ModalHeader>
                             <ModalBody className='event__modal-body'>
                                 <ReactDropzone accept="image/*" onDrop={this.onPreviewDrop}>
                                     <img src={dnd} className='d-block mx-auto w-75' />
@@ -194,9 +239,15 @@ class EventContainer extends Component {
                                 }
                             </ModalBody>
                             <ModalFooter>
-                                <Button color="primary" onClick={this.toggle}>Update</Button>{' '}
-                                <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                                <Button color="primary" onClick={this.toggleImageModal}>Update</Button>{' '}
+                                <Button color="secondary" onClick={this.toggleImageModal}>Cancel</Button>
                             </ModalFooter>
+                        </Modal>
+                        <Modal isOpen={this.state.dataModal} toggle={this.toggleDataModal} className={this.props.className}>
+                            <ModalHeader toggle={this.toggleDataModal}>Change event photo</ModalHeader>
+                            <ModalBody className='event__modal-body'>
+                                <EventForm onSubmit={this.submitData} update={true} toggleDataModal={this.toggleDataModal} event={event}/>
+                            </ModalBody>
                         </Modal>
                     </Container>
                 </Container>
@@ -215,7 +266,8 @@ const mapDispatchToProps = dispatch => {
         updateEventImage: (values,id) => dispatch(actions.updateEventImage(values,id)),
         getEvent: (filter,id) => dispatch(actions.getEvent(filter,id)),
         getComments: (id) => dispatch(actions.getComments(id)),
-        createComment: (comment, author, id) => dispatch(actions.createComment(comment, author, id))
+        createComment: (comment, author, id) => dispatch(actions.createComment(comment, author, id)),
+        updateEvent: (values, create, id) => dispatch(actions.updateEvent(values, create, id))
     };
 };
 

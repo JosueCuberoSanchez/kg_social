@@ -37,7 +37,7 @@ const Aside = ()  => {
                         <FontAwesomeIcon icon="calendar-check" className='mr-2'/> See enrolled events
                     </NavItem>
                 </Link>
-                <Link to='/topRatedEvents' className='aside__link'>
+                <Link to='/topEvents' className='aside__link'>
                     <NavItem className='border-bottom py-2 pl-3'>
                         <FontAwesomeIcon icon="calendar-plus" className='mr-2'/> See top rated events
                     </NavItem>
