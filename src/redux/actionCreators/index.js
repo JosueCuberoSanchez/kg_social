@@ -87,7 +87,9 @@ export const createEvent = (values) => {
         });
         try {
             let body = values;
-            body['owner'] = JSON.parse(localStorage.getItem('user')).email;
+            body['owner'] = JSON.parse(localStorage.getItem('user')).username;
+            if(body.private === undefined)
+                body['private'] = false;
             const result = await axios.post(`${Constants.BASE_URL}${Constants.EVENT}`, body);
             const newEvent = await result;
             dispatch({
@@ -135,7 +137,6 @@ export const updateEventImage = (image,id) => {
         try {
             const result = await axios.post(`${Constants.BASE_URL}${Constants.EVENT_IMAGE}`,{image: image.location, id: id});
             const event = await result;
-            console.log(event);
             dispatch({
                 type: t.GET_EVENT_IMAGE_SUCCESS,
                 payload: event.data.event
@@ -144,6 +145,51 @@ export const updateEventImage = (image,id) => {
             // Update error in reducer on failure
             dispatch({
                 type: t.GET_EVENT_IMAGE_FAILURE,
+                error: err
+            })
+        }
+    }
+};
+
+export const createComment = (text, author, id) => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_CREATE_COMMENT_REQUEST
+        });
+        try {
+            const result = await axios.post(`${Constants.BASE_URL}${Constants.COMMENT}`,{text: text, author: author, eventId: id});
+            const comment = await result;
+            dispatch({
+                type: t.GET_CREATE_COMMENT_SUCCESS,
+                payload: comment
+            });
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_CREATE_COMMENT_FAILURE,
+                error: err
+            })
+        }
+    }
+};
+
+export const getComments = (id) => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_COMMENT_REQUEST
+        });
+        try {
+            const result = await axios.get(`${Constants.BASE_URL}${Constants.COMMENT}`, {params: {id: id}});
+            const comments = await result;
+            // Update payload in reducer on success
+            dispatch({
+                type: t.GET_COMMENT_SUCCESS,
+                payload: comments.data.commentList
+            })
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_COMMENT_FAILURE,
                 error: err
             })
         }

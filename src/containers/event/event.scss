@@ -9,13 +9,21 @@
     background-color: #fff;
   }
 
-  &__edit-image {
+  &__edit-btn {
     cursor: pointer;
   }
 
-  &__modal-body > div{
+  &__modal-body > div {
     margin: 0 auto;
     width: 80% !important;
     border: 1px solid #e9ecef !important;
+  }
+
+  &__comment-box {
+    background-color: #fff;
+  }
+
+  &__comment {
+    background-color: rgba(0,78,232,0.05);
   }
 }

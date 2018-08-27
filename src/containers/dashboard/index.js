@@ -86,7 +86,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return { loggedOut: state.user.loggedOut, redirectLogin: state.user.redirectLogin, events: state.events.events,
-    error: state.events.error, isLoading: state.events.isLoading};
+    error: state.events.error, isLoading: state.events.eventsLoading};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);

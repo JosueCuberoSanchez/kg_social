@@ -28,8 +28,9 @@ import Event from './pages/event';
 
 // Font awesome
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faUser, faSignOutAlt, faUserCog, faCalendar, faCalendarAlt, faCalendarMinus, faCalendarCheck, faCalendarPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
-library.add(faUser, faSignOutAlt, faUserCog, faCalendar, faCalendarAlt, faCalendarMinus, faCalendarCheck, faCalendarPlus, faEdit);
+import { faUser, faSignOutAlt, faUserCog, faCalendar, faCalendarAlt, faCalendarMinus,
+    faCalendarCheck, faCalendarPlus, faEdit, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+library.add(faUser, faSignOutAlt, faUserCog, faCalendar, faCalendarAlt, faCalendarMinus, faCalendarCheck, faCalendarPlus, faEdit, faPencilAlt);
 
 const App = () => {
     return (

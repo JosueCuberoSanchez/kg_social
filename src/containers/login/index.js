@@ -24,7 +24,7 @@ import * as actions from '../../redux/actionCreators/index';
 import './login.scss';
 
 // Components
-import LoginForm from '../../components/login-form/';
+import LoginForm from '../../components/forms/login-form/';
 
 class LoginContainer extends Component {
 

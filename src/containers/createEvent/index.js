@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../redux/actionCreators';
 
 // Components
-import CreateForm from '../../components/create-form/';
+import EventForm from '../../components/forms/event-form/';
 import Aside from '../../components/aside';
 
 // Styles
@@ -71,7 +71,7 @@ class CreateEventContainer extends Component {
                                 <Aside />
                             </Col>
                             <Col xs='12' sm='12' md='9' lg='9' className='pl-4'>
-                                <CreateForm onSubmit={this.submit} />
+                                <EventForm onSubmit={this.submit} />
                             </Col>
                         </Row>
                     </Container>
@@ -82,7 +82,7 @@ class CreateEventContainer extends Component {
 }
 
 const mapStateToProps = state => {
-    return { loggedOut: state.user.loggedOut, redirectLogin: state.user.redirectLogin, newEvent: state.events.newEvent };
+    return { loggedOut: state.user.loggedOut, redirectLogin: state.user.redirectLogin, newEvent: state.events.currentEvent };
 };
 
 const mapDispatchToProps = dispatch => {

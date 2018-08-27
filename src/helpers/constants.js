@@ -3,3 +3,4 @@ export const LOGIN = 'login';
 export const LOGOUT = 'logout';
 export const EVENT = 'event';
 export const EVENT_IMAGE = 'event/image';
+export const COMMENT = 'comment';

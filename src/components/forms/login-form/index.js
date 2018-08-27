@@ -12,7 +12,7 @@ import { Label } from 'reactstrap';
 import { Field, reduxForm } from 'redux-form'
 
 // Styles
-import './login-form.scss';
+import '../form.scss';
 
 let LoginForm = (props)  => {
 

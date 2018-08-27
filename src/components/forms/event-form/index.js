@@ -12,9 +12,9 @@ import { Label } from 'reactstrap';
 import { Field, reduxForm } from 'redux-form'
 
 // Styles
-import './create-form.scss';
+import './event-form.scss';
 
-let CreateForm = (props)  => {
+let EventForm = (props)  => {
 
     const { handleSubmit } = props;
 
@@ -47,5 +47,5 @@ let CreateForm = (props)  => {
 
 };
 
-CreateForm = reduxForm({form: 'createForm'})(CreateForm);
-export default CreateForm;
+EventForm = reduxForm({form: 'eventForm'})(EventForm);
+export default EventForm;
