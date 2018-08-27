@@ -20,11 +20,15 @@ const EventReducer = (state = INITIAL_STATE, action) => {
             return { ...state, eventLoading: true };
         case a.GET_EVENT_IMAGE_REQUEST:
         case a.GET_CREATE_REQUEST:
+        case a.GET_ENROLL_REQUEST:
+        case a.GET_UNENROLL_REQUEST:
             return { ...state };
 
         // Successful events
         case a.GET_CREATE_SUCCESS:
         case a.GET_EVENT_IMAGE_SUCCESS:
+        case a.GET_ENROLL_SUCCESS:
+        case a.GET_UNENROLL_SUCCESS:
             return { ...state, currentEvent: action.payload};
         case a.GET_EVENTS_SUCCESS:
             return { ...state, events: action.payload, eventsLoading: false};
@@ -34,6 +38,8 @@ const EventReducer = (state = INITIAL_STATE, action) => {
         // Errors
         case a.GET_EVENTS_FAILURE:
         case a.GET_CREATE_FAILURE:
+        case a.GET_ENROLL_FAILURE:
+        case a.GET_UNENROLL_FAILURE:
         case a.GET_EVENT_IMAGE_FAILURE:
             return { ...state, error: true};
 

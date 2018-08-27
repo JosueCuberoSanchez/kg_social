@@ -197,3 +197,49 @@ export const getComments = (id) => {
         }
     }
 };
+
+export const enrollToEvent = (username, eventId) => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_ENROLL_REQUEST
+        });
+        try {
+            const result = await axios.post(`${Constants.BASE_URL}${Constants.ENROLL}`, {username: username, eventId: eventId});
+            const event = await result;
+            // Update payload in reducer on success
+            dispatch({
+                type: t.GET_ENROLL_SUCCESS,
+                payload: event.data.event
+            })
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_ENROLL_FAILURE,
+                error: err
+            })
+        }
+    }
+};
+
+export const unenrollToEvent = (username, eventId) => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_UNENROLL_REQUEST
+        });
+        try {
+            const result = await axios.post(`${Constants.BASE_URL}${Constants.UNENROLL}`, {username: username, eventId: eventId});
+            const event = await result;
+            // Update payload in reducer on success
+            dispatch({
+                type: t.GET_UNENROLL_SUCCESS,
+                payload: event.data.event
+            })
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_UNENROLL_FAILURE,
+                error: err
+            })
+        }
+    }
+};

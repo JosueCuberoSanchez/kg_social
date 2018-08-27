@@ -92,15 +92,19 @@ class EventContainer extends Component {
         });
     };
 
-    getAttendees = (event) => {
+    getAttendees = () => {
+
+        const { event } = this.props;
         if(event.attendees.length > 0){
-            if(event.attendees.length === 1)
-                return (<p>{event.attendees[0]} is going.</p>);
-            let attendees = event.attendees.join(', ');
-            return (<p>{attendees} are going.</p>);
+            return `${event.attendees.join(', ')} and ${event.owner} are going`;
         } else {
-            return (<p>{event.owner} is going.</p>);
+            return `${event.owner} is going`;
         }
+    };
+
+    checkEnroll = () => {
+        const { event } = this.props;
+        return event.attendees.includes(this.state.user.username);
     };
 
     submitComment = async (values) => {
@@ -132,6 +136,16 @@ class EventContainer extends Component {
     };
 
     commentCreator = comment => <CommentItem key={comment._id} comment={comment} />;
+
+    enrollToEvent = () => {
+        const { id } = this.props;
+        this.props.enrollToEvent(this.state.user.username,id);
+    };
+
+    unenrollToEvent = () => {
+        const { id } = this.props;
+        this.props.unenrollToEvent(this.state.user.username,id);
+    };
 
     render() {
 
@@ -187,8 +201,15 @@ class EventContainer extends Component {
                                         </Col>
                                         <Col xs='6' sm='6' md='6' lg='6'>
                                             <div>
-                                                {this.getAttendees(event)}
+                                                {this.getAttendees()}
                                             </div>
+                                            {
+                                                event.owner === this.state.user.username
+                                                    ? null
+                                                    : this.checkEnroll()
+                                                        ? <Button onClick={this.unenrollToEvent}>Unenroll</Button>
+                                                        : <Button onClick={this.enrollToEvent}>Enroll</Button>
+                                            }
                                         </Col>
                                     </Row>
                                 </article>
@@ -267,7 +288,9 @@ const mapDispatchToProps = dispatch => {
         getEvent: (filter,id) => dispatch(actions.getEvent(filter,id)),
         getComments: (id) => dispatch(actions.getComments(id)),
         createComment: (comment, author, id) => dispatch(actions.createComment(comment, author, id)),
-        updateEvent: (values, create, id) => dispatch(actions.updateEvent(values, create, id))
+        updateEvent: (values, create, id) => dispatch(actions.updateEvent(values, create, id)),
+        enrollToEvent: (username, eventId) => dispatch(actions.enrollToEvent(username, eventId)),
+        unenrollToEvent: (username, eventId) => dispatch(actions.unenrollToEvent(username, eventId))
     };
 };
 
