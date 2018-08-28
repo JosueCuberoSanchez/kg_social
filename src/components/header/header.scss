@@ -1,10 +1,44 @@
 .header {
 
+  background-color: #dc772c;
+
+  &__brand {
+    width: 15%;
+  }
+
   &__item {
     padding: 0.5rem;
   }
 
   &__link {
     text-decoration: none !important;
+  }
+
+  &__user-dropdown-item {
+    display: none;
+  }
+}
+
+// media queries for responsiveness
+
+@media screen and (max-width: 768px) {
+
+  .header {
+
+    &__brand {
+      width: 105px;
+    }
+
+    &__user-dropdown {
+      display: none;
+    }
+
+    &__user-dropdown-item {
+      display: block;
+    }
+  }
+
+  .nav-item, .dropdown-toggle {
+    float: right;
   }
 }

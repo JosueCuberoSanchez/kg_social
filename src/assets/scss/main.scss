@@ -10,6 +10,11 @@
 
 .text, p, label, a {
   font-family: 'Roboto Slab', serif;
+  color: #000 !important;
+}
+
+a:hover {
+  color: #fff;
 }
 
 body {
