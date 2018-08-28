@@ -4,19 +4,38 @@
     max-width: 95%;
   }
 
+  &__date {
+    background-color: #00A0B2;
+  }
+
+  &__date--date {
+    font-size: 4rem;
+    color: #fff !important;
+  }
+
+  &__date--day {
+    font-size: 2rem;
+  }
+
+  &__date--month {
+    font-size: 1.5rem;
+  }
+
   &__info {
     min-height: 70vh;
     background-color: #fff;
-  }
-
-  &__edit-btn {
-    cursor: pointer;
   }
 
   &__modal-body > div {
     margin: 0 auto;
     width: 80% !important;
     border: 1px solid #e9ecef !important;
+  }
+
+  &__preview-img {
+    display: inline;
+    width: 100px;
+    height: 100px;
   }
 
   &__comment-box {

@@ -40,6 +40,7 @@ class LoginContainer extends Component {
 
         return (
             <main className='login'>
+                <h1 className='sr-only'>Login page</h1>
                 <Container fluid={true}>
                     <Row>
                         <Col xs='12' sm='4' md='4' lg='4' className='p-0 login__aside-col'>

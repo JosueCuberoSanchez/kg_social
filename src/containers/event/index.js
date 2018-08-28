@@ -22,6 +22,8 @@ import CommentItem from "../../components/comment-item";
 
 // Filters
 import * as filters from '../../helpers/filters';
+
+// Font awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // Amazon S3
@@ -32,11 +34,8 @@ import ReactDropzone from "react-dropzone";
 // Ramda
 import {map} from "ramda";
 
-const previewStyle = {
-    display: 'inline',
-    width: 100,
-    height: 100,
-};
+// Helpers
+import { starCreator, getAttendees, getEventDay, getEventDate, getEventYear, getEventMonth } from "../../helpers/functions";
 
 class EventContainer extends Component {
 
@@ -48,103 +47,43 @@ class EventContainer extends Component {
 
     componentDidMount() {
         const { id } = this.props;
-        this.props.getEvent(filters.ID,id);
-        this.props.getComments(id);
+        this.props.getEvent(filters.ID,id); // Get event info
+        this.props.getComments(id); // Get event comments
     }
 
     toggleImageModal = () => {
-        this.setState({
-            imageModal: !this.state.imageModal
-        });
-        if(this.state.imageModal && this.state.files.length > 0) {
+        this.setState({ imageModal: !this.state.imageModal });
+        if(this.state.imageModal && this.state.files.length > 0)
             this.submitImage();
-        }
     };
 
-    toggleDataModal = () => {
-        this.setState({
-            dataModal: !this.state.dataModal
-        });
-    };
+    toggleDataModal = () => { this.setState({ dataModal: !this.state.dataModal }); };
+
+    onPreviewDrop = (files) => { this.setState({ files: this.state.files.concat(files) }); };
 
     submitImage = async () => {
-        const { id } = this.props;
         const file = this.state.files[0];
-        S3FileUpload
-            .uploadFile(file, s3.config)
-            .then(data => {
-                this.props.updateEventImage(data,id);
-                this.setState({files:[]})
-            })
-            .catch(err => console.error(err))
+        S3FileUpload.uploadFile(file, s3.config).then(data => {
+                this.props.updateEventImage(data,this.props.id);
+                this.setState({files:[]});
+            }).catch(err => console.error(err));
     };
 
-    submitData = (values) => {
+    submitData = (values) => { this.props.updateEvent(values, false, this.props.id); };
 
-        const { id } = this.props;
+    checkEnroll = () => { return this.props.event.attendees.includes(this.state.user.username); };
 
-        this.props.updateEvent(values,false, id);
-    };
+    enrollToEvent = () => { this.props.enrollToEvent(this.state.user.username,this.props.id); };
 
-    onPreviewDrop = (files) => {
-        this.setState({
-            files: this.state.files.concat(files),
-        });
-    };
-
-    getAttendees = () => {
-        const { event } = this.props;
-        if(event.attendees.length > 0) {
-            return `${event.attendees.join(', ')} and ${event.owner} are going`;
-        } else {
-            return `${event.owner} is going`;
-        }
-    };
-
-    checkEnroll = () => {
-        const { event } = this.props;
-        return event.attendees.includes(this.state.user.username);
-    };
+    unenrollToEvent = () => { this.props.unenrollToEvent(this.state.user.username,this.props.id); };
 
     submitComment = async (values) => {
         const { id } = this.props;
-        const author = this.state.user.username;
-
-        await this.props.createComment(values.comment, author, id);
+        await this.props.createComment(values.comment, this.state.user.username, id);
         this.props.getComments(id);
     };
 
-    starCreator = () => {
-
-        const { event } = this.props;
-
-        switch (event.stars) {
-            case 5:
-                return <ul className='list-unstyled list-inline mb-0'><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
-            case 4:
-                return <ul className='list-unstyled list-inline'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
-            case 3:
-                return <ul className='list-unstyled list-inline'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
-            case 2:
-                return <ul className='list-unstyled list-inline'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
-            case 1:
-                return <ul className='list-unstyled list-inline'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
-            case 0:
-                return <ul className='list-unstyled list-inline mt-3'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li></ul>;
-        }
-    };
-
     commentCreator = comment => <CommentItem key={comment._id} comment={comment} />;
-
-    enrollToEvent = () => {
-        const { id } = this.props;
-        this.props.enrollToEvent(this.state.user.username,id);
-    };
-
-    unenrollToEvent = () => {
-        const { id } = this.props;
-        this.props.unenrollToEvent(this.state.user.username,id);
-    };
 
     render() {
 
@@ -158,41 +97,39 @@ class EventContainer extends Component {
 
         return (
             <main className='event'>
+                <h1 className='sr-only'>{event.title} page</h1>
                 <Container fluid={true} className='pl-0'>
                     <Container className='pl-4 ml-0'>
                         <Row>
-                            <Col xs='12' sm='12' md='3' lg='3'>
-                                <Aside />
-                            </Col>
                             <Col xs='12' sm='12' md='9' lg='9' className='mt-4'>
-                                <article className='ml-5 mt-3 px-4 pt-4 event__info'>
+                                <article className='ml-5 mt-3 px-3 pt-3 event__info'>
                                     {
                                         event.owner === this.state.user.username
-                                        ? <FontAwesomeIcon icon="edit" onClick={this.toggleDataModal} className='event__edit-btn float-right'/>
+                                        ? <div className='d-flex justify-content-between'><div /><button onClick={this.toggleDataModal} className=''>Edit event info</button></div>
                                         : null
                                     }
-                                    <div className='mb-4 pt-4'>
-                                        <h2 className='text-center d-inline-block mb-0'>
-                                            {event.title}
-                                        </h2>
-                                        <div className='float-right d-inline-block'>
-                                            {this.starCreator()}
-                                        </div>
+                                    <div className='mb-4 mt-2 pt-4 d-flex justify-content-between'>
+                                        <h2>{event.title}</h2>
+                                        <div>{starCreator(event)}</div>
                                     </div>
                                     <Row className='mb-4'>
-                                        <Col xs='12' sm='6' md='6' lg='6'>
-                                            <img src={event.image} className='d-block mx-auto w-100' />
-                                            {
-                                                event.owner === this.state.user.username
-                                                    ? <FontAwesomeIcon icon="edit" onClick={this.toggleImageModal} className='event__edit-btn float-left mt-2'/>
-                                                    : null
-                                            }
+                                        <Col xs='12' sm='4' md='4' lg='4'>
+                                            <div className='event__date h-100 p-2'>
+                                                <p className='event__date--date mb-0'>{getEventDate(event)}</p>
+                                                <p className='event__date--day mb-0'>{getEventDay(event)}</p>
+                                                <p className='event__date--month'>{getEventMonth(event)}</p>
+                                            </div>
                                         </Col>
-                                        <Col xs='12' sm='6' md='6' lg='6'>
-                                            <p className='pr-5'>{event.description}</p>
+                                        <Col xs='12' sm='8' md='8' lg='8'>
+                                            <img src={event.image} className='d-block mx-auto w-100' />
                                         </Col>
                                     </Row>
                                     <Row>
+                                        {
+                                            event.owner === this.state.user.username
+                                                ? <FontAwesomeIcon icon="edit" onClick={this.toggleImageModal} className='event__edit-btn float-left mt-2'/>
+                                                : null
+                                        }
                                         <Col xs='6' sm='6' md='6' lg='6'>
                                             <div>
                                                 <p>{event.hashtags}</p>
@@ -200,7 +137,7 @@ class EventContainer extends Component {
                                         </Col>
                                         <Col xs='6' sm='6' md='6' lg='6'>
                                             <div>
-                                                {this.getAttendees()}
+                                                {getAttendees(event)}
                                             </div>
                                             {
                                                 event.owner === this.state.user.username
@@ -212,6 +149,9 @@ class EventContainer extends Component {
                                         </Col>
                                     </Row>
                                 </article>
+                            </Col>
+                            <Col xs='12' sm='12' md='3' lg='3'>
+                                <Aside />
                             </Col>
                         </Row>
                         <Row>
@@ -237,7 +177,7 @@ class EventContainer extends Component {
                         <Row>
                             <Col xs='12' sm='12' md='12' lg='12'>
                                 <div className='event__comment-box mt-4 p-4'>
-                                    <h3>Write a comment</h3>
+                                    <h4>Write a comment</h4>
                                     <CommentForm onSubmit={this.submitComment}/>
                                 </div>
                             </Col>
@@ -252,8 +192,7 @@ class EventContainer extends Component {
                                 <Fragment>
                                     <h3 className='text-center'>Preview</h3>
                                     {this.state.files.map((file) => (
-                                        <img alt="Preview" key={file.preview} src={file.preview}
-                                             style={previewStyle} className='d-block mx-auto'/>
+                                        <img alt="Preview" key={file.preview} src={file.preview} className='d-block mx-auto event__preview-img'/>
                                     ))}
                                 </Fragment>
                                 }

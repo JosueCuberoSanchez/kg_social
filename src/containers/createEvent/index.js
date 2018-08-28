@@ -14,6 +14,9 @@ import './create-event.scss';
 // Reactstrap
 import { Container, Row, Col } from 'reactstrap';
 
+// Helpers
+import { isEmpty } from "../../helpers/functions";
+
 // Router
 import Redirect from "react-router-dom/es/Redirect";
 
@@ -25,30 +28,16 @@ class CreateEventContainer extends Component {
         this.state = {redirect: false};
     }
 
-    submit = (values) => {
-        this.props.updateEvent(values, true, null);
-    };
+    submitData = (values) => { this.props.updateEvent(values, true, null); };
 
-    isEmpty = (obj) => {
-        for(var key in obj) {
-            if(obj.hasOwnProperty(key))
-                return false;
-        }
-        return true;
-    };
-
-    componentWillUpdate(nextProps) {
+    componentWillUpdate(nextProps) { // check if on submit we should redirect the user to the newly creatd event page
         if(!this.state.redirect) {
             const {newEvent} = this.props;
-            if (this.isEmpty(newEvent)) {
+            if ( (isEmpty(newEvent)) || (nextProps.title !== newEvent.title)) {
                 this.setState({redirect: true});
                 return true;
             }
-            if(nextProps.title !== newEvent.title) {
-                this.setState({redirect: true});
-                return true;
-            }
-            return false
+            return false;
         } else {
             return true;
         }
@@ -66,14 +55,15 @@ class CreateEventContainer extends Component {
 
         return (
             <main className='create-event'>
-                <Container fluid={true} className='pl-0'>
-                    <Container className='pl-4 ml-0'>
+                <h1 className='sr-only'>Create event page</h1>
+                <Container fluid={true}>
+                    <Container>
                         <Row>
+                            <Col xs='12' sm='12' md='9' lg='9' className='pt-5'>
+                                <EventForm onSubmit={this.submitData} update={false} toggleDataModal={null} event={null} />
+                            </Col>
                             <Col xs='12' sm='12' md='3' lg='3'>
                                 <Aside />
-                            </Col>
-                            <Col xs='12' sm='12' md='9' lg='9' className='pl-4 pt-5'>
-                                <EventForm onSubmit={this.submit} update={false} toggleDataModal={null} event={null} />
                             </Col>
                         </Row>
                     </Container>

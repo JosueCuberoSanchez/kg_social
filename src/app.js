@@ -6,7 +6,10 @@
 import 'babel-polyfill'; // necessary for async & await
 
 import React from 'react'; //ES6 modules
+
+// Router
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -48,7 +51,7 @@ const App = () => {
                         <Route exact path='/enrolledEvents' component={includeNavs(EnrolledEvents)} />
                         <Route exact path='/topEvents' component={includeNavs(TopEvents)} />
                         <Route exact path='/createEvent' component={includeNavs(CreateEvent)} />
-                        <Route exact path='/event/:id' component={includeNavs(Event)}/>
+                        <Route exact path='/event/:id' component={includeNavs(withRouter(Event))}/>
                         <Route exact path='/profile' component={includeNavs(Profile)} />
                     </Switch>
             </BrowserRouter>

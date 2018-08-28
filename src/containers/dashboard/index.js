@@ -12,7 +12,6 @@ import { Container, Row, Col } from 'reactstrap';
 import { map } from 'ramda';
 
 // Router
-import Link from 'react-router-dom/es/Link';
 import Redirect from "react-router-dom/es/Redirect";
 
 // Redux
@@ -32,13 +31,9 @@ import * as filters from '../../helpers/filters';
 
 class DashboardContainer extends Component {
 
-    constructor(props) {
-        super(props);
-    }
+    constructor(props) { super(props); }
 
-    async componentDidMount () {
-        this.props.getEvents(filters.ALL);
-    }
+    async componentDidMount () { this.props.getEvents(filters.ALL); }
 
     eventCreator = event => <EventItem key={event.title} event={event} />;
 
@@ -56,18 +51,19 @@ class DashboardContainer extends Component {
         } else {
             return (
                 <main className='dashboard'>
-                    <Container fluid={true} className='pl-0'>
-                        <Container className='pl-4 ml-0'>
+                    <h1 className='sr-only'>Dashboard page</h1>
+                    <Container fluid={true}>
+                        <Container>
                             <Row>
-                                <Col xs='12' sm='12' md='3' lg='3'>
-                                    <Aside />
-                                </Col>
-                                <Col xs='12' sm='12' md='9' lg='9' className='pl-4'>
-                                    <div className='dashboard__events pt-4 pl-3'>
+                                <Col xs='12' sm='12' md='9' lg='9'>
+                                    <div className='dashboard__events pt-4'>
                                         <ul className='list-unstyled'>
                                             {map(this.eventCreator, events)}
                                         </ul>
                                     </div>
+                                </Col>
+                                <Col xs='12' sm='12' md='3' lg='3'>
+                                    <Aside />
                                 </Col>
                             </Row>
                         </Container>
@@ -78,11 +74,7 @@ class DashboardContainer extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        getEvents: (filter) => dispatch(actions.getEvents(filter)) //active: true
-    };
-};
+const mapDispatchToProps = dispatch => { return { getEvents: (filter) => dispatch(actions.getEvents(filter)) }; };
 
 const mapStateToProps = state => {
     return { loggedOut: state.user.loggedOut, redirectLogin: state.user.redirectLogin, events: state.events.events,

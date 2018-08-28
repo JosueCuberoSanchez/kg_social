@@ -16,13 +16,11 @@ import './event-form.scss';
 
 class EventForm extends Component {
 
-    constructor(props) {
-        super(props);
-    }
+    constructor(props) { super(props); }
 
     componentDidMount() {
         const { update, event } = this.props;
-        if(update)
+        if(update) // if it's an event update initialize the input with the event data values
             this.props.initialize({ title: event.title, description: event.description, hashtags: event.hashtags, private: event.private });
     }
 
@@ -41,17 +39,17 @@ class EventForm extends Component {
             <form onSubmit={this.formSubmit} className='form'>
                 <div className='mb-4'>
                     <Label htmlFor='title'>Event title</Label>
-                    <Field name='title' component='input' type='text'
+                    <Field name='title' id='title' component='input' type='text'
                            required={true} className='w-100 pl-2 form__field' placeholder='Enter event title'/>
                 </div>
                 <div className='mb-4'>
                     <Label htmlFor='description'>Event description</Label>
-                    <Field name='description' component='textarea' type='text'
+                    <Field name='description' id='description' component='textarea' type='text'
                            required={true} className='w-100 pl-2 form__field' placeholder='Enter event description'/>
                 </div>
                 <div className='mb-4'>
                     <Label htmlFor='hashtags'>Hashtags</Label>
-                    <Field name='hashtags' component='input' type='text'
+                    <Field name='hashtags' id='hashtags' component='input' type='text'
                            required={true} className='w-100 pl-2 form__field' placeholder='Enter hashtags'/>
                 </div>
                 <div className='mb-4'>
@@ -62,12 +60,12 @@ class EventForm extends Component {
                 </div>
                     {
                         update
-                        ?   <div>
-                                <button type='submit' className='form__button mt-4'>Update event!</button>{' '}
-                                <button type='button' className='form__button mt-4' onClick={toggleDataModal}>Cancel</button>
+                        ?   <div className='mt-4'>
+                                <button type='submit'>Update event!</button>{' '}
+                                <button type='button' onClick={toggleDataModal}>Cancel</button>
                             </div>
-                        :   <div>
-                                <button type='submit' className='form__button mt-4'>Create event!</button>{' '}
+                        :   <div className='mt-4'>
+                                <button type='submit'>Create event!</button>{' '}
                             </div>
                     }
             </form>
