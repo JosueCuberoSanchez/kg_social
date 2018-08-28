@@ -13,6 +13,8 @@ import './create-event.scss';
 
 // Reactstrap
 import { Container, Row, Col } from 'reactstrap';
+
+// Router
 import Redirect from "react-router-dom/es/Redirect";
 
 class CreateEventContainer extends Component {

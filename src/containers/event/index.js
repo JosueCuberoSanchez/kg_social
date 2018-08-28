@@ -93,9 +93,8 @@ class EventContainer extends Component {
     };
 
     getAttendees = () => {
-
         const { event } = this.props;
-        if(event.attendees.length > 0){
+        if(event.attendees.length > 0) {
             return `${event.attendees.join(', ')} and ${event.owner} are going`;
         } else {
             return `${event.owner} is going`;

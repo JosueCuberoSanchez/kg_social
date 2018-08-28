@@ -22,7 +22,6 @@ import logo from '../../assets/img/logo.png';
 import { connect } from 'react-redux';
 import * as actions from "../../redux/actionCreators/";
 import Link from "react-router-dom/es/Link";
-import SideNav from "react-sidenav";
 
 class Header extends Component {
 
@@ -32,6 +31,7 @@ class Header extends Component {
         this.state = {
             isOpen: false
         };
+        console.log(props);
     }
 
     toggle = () => {

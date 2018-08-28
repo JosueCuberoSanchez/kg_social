@@ -16,7 +16,6 @@ import Link from 'react-router-dom/es/Link';
 import Redirect from "react-router-dom/es/Redirect";
 
 //Redux
-import { reduxForm } from 'redux-form'
 import { connect } from 'react-redux';
 import * as actions from '../../redux/actionCreators/index';
 
@@ -28,13 +27,9 @@ import LoginForm from '../../components/forms/login-form/';
 
 class LoginContainer extends Component {
 
-    constructor(props) {
-        super(props);
-    }
+    constructor(props) { super(props); }
 
-    submit = (values) => {
-        this.props.login(values);
-    };
+    submit = (values) => { this.props.login(values); };
 
     render() {
 
@@ -48,7 +43,7 @@ class LoginContainer extends Component {
                 <Container fluid={true}>
                     <Row>
                         <Col xs='12' sm='4' md='4' lg='4' className='p-0 login__aside-col'>
-                            <div className='login__aside'/>
+                            <div className='login__aside h-100'/>
                         </Col>
                         <Col xs='12' sm={{size: 6, order: 2, offset: 1}}
                              md={{size: 6, order: 2, offset: 1}} lg={{size: 6, order: 2, offset: 1}}>
@@ -70,19 +65,8 @@ class LoginContainer extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return { badCredentials: state.user.badCredentials, redirectDash: state.user.redirectDash };
-};
+const mapStateToProps = state => { return { badCredentials: state.user.badCredentials, redirectDash: state.user.redirectDash }; };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        login: (values) => dispatch(actions.login(values))
-    };
-};
-
-LoginContainer = reduxForm({
-    // a unique name for the form
-    form: 'login'
-})(LoginContainer);
+const mapDispatchToProps = dispatch => { return { login: (values) => dispatch(actions.login(values)) }; };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);

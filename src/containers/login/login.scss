@@ -1,14 +1,11 @@
-header,
-footer {
-  display: none;
-}
-
 .login {
+
+  min-height: 100vh;
 
   &__aside {
     background: url(../../assets/img/social.jpg) no-repeat;
     background-size: cover;
-    height: 100vh;
+    min-height: 100vh;
   }
 }
 

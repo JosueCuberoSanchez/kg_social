@@ -15,9 +15,8 @@ import store from './redux/store';
 //Styles
 import './assets/scss/main.scss';
 
-// Components
-import Header from './components/header';
-import Footer from './components/footer';
+// Helpers
+import { includeNavs } from './helpers/functions';
 
 // Pages
 import Login from './pages/login/';
@@ -28,6 +27,7 @@ import MyEvents from './pages/my-events';
 import EnrolledEvents from './pages/enrolled-events';
 import TopEvents from './pages/top-events';
 import Event from './pages/event';
+import Profile from './pages/profile';
 
 // Font awesome
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -40,20 +40,17 @@ const App = () => {
     return (
         <Provider store={store}>
             <BrowserRouter>
-                <div>
-                    <Header />
                     <Switch>
                         <Route exact path='/' component={Login} />
                         <Route exact path='/signup' component={SignUp} />
-                        <Route exact path='/dashboard' component={Dashboard} />
-                        <Route exact path='/myEvents' component={MyEvents} />
-                        <Route exact path='/enrolledEvents' component={EnrolledEvents} />
-                        <Route exact path='/topEvents' component={TopEvents} />
-                        <Route exact path='/createEvent' component={CreateEvent} />
-                        <Route exact path='/event/:id' component={Event} />
+                        <Route exact path='/dashboard' component={includeNavs(Dashboard)} />
+                        <Route exact path='/myEvents' component={includeNavs(MyEvents)} />
+                        <Route exact path='/enrolledEvents' component={includeNavs(EnrolledEvents)} />
+                        <Route exact path='/topEvents' component={includeNavs(TopEvents)} />
+                        <Route exact path='/createEvent' component={includeNavs(CreateEvent)} />
+                        <Route exact path='/event/:id' component={includeNavs(Event)}/>
+                        <Route exact path='/profile' component={includeNavs(Profile)} />
                     </Switch>
-                    <Footer />
-                </div>
             </BrowserRouter>
         </Provider>
     )
