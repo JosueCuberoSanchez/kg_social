@@ -20,7 +20,7 @@ import './profile.scss';
 import Redirect from "react-router-dom/es/Redirect";
 
 // Components
-import Aside from "../../components/aside";
+import Aside from "../aside";
 
 class ProfileContainer extends Component {
 

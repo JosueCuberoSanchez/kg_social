@@ -243,3 +243,25 @@ export const unenrollToEvent = (username, eventId) => {
         }
     }
 };
+
+export const getLogs = () => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_LOG_REQUEST
+        });
+        try {
+            const result = await axios.get(`${Constants.BASE_URL}${Constants.LOG}`);
+            const logs = await result;
+            dispatch({
+                type: t.GET_LOG_SUCCESS,
+                payload: logs.data.firstLogs
+            });
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_LOG_FAILURE,
+                error: err
+            })
+        }
+    }
+};

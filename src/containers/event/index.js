@@ -15,7 +15,7 @@ import {Redirect} from 'react-router-dom';
 import {Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Label, Input} from 'reactstrap';
 
 // Components
-import Aside from '../../components/aside';
+import Aside from '../aside';
 import EventForm from '../../components/forms/event-form/';
 import CommentForm from '../../components/forms/comment-form/';
 import CommentItem from "../../components/comment-item";
@@ -114,11 +114,10 @@ class EventContainer extends Component {
         return (
             <main className='event'>
                 <h1 className='sr-only'>{event.title} page</h1>
-                <Container fluid={true} className='pl-0'>
-                    <Container className='pl-4 ml-0'>
+                <Container fluid={true}>
                         <Row>
                             <Col xs='12' sm='12' md='10' lg='10' className='mt-4'>
-                                <article className='ml-5 mt-3 p-3 event__info'>
+                                <article className='mt-3 p-3 event__info'>
                                     {
                                         event.owner === this.state.user.username
                                             ? <div className='d-flex justify-content-between'>
@@ -193,7 +192,6 @@ class EventContainer extends Component {
                                 <Aside/>
                             </Col>
                         </Row>
-                    </Container>
                 </Container>
                 <Container fluid={true}>
                     <Row>

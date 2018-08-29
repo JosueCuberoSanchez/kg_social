@@ -22,7 +22,7 @@ import * as actions from '../../redux/actionCreators/index';
 import './enrolled-events.scss';
 
 // Components
-import Aside from '../../components/aside';
+import Aside from '../aside';
 import EventItem from '../../components/event-item';
 
 // Filters

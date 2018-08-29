@@ -6,3 +6,4 @@ export const EVENT_IMAGE = 'event/image';
 export const COMMENT = 'comment';
 export const ENROLL = 'enroll';
 export const UNENROLL = 'unenroll';
+export const LOG = 'log';

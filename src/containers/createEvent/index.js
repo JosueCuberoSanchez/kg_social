@@ -6,7 +6,7 @@ import * as actions from '../../redux/actionCreators';
 
 // Components
 import EventForm from '../../components/forms/event-form/';
-import Aside from '../../components/aside';
+import Aside from '../aside';
 
 // Styles
 import './create-event.scss';
