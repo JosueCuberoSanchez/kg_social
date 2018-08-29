@@ -14,11 +14,16 @@
   }
 
   &__date--day {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   &__date--month {
     font-size: 1.5rem;
+  }
+
+  &__location {
+    font-size: 1.2rem;
+    color: #fff;
   }
 
   &__info {
@@ -44,5 +49,17 @@
 
   &__comment {
     background-color: rgba(0,78,232,0.05);
+  }
+}
+
+// media quieries for responsiveness
+@media screen and (max-width: 576px) {
+
+  .event{
+
+    &__edit-img-container {
+      float: none !important;
+      text-align: center;
+    }
   }
 }

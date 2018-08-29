@@ -45,7 +45,7 @@ class EnrolledEventsContainer extends Component {
 
         const { loggedOut, events, isLoading, error } = this.props;
 
-        if (loggedOut && (localStorage.getItem('user') === null))
+        if (localStorage.getItem('user') === null)
             return (<Redirect to='/'/>);
 
         if(isLoading) {

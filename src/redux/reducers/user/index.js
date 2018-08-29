@@ -11,7 +11,7 @@ const INITIAL_STATE = {
     badCredentials:false,
     redirectDash: false,
     redirectLogin: false,
-    loggedOut: true
+    loggedOut: false
 };
 
 const UserReducer = (state = INITIAL_STATE, action) => {

@@ -36,7 +36,7 @@ class ProfileContainer extends Component {
 
         const { loggedOut } = this.props;
 
-        if (loggedOut && (localStorage.getItem('user') === null))
+        if (localStorage.getItem('user') === null)
             return (<Redirect to='/'/>);
 
         return (

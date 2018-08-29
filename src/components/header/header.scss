@@ -14,6 +14,11 @@
     text-decoration: none !important;
   }
 
+  .nav-item:hover,
+  .nav-link:hover {
+    color: #fff !important;
+  }
+
   &__user-dropdown-item {
     display: none;
   }

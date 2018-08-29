@@ -34,6 +34,8 @@ const EventReducer = (state = INITIAL_STATE, action) => {
             return { ...state, events: action.payload, eventsLoading: false};
         case a.GET_EVENT_SUCCESS:
             return { ...state, currentEvent: action.payload, isOwner: action.payload.isOwner, eventLoading: false};
+        case a.GET_LOGOUT_SUCCESS:
+            return { ...state, eventLoading: true};
 
         // Errors
         case a.GET_EVENTS_FAILURE:
