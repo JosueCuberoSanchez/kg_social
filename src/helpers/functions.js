@@ -10,6 +10,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 // Helpers
 import { MS_PER_DAY } from "./constants";
 
+// Router
+import { Link } from 'react-router-dom';
+
 export const includeNavs = (Component) => {
     return class includeHeaderComponent extends React.Component{ render(){ return ( <div><Header/><Component /><Footer /></div> ); } };
 };
@@ -25,25 +28,115 @@ export const isEmpty = (obj) => {
 export const starCreator = (event) => {
     switch (event.stars) {
         case 5:
-            return <ul className='list-unstyled list-inline'><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
+            return <ul className='list-unstyled list-inline event__stars'><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
         case 4:
-            return <ul className='list-unstyled list-inline'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
+            return <ul className='list-unstyled list-inline event__stars'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
         case 3:
-            return <ul className='list-unstyled list-inline'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
+            return <ul className='list-unstyled list-inline event__stars'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
         case 2:
-            return <ul className='list-unstyled list-inline'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
+            return <ul className='list-unstyled list-inline event__stars'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
         case 1:
-            return <ul className='list-unstyled list-inline'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
+            return <ul className='list-unstyled list-inline event__stars'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
         case 0:
-            return <ul className='list-unstyled list-inline'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li></ul>;
+            return <ul className='list-unstyled list-inline event__stars'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li></ul>;
     }
 };
 
-export const getAttendees = (event) => { // Helper
-    if(event.attendees.length > 0) {
-        return `${event.attendees.join(', ')} and ${event.owner} are going.`;
-    } else {
-        return `${event.owner} is going.`;
+export const getFirstAttendees = (attendees) => {
+    console.log(attendees);
+    switch (attendees.length) {
+        case 1:
+            return <ul className='list-unstyled list-inline'>
+                <li className='list-inline-item event__attendee'>
+                    <Link to={`profile/${attendees[0].username}`}>
+                        <img src={attendees[0].image} alt={`${attendees[0].username} profile picture`} className='w-100'/>
+                    </Link>
+                </li>
+            </ul>;
+        case 2:
+            console.log('2222');
+            return <ul className='list-unstyled list-inline'>
+                <li className='list-inline-item event__attendee'>
+                    <Link to={`profile/${attendees[0].username}`}>
+                        <img src={attendees[0].image} alt={`${attendees[0].username} profile picture`} className='w-100'/>
+                    </Link>
+                </li>
+                <li className='list-inline-item event__attendee'>
+                    <Link to={`profile/${attendees[1].username}`}>
+                        <img src={attendees[1].image} alt={`${attendees[1].username} profile picture`} className='w-100'/>
+                    </Link>
+                </li>
+            </ul>;
+        case 3:
+            return <ul className='list-unstyled list-inline'>
+                <li className='list-inline-item event__attendee'>
+                    <Link to={`profile/${attendees[0].username}`}>
+                        <img src={attendees[0].image} alt={`${attendees[0].username} profile picture`} className='w-100'/>
+                    </Link>
+                </li>
+                <li className='list-inline-item event__attendee'>
+                    <Link to={`profile/${attendees[1].username}`}>
+                        <img src={attendees[1].image} alt={`${attendees[1].username} profile picture`} className='w-100'/>
+                    </Link>
+                </li>
+                <li className='list-inline-item event__attendee'>
+                    <Link to={`profile/${attendees[2].username}`}>
+                        <img src={attendees[2].image} alt={`${attendees[2].username} profile picture`} className='w-100'/>
+                    </Link>
+                </li>
+            </ul>;
+        case 4:
+            return <ul className='list-unstyled list-inline'>
+                <li className='list-inline-item event__attendee'>
+                    <Link to={`profile/${attendees[0].username}`}>
+                        <img src={attendees[0].image} alt={`${attendees[0].username} profile picture`} className='w-100'/>
+                    </Link>
+                </li>
+                <li className='list-inline-item event__attendee'>
+                    <Link to={`profile/${attendees[1].username}`}>
+                        <img src={attendees[1].image} alt={`${attendees[1].username} profile picture`} className='w-100'/>
+                    </Link>
+                </li>
+                <li className='list-inline-item event__attendee'>
+                    <Link to={`profile/${attendees[2].username}`}>
+                        <img src={attendees[2].image} alt={`${attendees[2].username} profile picture`} className='w-100'/>
+                    </Link>
+                </li>
+                <li className='list-inline-item event__attendee'>
+                    <Link to={`profile/${attendees[3].username}`}>
+                        <img src={attendees[3].image} alt={`${attendees[3].username} profile picture`} className='w-100'/>
+                    </Link>
+                </li>
+            </ul>;
+        case 5:
+        default:
+            return <ul className='list-unstyled list-inline'>
+                <li className='list-inline-item event__attendee'>
+                    <Link to={`profile/${attendees[0].username}`}>
+                        <img src={attendees[0].image} alt={`${attendees[0].username} profile picture`} className='w-100'/>
+                    </Link>
+                </li>
+                <li className='list-inline-item event__attendee'>
+                    <Link to={`profile/${attendees[1].username}`}>
+                        <img src={attendees[1].image} alt={`${attendees[1].username} profile picture`} className='w-100'/>
+                    </Link>
+                </li>
+                <li className='list-inline-item event__attendee'>
+                    <Link to={`profile/${attendees[2].username}`}>
+                        <img src={attendees[2].image} alt={`${attendees[2].username} profile picture`} className='w-100'/>
+                    </Link>
+                </li>
+                <li className='list-inline-item event__attendee'>
+                    <Link to={`profile/${attendees[3].username}`}>
+                        <img src={attendees[3].image} alt={`${attendees[3].username} profile picture`} className='w-100'/>
+                    </Link>
+                </li>
+                <li className='list-inline-item event__attendee'>
+                    <Link to={`profile/${attendees[4].username}`}>
+                        <img src={attendees[4].image} alt={`${attendees[4].username} profile picture`} className='w-100'/>
+                    </Link>
+                </li>
+            </ul>;
     }
 };
 

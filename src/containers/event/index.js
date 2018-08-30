@@ -12,13 +12,13 @@ import dnd from '../../assets/img/dnd.png';
 import {Redirect} from 'react-router-dom';
 
 // Reactstrap
-import {Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Label, Input} from 'reactstrap';
+import {Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 // Components
 import Aside from '../aside';
 import EventForm from '../../components/forms/event-form/';
 import CommentForm from '../../components/forms/comment-form/';
-import CommentItem from "../../components/comment-item";
+import CommentsContainer from '../../containers/comments/';
 
 // Filters
 import * as filters from '../../helpers/filters';
@@ -26,13 +26,10 @@ import * as filters from '../../helpers/filters';
 // Amazon S3
 import S3FileUpload from 'react-s3';
 import * as s3 from '../../private/aws';
-import ReactDropzone from "react-dropzone";
-
-// Ramda
-import { map } from "ramda";
+import ReactDropzone from 'react-dropzone';
 
 // Helpers
-import { starCreator, getAttendees, getEventDay, getEventDate, getEventYear, getEventMonth } from "../../helpers/functions";
+import { starCreator, getFirstAttendees, getEventDay, getEventDate, getEventMonth } from '../../helpers/functions';
 
 class EventContainer extends Component {
 
@@ -42,10 +39,10 @@ class EventContainer extends Component {
         this.state = {imageModal: false, dataModal: false, files: [], user: JSON.parse(localStorage.getItem('user'))};
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const {id} = this.props;
+        await this.props.getAttendees(id);
         this.props.getEvent(filters.ID, id); // Get event info
-        this.props.getComments(id); // Get event comments
     }
 
     toggleImageModal = () => {
@@ -62,7 +59,7 @@ class EventContainer extends Component {
         this.setState({files: this.state.files.concat(files)});
     };
 
-    submitImage = async () => {
+    submitImage = () => {
         const file = this.state.files[0];
         S3FileUpload.uploadFile(file, s3.config).then(data => {
             this.props.updateEventImage(data, this.props.id);
@@ -74,8 +71,8 @@ class EventContainer extends Component {
         this.props.updateEvent(values, false, this.props.id);
     };
 
-    checkEnroll = () => {
-        return this.props.event.attendees.includes(this.state.user.username);
+    checkEnroll = (attendees) => {
+        return attendees.filter(attendee => attendee.username === this.state.user.username).length !== 0;
     };
 
     enrollToEvent = () => {
@@ -89,14 +86,11 @@ class EventContainer extends Component {
     submitComment = async (values) => {
         const {id} = this.props;
         await this.props.createComment(values.comment, this.state.user.username, id);
-        this.props.getComments(id);
     };
-
-    commentCreator = comment => <CommentItem key={comment._id} comment={comment}/>;
 
     render() {
 
-        const {loggedOut, event, eventLoading, comments, commentsLoading} = this.props;
+        const {event, eventLoading, attendees} = this.props;
 
         if (localStorage.getItem('user') === null)
             return (<Redirect to='/'/>);
@@ -163,14 +157,15 @@ class EventContainer extends Component {
                                         <Col xs='12' sm='12' md='12' lg='12'>
                                             <Row>
                                                 <Col xs='12' sm='8' md='8' lg='8' className='mb-3'>
-                                                    <p className='my-auto'>{getAttendees(event)}</p>
+                                                    <p>Attendees:</p>
+                                                    {getFirstAttendees(attendees)}
                                                 </Col>
                                                 <Col xs='12' sm='4' md='4' lg='4' className='mb-3'>
                                                     <div className='float-right'>
                                                         {
                                                             event.owner === this.state.user.username
                                                                 ? null
-                                                                : this.checkEnroll()
+                                                                : this.checkEnroll(attendees)
                                                                 ? <button onClick={this.unenrollToEvent}>Unenroll!</button>
                                                                 : <button onClick={this.enrollToEvent}>Enroll!</button>
                                                         }
@@ -182,22 +177,7 @@ class EventContainer extends Component {
                                 </article>
                                 <Row>
                                     <Col xs='12' sm='12' md='12' lg='12'>
-                                        {
-                                            commentsLoading
-                                                ? <p>Loading comments...</p>
-                                                :
-                                                <div className='mt-4 py-4 px-4'>
-                                                    <h3>Comments</h3>
-                                                    {
-                                                        comments.length === 0
-                                                            ? <p>There are no comments yet</p>
-                                                            :
-                                                            <ul className='list-unstyled'>
-                                                                {map(this.commentCreator, comments)}
-                                                            </ul>
-                                                    }
-                                                </div>
-                                        }
+                                        <CommentsContainer id={this.props.id}/>
                                     </Col>
                                 </Row>
                             </Col>
@@ -219,22 +199,22 @@ class EventContainer extends Component {
                            className={this.props.className}>
                         <ModalHeader toggle={this.toggleImageModal}>Change event photo</ModalHeader>
                         <ModalBody className='event__modal-body'>
-                            <ReactDropzone accept="image/*" onDrop={this.onPreviewDrop}>
+                            <ReactDropzone accept='image/*' onDrop={this.onPreviewDrop}>
                                 <img src={dnd} className='d-block mx-auto w-75'/>
                             </ReactDropzone>
                             {this.state.files.length > 0 &&
                             <Fragment>
                                 <h3 className='text-center'>Preview</h3>
                                 {this.state.files.map((file) => (
-                                    <img alt="Preview" key={file.preview} src={file.preview}
+                                    <img alt='Preview' key={file.preview} src={file.preview}
                                          className='d-block mx-auto event__preview-img'/>
                                 ))}
                             </Fragment>
                             }
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary" onClick={this.toggleImageModal}>Update</Button>{' '}
-                            <Button color="secondary" onClick={this.toggleImageModal}>Cancel</Button>
+                            <Button color='primary' onClick={this.toggleImageModal}>Update</Button>{' '}
+                            <Button color='secondary' onClick={this.toggleImageModal}>Cancel</Button>
                         </ModalFooter>
                     </Modal>
                     <Modal isOpen={this.state.dataModal} toggle={this.toggleDataModal} className={this.props.className}>
@@ -252,8 +232,7 @@ class EventContainer extends Component {
 
 const mapStateToProps = state => {
     return {
-        event: state.events.currentEvent, eventLoading: state.events.eventLoading,
-        comments: state.comments.currentEventComments, commentsLoading: state.comments.commentsLoading
+        event: state.events.currentEvent, eventLoading: state.events.eventLoading, attendees: state.events.attendees
     };
 };
 
@@ -261,11 +240,11 @@ const mapDispatchToProps = dispatch => {
     return {
         updateEventImage: (values, id) => dispatch(actions.updateEventImage(values, id)),
         getEvent: (filter, id) => dispatch(actions.getEvent(filter, id)),
-        getComments: (id) => dispatch(actions.getComments(id)),
         createComment: (comment, author, id) => dispatch(actions.createComment(comment, author, id)),
         updateEvent: (values, create, id) => dispatch(actions.updateEvent(values, create, id)),
         enrollToEvent: (username, eventId) => dispatch(actions.enrollToEvent(username, eventId)),
-        unenrollToEvent: (username, eventId) => dispatch(actions.unenrollToEvent(username, eventId))
+        unenrollToEvent: (username, eventId) => dispatch(actions.unenrollToEvent(username, eventId)),
+        getAttendees: (id) => dispatch(actions.getAttendees(id))
     };
 };
 

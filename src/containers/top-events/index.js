@@ -23,7 +23,7 @@ import './top-events.scss';
 
 // Components
 import Aside from '../aside';
-import EventItem from '../../components/event-item';
+import EventItem from '../event-item';
 
 // Filters
 import * as filters from '../../helpers/filters';

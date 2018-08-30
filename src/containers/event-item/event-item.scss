@@ -1,0 +1,50 @@
+@import '../../assets/scss/variables';
+
+.event {
+
+  &__card:hover {
+    background-color: $article-hover-color;
+  }
+
+  &__icon-non-solid {
+    color: $main-bg-color;
+  }
+
+  &__stars {
+    float: right;
+  }
+}
+
+// media queries for responsiveness
+
+@media screen and (max-width: 1200px) {
+
+  .event {
+
+    &__stars {
+      margin-top: 5px;
+      float: none;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+  .event {
+
+    &__stars {
+      float: right;
+    }
+  }
+}
+
+@media screen and (max-width: 578px) {
+
+  .event {
+
+    &__stars {
+      margin-top: 5px;
+      float: none;
+    }
+  }
+}

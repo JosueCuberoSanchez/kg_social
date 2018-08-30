@@ -163,6 +163,7 @@ export const createComment = (text, author, id) => {
         try {
             const result = await axios.post(`${Constants.BASE_URL}${Constants.COMMENT}`,{text: text, author: author, eventId: id});
             const comment = await result;
+            dispatch(getComments(id));
             dispatch({
                 type: t.GET_CREATE_COMMENT_SUCCESS,
                 payload: comment
@@ -208,12 +209,12 @@ export const enrollToEvent = (username, eventId) => {
         });
         try {
             const result = await axios.post(`${Constants.BASE_URL}${Constants.ENROLL}`, {username: username, eventId: eventId});
-            const event = await result;
+            const attendees = await result;
             dispatch(getLogs());
             // Update payload in reducer on success
             dispatch({
                 type: t.GET_ENROLL_SUCCESS,
-                payload: event.data.event
+                payload: attendees.data.attendees
             })
         } catch (err) {
             // Update error in reducer on failure
@@ -232,12 +233,12 @@ export const unenrollToEvent = (username, eventId) => {
         });
         try {
             const result = await axios.post(`${Constants.BASE_URL}${Constants.UNENROLL}`, {username: username, eventId: eventId});
-            const event = await result;
+            const attendees = await result;
             dispatch(getLogs());
             // Update payload in reducer on success
             dispatch({
                 type: t.GET_UNENROLL_SUCCESS,
-                payload: event.data.event
+                payload: attendees.data.attendees
             })
         } catch (err) {
             // Update error in reducer on failure
@@ -268,5 +269,37 @@ export const getLogs = () => {
                 error: err
             })
         }
+    }
+};
+
+export const getAttendees = (id) => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_ATTENDEES_REQUEST
+        });
+        try {
+            const result = await axios.get(`${Constants.BASE_URL}${Constants.ATTENDEES}`, {params: {id: id}});
+            const attendees = await result;
+            dispatch({
+                type: t.GET_ATTENDEES_SUCCESS,
+                payload: attendees.data.attendees
+            });
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_ATTENDEES_FAILURE,
+                error: err
+            })
+        }
+    }
+};
+
+export const getNumberOfAttendees = async (id) => {
+    try {
+        const result = await axios.get(`${Constants.BASE_URL}${Constants.ATTENDEES}`, {params: {id: id}});
+        const attendees = await result;
+        return attendees.data.attendees.length;
+    } catch (err) {
+        console.log(err);
     }
 };

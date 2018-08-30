@@ -7,7 +7,8 @@ const INITIAL_STATE = {
     error: false,
     currentEvent: {},
     eventLoading: true,
-    isOwner: false
+    isOwner: false,
+    attendees: []
 };
 
 const EventReducer = (state = INITIAL_STATE, action) => {
@@ -22,13 +23,12 @@ const EventReducer = (state = INITIAL_STATE, action) => {
         case a.GET_CREATE_REQUEST:
         case a.GET_ENROLL_REQUEST:
         case a.GET_UNENROLL_REQUEST:
+        case a.GET_ATTENDEES_REQUEST:
             return { ...state };
 
         // Successful events
         case a.GET_CREATE_SUCCESS:
         case a.GET_EVENT_IMAGE_SUCCESS:
-        case a.GET_ENROLL_SUCCESS:
-        case a.GET_UNENROLL_SUCCESS:
             return { ...state, currentEvent: action.payload};
         case a.GET_EVENTS_SUCCESS:
             return { ...state, events: action.payload, eventsLoading: false};
@@ -36,6 +36,10 @@ const EventReducer = (state = INITIAL_STATE, action) => {
             return { ...state, currentEvent: action.payload, isOwner: action.payload.isOwner, eventLoading: false};
         case a.GET_LOGOUT_SUCCESS:
             return { ...state, eventLoading: true};
+        case a.GET_ATTENDEES_SUCCESS:
+        case a.GET_ENROLL_SUCCESS:
+        case a.GET_UNENROLL_SUCCESS:
+            return { ...state, attendees: action.payload};
 
         // Errors
         case a.GET_EVENTS_FAILURE:
@@ -43,6 +47,7 @@ const EventReducer = (state = INITIAL_STATE, action) => {
         case a.GET_ENROLL_FAILURE:
         case a.GET_UNENROLL_FAILURE:
         case a.GET_EVENT_IMAGE_FAILURE:
+        case a.GET_ATTENDEES_FAILURE:
             return { ...state, error: true};
 
         // Default

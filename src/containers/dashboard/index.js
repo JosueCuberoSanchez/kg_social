@@ -23,7 +23,7 @@ import './dashboard.scss';
 
 // Components
 import Aside from '../aside';
-import EventItem from '../../components/event-item';
+import EventItemContainer from '../event-item';
 
 // Filters
 import * as filters from '../../helpers/filters';
@@ -35,11 +35,11 @@ class DashboardContainer extends Component {
 
     async componentDidMount () { this.props.getEvents(filters.ALL); }
 
-    eventCreator = event => <EventItem key={event.title} event={event} />;
+    eventCreator = event => <EventItemContainer key={event.title} event={event} />;
 
     render() {
 
-        const { loggedOut, events, isLoading, error } = this.props;
+        const { events, isLoading, error } = this.props;
 
         if (localStorage.getItem('user') === null)
             return (<Redirect to='/'/>);
