@@ -1,16 +1,22 @@
+@import '../../assets/scss/variables';
+
 .event {
 
   .container {
     max-width: 95%;
   }
 
+  &__title {
+    font-size: 2.2rem;
+  }
+
   &__date {
-    background-color: #00A0B2;
+    background-color: $date-box-color;
   }
 
   &__date--date {
     font-size: 4rem;
-    color: #fff !important;
+    color: $anchor-color !important;
   }
 
   &__date--day {
@@ -23,12 +29,12 @@
 
   &__location {
     font-size: 1.2rem;
-    color: #fff;
+    color: $anchor-color;
   }
 
   &__info {
     min-height: 70vh;
-    background-color: #fff;
+    background-color: $anchor-color;
   }
 
   &__modal-body > div {
@@ -49,6 +55,10 @@
 
   &__comment {
     background-color: rgba(0,78,232,0.05);
+  }
+
+  &__main-content {
+    max-height: 60vh;
   }
 }
 

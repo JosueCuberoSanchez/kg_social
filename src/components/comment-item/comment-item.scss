@@ -1,4 +1,8 @@
-.comment {
+@import '../../assets/scss/variables';
+
+.event-comment {
+
+  background-color: $anchor-color;
 
   &__img {
     width: 3%;

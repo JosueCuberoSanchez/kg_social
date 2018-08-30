@@ -1,7 +1,14 @@
 import React from "react";
+
+// Components
 import Header from "../components/header";
 import Footer from "../components/footer";
+
+// Font awesome
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
+// Helpers
+import { MS_PER_DAY } from "./constants";
 
 export const includeNavs = (Component) => {
     return class includeHeaderComponent extends React.Component{ render(){ return ( <div><Header/><Component /><Footer /></div> ); } };
@@ -40,10 +47,10 @@ export const getAttendees = (event) => { // Helper
     }
 };
 
-export const getEventDate = (event) => { return new Date(event.date).getDate()+1; };
+export const getEventDate = (event) => { return new Date(event.date).getDate(); };
 
 export const getEventDay = (event) => {
-    switch (new Date(event.date).getDay()+1) {
+    switch (new Date(event.date).getDay()) {
         case 1: return 'Monday';
         case 2: return 'Tuesday';
         case 3: return 'Wednesday';
@@ -71,3 +78,37 @@ export const getEventMonth = (event) => {
     }
 };
 
+export const getLogDate = (date) => {
+    const eventDate = new Date(date);
+    const now = new Date();
+    const utc1 = Date.UTC(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate());
+    const utc2 = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+    const dayDiff = Math.floor((utc2 - utc1) / MS_PER_DAY);
+    if(dayDiff === 0)
+        return getHourDifference(eventDate, now);
+    if(dayDiff === 1)
+        return `${dayDiff} day ago.`;
+    return `${dayDiff} days ago.`;
+};
+
+const getHourDifference = (eventDate, now) => {
+    const eventDateHour = eventDate.getHours();
+    const nowHour = now.getHours();
+    const hourDiff = nowHour - eventDateHour;
+    if(hourDiff === 0)
+        return getMinuteDifference(eventDate, now);
+    if(hourDiff === 1)
+        return `An hour ago.`;
+    return `${hourDiff} hours ago.`
+};
+
+const getMinuteDifference = (eventDate, now) => {
+    const eventDateMin = eventDate.getMinutes();
+    const nowMin = now.getMinutes();
+    const minDiff = nowMin - eventDateMin;
+    if(minDiff === 0)
+        return 'A few seconds ago.';
+    if(minDiff === 1)
+        return `An minute ago.`;
+    return `${minDiff} minutes ago.`
+};

@@ -7,3 +7,5 @@ export const COMMENT = 'comment';
 export const ENROLL = 'enroll';
 export const UNENROLL = 'unenroll';
 export const LOG = 'log';
+
+export const MS_PER_DAY = 1000 * 60 * 60 * 24;

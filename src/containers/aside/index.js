@@ -31,7 +31,7 @@ class Aside extends Component {
         const { areLoading, error, logs } = this.props;
 
         return (
-            <aside className='aside mt-5'>
+            <aside className='aside pt-5'>
                 {
                     areLoading
                         ? <p>Loading...</p>

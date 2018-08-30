@@ -46,53 +46,54 @@ class Header extends Component {
             <header className='header'>
                 <Navbar expand="md" light>
                     <NavbarBrand href="/" className='header__brand'>
-                        <img src={logo} className='w-100'/>
+                        <img src={logo} className='w-100' alt='KG Social logo'/>
                     </NavbarBrand>
                     <NavbarToggler onClick={this.toggle}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <Link to='/createEvent' className='header__link'>
                                 <NavItem className='py-2 pl-3 mr-1'>
-                                    <FontAwesomeIcon icon="calendar" className='mr-2'/> Create
+                                    <FontAwesomeIcon icon="calendar" className='mr-2' alt='Create event link'/>Create
                                 </NavItem>
                             </Link>
                             <Link to='/myEvents' className='header__link'>
                                 <NavItem className='py-2 pl-3 mr-1'>
-                                    <FontAwesomeIcon icon="calendar-alt" className='mr-2'/> My events
+                                    <FontAwesomeIcon icon="calendar-alt" className='mr-2' alt='My events link'/>My events
                                 </NavItem>
                             </Link>
                             <Link to='/enrolledEvents' className='header__link'>
                                 <NavItem className='py-2 pl-3 mr-1'>
-                                    <FontAwesomeIcon icon="calendar-check" className='mr-2'/> Enrolled
+                                    <FontAwesomeIcon icon="calendar-check" className='mr-2' alt='Enrolled events link'/>Enrolled
                                 </NavItem>
                             </Link>
                             <Link to='/topEvents' className='header__link'>
                                 <NavItem className='py-2 pl-3 mr-1'>
-                                    <FontAwesomeIcon icon="calendar-plus" className='mr-2'/> Top rated
+                                    <FontAwesomeIcon icon="calendar-plus" className='mr-2' alt='Top rated events link'/>Top rated
                                 </NavItem>
                             </Link>
                             <Link to='/' className='header__link header__user-dropdown-item' onClick={this.logout}>
                                 <NavItem className='py-2 pl-3 mr-1'>
-                                    <FontAwesomeIcon icon="sign-out-alt" className='mr-2'/> Logout
+                                    <FontAwesomeIcon icon="sign-out-alt" className='mr-2' alt='Logout button'/>Logout
                                 </NavItem>
                             </Link>
                             <Link to='/profile' className='header__link'>
                                 <NavItem className='py-2 pl-3 mr-1 header__user-dropdown-item'>
-                                    <FontAwesomeIcon icon="user-cog" className='mr-2'/> Profile
+                                    <FontAwesomeIcon icon="user-cog" className='mr-2' alt='Profile link'/>
+                                    <p className='header__link-text'>Profile</p>
                                 </NavItem>
                             </Link>
                             <UncontrolledDropdown nav inNavbar className='mr-5 pr-3 header__user-dropdown'>
                                 <DropdownToggle nav caret className='pl-3'>
-                                    <FontAwesomeIcon icon="user" />
+                                    <FontAwesomeIcon icon="user" alt='User dropdown'/>
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem onClick={this.logout}>
-                                        Logout <FontAwesomeIcon icon="sign-out-alt" className='ml-1'/>
+                                        Logout <FontAwesomeIcon icon="sign-out-alt" className='ml-1' alt='Logout button'/>
                                     </DropdownItem>
                                     <DropdownItem divider/>
                                     <Link to={'/profile'} className='header__link'>
                                         <DropdownItem>
-                                            My profile <FontAwesomeIcon icon="user-cog" className='ml-1'/>
+                                            My profile <FontAwesomeIcon icon="user-cog" className='ml-1' alt='My profile link'/>
                                         </DropdownItem>
                                     </Link>
                                 </DropdownMenu>

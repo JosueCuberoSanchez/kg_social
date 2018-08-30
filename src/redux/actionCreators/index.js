@@ -94,6 +94,7 @@ export const updateEvent = (values, create, id) => {
                 body['private'] = false;
             const result = await axios.post(`${Constants.BASE_URL}${Constants.EVENT}`, body);
             const newEvent = await result;
+            dispatch(getLogs());
             dispatch({
                 type: t.GET_CREATE_SUCCESS,
                 payload: newEvent.data.event
@@ -139,6 +140,7 @@ export const updateEventImage = (image,id) => {
         try {
             const result = await axios.post(`${Constants.BASE_URL}${Constants.EVENT_IMAGE}`,{image: image.location, id: id});
             const event = await result;
+            dispatch(getLogs());
             dispatch({
                 type: t.GET_EVENT_IMAGE_SUCCESS,
                 payload: event.data.event
@@ -183,6 +185,7 @@ export const getComments = (id) => {
         try {
             const result = await axios.get(`${Constants.BASE_URL}${Constants.COMMENT}`, {params: {id: id}});
             const comments = await result;
+            dispatch(getLogs());
             // Update payload in reducer on success
             dispatch({
                 type: t.GET_COMMENT_SUCCESS,
@@ -206,6 +209,7 @@ export const enrollToEvent = (username, eventId) => {
         try {
             const result = await axios.post(`${Constants.BASE_URL}${Constants.ENROLL}`, {username: username, eventId: eventId});
             const event = await result;
+            dispatch(getLogs());
             // Update payload in reducer on success
             dispatch({
                 type: t.GET_ENROLL_SUCCESS,
@@ -229,6 +233,7 @@ export const unenrollToEvent = (username, eventId) => {
         try {
             const result = await axios.post(`${Constants.BASE_URL}${Constants.UNENROLL}`, {username: username, eventId: eventId});
             const event = await result;
+            dispatch(getLogs());
             // Update payload in reducer on success
             dispatch({
                 type: t.GET_UNENROLL_SUCCESS,

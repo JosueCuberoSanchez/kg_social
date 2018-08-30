@@ -1,0 +1,19 @@
+@import '../../assets/scss/variables';
+
+.log-item:hover {
+  background-color: #d0d1d2;
+}
+
+.log-item {
+
+  background-color: $anchor-color;
+
+  a {
+    text-decoration: none;
+  }
+
+  &__text {
+    font-size: 0.75rem;
+    color: #777777 !important;
+  }
+}

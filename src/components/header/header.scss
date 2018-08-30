@@ -1,6 +1,8 @@
+@import '../../assets/scss/variables';
+
 .header {
 
-  background-color: #dc772c;
+  background-color: $header-bg-color;
 
   &__brand {
     width: 15%;
@@ -10,13 +12,14 @@
     padding: 0.5rem;
   }
 
-  &__link {
-    text-decoration: none !important;
-  }
-
   .nav-item:hover,
   .nav-link:hover {
-    color: #fff !important;
+    color: $link-hover-color !important;
+    text-decoration: underline;
+  }
+
+  .dropdown-toggle {
+    color: $anchor-color !important;
   }
 
   &__user-dropdown-item {

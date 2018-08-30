@@ -4,21 +4,28 @@
 //fonts
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,700|Roboto+Slab:400,700');
 
+// variables
+@import 'variables';
+
 .title, h1, h2, h3, h4 {
   font-family: 'Raleway', sans-serif;
 }
 
-.text, p, label, a {
+.text, p, label {
   font-family: 'Roboto Slab', serif;
-  color: #000 !important;
+  color: $text-color !important;
+}
+
+a {
+  color: $anchor-color;
 }
 
 a:hover {
-  color: #fff;
+  color: $link-hover-color;
 }
 
 body {
-  background-color: rgba(0,78,232,0.05);
+  background-color: $main-bg-color;
 }
 
 main {
@@ -27,8 +34,8 @@ main {
 
 
 button {
-  background-color: #00A0B2;
-  color: #fff;
+  background-color: $btn-bg-color;
+  color: $anchor-color;
   display: inline-block;
   font-weight: 400;
   text-align: center;

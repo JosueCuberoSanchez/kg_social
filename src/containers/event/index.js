@@ -29,17 +29,10 @@ import * as s3 from '../../private/aws';
 import ReactDropzone from "react-dropzone";
 
 // Ramda
-import {map} from "ramda";
+import { map } from "ramda";
 
 // Helpers
-import {
-    starCreator,
-    getAttendees,
-    getEventDay,
-    getEventDate,
-    getEventYear,
-    getEventMonth
-} from "../../helpers/functions";
+import { starCreator, getAttendees, getEventDay, getEventDate, getEventYear, getEventMonth } from "../../helpers/functions";
 
 class EventContainer extends Component {
 
@@ -116,8 +109,8 @@ class EventContainer extends Component {
                 <h1 className='sr-only'>{event.title} page</h1>
                 <Container fluid={true}>
                         <Row>
-                            <Col xs='12' sm='12' md='10' lg='10' className='mt-4'>
-                                <article className='mt-3 p-3 event__info'>
+                            <Col xs='12' sm='12' md='10' lg='10' className='mt-5'>
+                                <article className='p-3 event__info'>
                                     {
                                         event.owner === this.state.user.username
                                             ? <div className='d-flex justify-content-between'>
@@ -128,13 +121,13 @@ class EventContainer extends Component {
                                     }
                                     <Row className='mb-4 mt-2 pt-4'>
                                         <Col xs='12' sm='12' md='7' lg='7'>
-                                            <h2>{event.title}</h2>
+                                            <h2 className='event__title'><strong>{event.title}</strong></h2>
                                         </Col>
                                         <Col xs='12' sm='12' md='5' lg='5'>
                                             <div className='float-right'>{starCreator(event)}</div>
                                         </Col>
                                     </Row>
-                                    <Row>
+                                    <Row className='event__main-content'>
                                         <Col xs='12' sm='4' md='4' lg='4' className='mb-4'>
                                             <div className='event__date h-100 p-2'>
                                                 <p className='event__date--date mb-0'>{getEventDate(event)}</p>
@@ -144,7 +137,7 @@ class EventContainer extends Component {
                                             </div>
                                         </Col>
                                         <Col xs='12' sm='8' md='8' lg='8' className='mb-4'>
-                                            <img src={event.image} className='d-block mx-auto w-100 h-100'/>
+                                            <img src={event.image} className='d-block mx-auto w-100 h-100' alt={`${event.title} main photo`}/>
                                         </Col>
                                     </Row>
                                     <Row>
@@ -187,6 +180,26 @@ class EventContainer extends Component {
                                         </Col>
                                     </Row>
                                 </article>
+                                <Row>
+                                    <Col xs='12' sm='12' md='12' lg='12'>
+                                        {
+                                            commentsLoading
+                                                ? <p>Loading comments...</p>
+                                                :
+                                                <div className='mt-4 py-4 px-4'>
+                                                    <h3>Comments</h3>
+                                                    {
+                                                        comments.length === 0
+                                                            ? <p>There are no comments yet</p>
+                                                            :
+                                                            <ul className='list-unstyled'>
+                                                                {map(this.commentCreator, comments)}
+                                                            </ul>
+                                                    }
+                                                </div>
+                                        }
+                                    </Col>
+                                </Row>
                             </Col>
                             <Col xs='12' sm='12' md='2' lg='2'>
                                 <Aside/>
@@ -194,26 +207,6 @@ class EventContainer extends Component {
                         </Row>
                 </Container>
                 <Container fluid={true}>
-                    <Row>
-                        <Col xs='12' sm='12' md='12' lg='12'>
-                            {
-                                commentsLoading
-                                    ? <p>Loading comments...</p>
-                                    :
-                                    <div className='event__comment-box mt-4 py-4 px-4'>
-                                        <h3>Comments</h3>
-                                        {
-                                            comments.length === 0
-                                                ? <p>There are no comments yet</p>
-                                                :
-                                                <ul className='list-unstyled'>
-                                                    {map(this.commentCreator, comments)}
-                                                </ul>
-                                        }
-                                    </div>
-                            }
-                        </Col>
-                    </Row>
                     <Row>
                         <Col xs='12' sm='12' md='12' lg='12'>
                             <div className='event__comment-box mt-4 p-4'>
