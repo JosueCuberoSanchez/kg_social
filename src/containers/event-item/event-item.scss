@@ -1,6 +1,6 @@
 @import '../../assets/scss/variables';
 
-.event {
+.event-item {
 
   &__card:hover {
     background-color: $article-hover-color;
@@ -13,13 +13,18 @@
   &__stars {
     float: right;
   }
+
+  .icon {
+    height: 20px;
+    width: 20px;
+  }
 }
 
 // media queries for responsiveness
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 992px) {
 
-  .event {
+  .event-item {
 
     &__stars {
       margin-top: 5px;
@@ -30,7 +35,7 @@
 
 @media screen and (max-width: 768px) {
 
-  .event {
+  .event-item {
 
     &__stars {
       float: right;
@@ -40,7 +45,7 @@
 
 @media screen and (max-width: 578px) {
 
-  .event {
+  .event-item {
 
     &__stars {
       margin-top: 5px;

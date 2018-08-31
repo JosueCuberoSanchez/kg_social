@@ -12,13 +12,14 @@ import dnd from '../../assets/img/dnd.png';
 import {Redirect} from 'react-router-dom';
 
 // Reactstrap
-import {Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import {Container, Row, Col, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 // Components
 import Aside from '../aside';
 import EventForm from '../../components/forms/event-form/';
 import CommentForm from '../../components/forms/comment-form/';
 import CommentsContainer from '../../containers/comments/';
+import EventAttendees from '../../components/event-attendees/';
 
 // Filters
 import * as filters from '../../helpers/filters';
@@ -29,18 +30,25 @@ import * as s3 from '../../private/aws';
 import ReactDropzone from 'react-dropzone';
 
 // Helpers
-import { starCreator, getFirstAttendees, getEventDay, getEventDate, getEventMonth } from '../../helpers/functions';
+import { getFirstAttendees, getEventDay, getEventDate, getEventMonth, getEventRating } from '../../helpers/functions';
+
+// Rating
+import Rating from "react-rating";
 
 class EventContainer extends Component {
 
     constructor(props) {
         super(props);
 
-        this.state = {imageModal: false, dataModal: false, files: [], user: JSON.parse(localStorage.getItem('user'))};
+        this.state = {imageModal: false, dataModal: false, attendeesModal: false, voteModal: false,
+            files: [], user: JSON.parse(localStorage.getItem('user'))};
     }
 
     async componentDidMount() {
         const {id} = this.props;
+        const vote = await actions.checkVote(id, this.state.user.username);
+        if(!vote)
+            this.setState({voteModal: true});
         await this.props.getAttendees(id);
         this.props.getEvent(filters.ID, id); // Get event info
     }
@@ -53,6 +61,20 @@ class EventContainer extends Component {
 
     toggleDataModal = () => {
         this.setState({dataModal: !this.state.dataModal});
+    };
+
+    toggleAttendeesModal = () => {
+        this.setState({attendeesModal: !this.state.attendeesModal});
+    };
+
+    toggleVoteModal = () => {
+        this.setState({voteModal: !this.state.voteModal});
+    };
+
+    submitVoteStars = (e) => {
+        const { id } = this.props;
+        this.toggleVoteModal();
+        this.props.submitVote(e, id, this.state.user.username);
     };
 
     onPreviewDrop = (files) => {
@@ -98,6 +120,9 @@ class EventContainer extends Component {
         if (eventLoading || eventLoading === undefined)
             return (<p>Loading...</p>);
 
+        const starFull = require('../../assets/img/star-full.png');
+        const starEmpty = require('../../assets/img/star-empty.png');
+
         return (
             <main className='event'>
                 <h1 className='sr-only'>{event.title} page</h1>
@@ -118,7 +143,9 @@ class EventContainer extends Component {
                                             <h2 className='event__title'><strong>{event.title}</strong></h2>
                                         </Col>
                                         <Col xs='12' sm='12' md='5' lg='5'>
-                                            <div className='float-right'>{starCreator(event)}</div>
+                                            <Rating initialRating={getEventRating(event)} readonly className='event__stars'
+                                                    emptySymbol={<img src={starEmpty} className="icon" />}
+                                                    fullSymbol={<img src={starFull} className="icon" />}/>
                                         </Col>
                                     </Row>
                                     <Row className='event__main-content'>
@@ -159,6 +186,7 @@ class EventContainer extends Component {
                                                 <Col xs='12' sm='8' md='8' lg='8' className='mb-3'>
                                                     <p>Attendees:</p>
                                                     {getFirstAttendees(attendees)}
+                                                    <button onClick={this.toggleAttendeesModal} className='event__attendees-btn pt-0 pb-3'>...</button>
                                                 </Col>
                                                 <Col xs='12' sm='4' md='4' lg='4' className='mb-3'>
                                                     <div className='float-right'>
@@ -213,8 +241,8 @@ class EventContainer extends Component {
                             }
                         </ModalBody>
                         <ModalFooter>
-                            <Button color='primary' onClick={this.toggleImageModal}>Update</Button>{' '}
-                            <Button color='secondary' onClick={this.toggleImageModal}>Cancel</Button>
+                            <button onClick={this.toggleImageModal}>Update</button>{' '}
+                            <button onClick={this.toggleImageModal}>Cancel</button>
                         </ModalFooter>
                     </Modal>
                     <Modal isOpen={this.state.dataModal} toggle={this.toggleDataModal} className={this.props.className}>
@@ -223,6 +251,23 @@ class EventContainer extends Component {
                             <EventForm onSubmit={this.submitData} update={true} toggleDataModal={this.toggleDataModal}
                                        event={event}/>
                         </ModalBody>
+                    </Modal>
+                    <Modal isOpen={this.state.attendeesModal} toggle={this.toggleAttendeesModal} className={this.props.className}>
+                        <ModalHeader toggle={this.toggleAttendeesModal}>Event attendees</ModalHeader>
+                        <ModalBody>
+                            <EventAttendees attendees={attendees}/>
+                        </ModalBody>
+                    </Modal>
+                    <Modal isOpen={this.state.voteModal} toggle={this.toggleVoteModal} className={this.props.className}>
+                        <ModalHeader toggle={this.toggleVoteModal}>Please rate this event</ModalHeader>
+                        <ModalBody className='d-flex justify-content-center'>
+                            <Rating initialRating={0} onChange={this.submitVoteStars}
+                                    emptySymbol={<img src={starEmpty} className="icon event__vote-stars" />}
+                                    fullSymbol={<img src={starFull} className="icon event__vote-stars" />}/>
+                        </ModalBody>
+                        <ModalFooter>
+                            <button onClick={this.toggleVoteModal}>Cancel</button>
+                        </ModalFooter>
                     </Modal>
                 </Container>
             </main>
@@ -244,7 +289,8 @@ const mapDispatchToProps = dispatch => {
         updateEvent: (values, create, id) => dispatch(actions.updateEvent(values, create, id)),
         enrollToEvent: (username, eventId) => dispatch(actions.enrollToEvent(username, eventId)),
         unenrollToEvent: (username, eventId) => dispatch(actions.unenrollToEvent(username, eventId)),
-        getAttendees: (id) => dispatch(actions.getAttendees(id))
+        getAttendees: (id) => dispatch(actions.getAttendees(id)),
+        submitVote: (stars, id, username) => dispatch(actions.submitVote(stars, id, username))
     };
 };
 

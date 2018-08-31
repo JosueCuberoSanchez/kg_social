@@ -303,3 +303,36 @@ export const getNumberOfAttendees = async (id) => {
         console.log(err);
     }
 };
+
+export const checkVote = async (event, username) => {
+    try {
+        const result = await axios.get(`${Constants.BASE_URL}${Constants.VOTES}`, {params: {event: event, username: username}});
+        const vote = await result;
+        return vote.data !== 'false';
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const submitVote = (stars, id, username) => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_VOTE_REQUEST
+        });
+        try {
+            const result = await axios.post(`${Constants.BASE_URL}${Constants.VOTES}`, {
+                stars: stars, event: id, username: username
+            });
+            const event = await result;
+            dispatch({
+                type: t.GET_VOTE_SUCCESS,
+                payload: event.data.event
+            });
+        } catch (err) {
+            dispatch({
+                type: t.GET_VOTE_FAILURE,
+                error: err
+            })
+        }
+    }
+};

@@ -25,25 +25,7 @@ export const isEmpty = (obj) => {
     return true;
 };
 
-export const starCreator = (event) => {
-    switch (event.stars) {
-        case 5:
-            return <ul className='list-unstyled list-inline event__stars'><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
-        case 4:
-            return <ul className='list-unstyled list-inline event__stars'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
-        case 3:
-            return <ul className='list-unstyled list-inline event__stars'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
-        case 2:
-            return <ul className='list-unstyled list-inline event__stars'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
-        case 1:
-            return <ul className='list-unstyled list-inline event__stars'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' /></li></ul>;
-        case 0:
-            return <ul className='list-unstyled list-inline event__stars'><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li><li className='list-inline-item'><FontAwesomeIcon icon='star' className='event__icon-non-solid' /></li></ul>;
-    }
-};
-
 export const getFirstAttendees = (attendees) => {
-    console.log(attendees);
     switch (attendees.length) {
         case 1:
             return <ul className='list-unstyled list-inline'>
@@ -54,7 +36,6 @@ export const getFirstAttendees = (attendees) => {
                 </li>
             </ul>;
         case 2:
-            console.log('2222');
             return <ul className='list-unstyled list-inline'>
                 <li className='list-inline-item event__attendee'>
                     <Link to={`profile/${attendees[0].username}`}>
@@ -204,4 +185,10 @@ const getMinuteDifference = (eventDate, now) => {
     if(minDiff === 1)
         return `An minute ago.`;
     return `${minDiff} minutes ago.`
+};
+
+export const getEventRating = (event) => {
+    if(event.votes === 0)
+        return 0;
+    return Math.floor(event.stars / event.votes);
 };

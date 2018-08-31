@@ -10,8 +10,12 @@ import { Row, Col, Card, CardImg, CardBody, CardTitle, CardSubtitle, CardText } 
 import { Link } from 'react-router-dom';
 
 // Helpers
-import { starCreator } from "../../helpers/functions";
 import * as actions from "../../redux/actionCreators";
+import {getEventRating} from "../../helpers/functions";
+
+// Rating
+import Rating from "react-rating";
+
 
 class EventItemContainer extends Component {
 
@@ -36,14 +40,16 @@ class EventItemContainer extends Component {
     render() {
 
         const { event } = this.props;
+        const starFull = require('../../assets/img/star-full.png');
+        const starEmpty = require('../../assets/img/star-empty.png');
 
         if(this.state.attendeesLoading)
             return <p>Loading</p>;
 
         return (
-            <li className='mb-4 event'>
+            <li className='mb-4 event-item'>
                 <article>
-                    <Card className='event__card'>
+                    <Card className='event-item__card'>
                         <Row>
                             <Col xs='12' sm='12' md='4' lg='4' className='d-flex'>
                                 <Link to={`/event/${event._id}`}>
@@ -59,7 +65,9 @@ class EventItemContainer extends Component {
                                                 <p className='mb-0'>{event.title}</p>
                                             </Col>
                                             <Col xs='12' sm='5' md='12' lg='5'>
-                                                {starCreator(event)}
+                                                <Rating initialRating={getEventRating(event)} readonly className='event-item__stars'
+                                                        emptySymbol={<img src={starEmpty} className="icon" />}
+                                                        fullSymbol={<img src={starFull} className="icon" />}/>
                                             </Col>
                                         </Row>
                                     </CardTitle>
