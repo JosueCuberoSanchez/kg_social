@@ -1,3 +1,5 @@
+@import '../../assets/scss/variables';
+
 .login {
 
   min-height: 100vh;
@@ -6,6 +8,10 @@
     background: url(../../assets/img/social.jpg) no-repeat;
     background-size: cover;
     min-height: 100vh;
+  }
+
+  a {
+    color: $btn-bg-color !important;
   }
 }
 

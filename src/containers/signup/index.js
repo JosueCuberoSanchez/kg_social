@@ -3,80 +3,82 @@
  * @author Josué David Cubero Sánchez.
  */
 
-import React from 'react';
+import React, { Component } from 'react';
+
+// Reactstrap
 import {Container, Row, Col} from 'reactstrap';
 
 // Logo
 import logo from '../../assets/img/logo.png';
 
-// Router
-import Link from 'react-router-dom/es/Link';
+// Components
+import SignUpForm from "../../components/forms/signUp-form/";
 
-//Redux form
-import { Field, reduxForm } from 'redux-form';
-
-//Styles
+//  Styles
 import './signup.scss';
 
-let SignUp = ()  => {
+// Redux
+import { connect } from 'react-redux';
+import * as actions from "../../redux/actionCreators";
 
-    const handleSubmit = (e, values) => {
-        e.preventDefault();
-        console.log(values);
+class SignUp extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {passwordsMatch: true, validPassword: true};
+    }
+
+    submit = (values) => {
+        if(values.password !== values.repassword){
+            this.setState({passwordsMatch:false, validPassword: true});
+        } else if(!(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(values.password))) {
+            this.setState({validPassword: false, passwordsMatch: true});
+        } else {
+            this.props.signup({
+                username: values.username, firstName: values.firstName, lastName: values.lastName,
+                email: values.email, password: values.password
+            });
+        }
     };
 
-    return (
-        <main>
-            <Container fluid={true}>
-                <Container>
+    render() {
+
+        const { badCredentials, registered } = this.props;
+
+        return (
+            <main className='sign-up'>
+                <Container fluid={true}>
                     <Row>
-                        <Col xs='12' sm={{ size: 10, order: 2, offset: 1 }}
-                             md={{ size: 8, order: 2, offset: 2 }} lg={{ size: 6, order: 2, offset: 3 }}>>
-                            <div>
-                                <img src={logo} alt='Logo' />
-                                <form onSubmit={handleSubmit}>
-                                    <div>
-                                        <label htmlFor='email'>Enter email</label>
-                                        <Field name='email' component='input' type='email' required={true} />
+                        <Col xs='12' sm='4' md='4' lg='4' className='p-0 sign-up__aside-col'>
+                            <div className='sign-up__aside h-100'/>
+                        </Col>
+                        <Col xs='12' sm={{size: 6, order: 2, offset: 1}}
+                             md={{size: 6, order: 2, offset: 1}} lg={{size: 6, order: 2, offset: 1}}>
+                            <div className='my-auto mt-5 pt-5'>
+                                <img src={logo} alt='Logo' className='w-75 d-block mx-auto mb-5'/>
+                                {
+                                    registered
+                                    ? <p className='sign-up__ver p-5'>
+                                            We've sent a verification email, please click on the link to validate your account.
+                                        </p>
+                                    : <div>
+                                        <h1>Sign up here</h1>
+                                        <SignUpForm onSubmit={this.submit} badCredentials={badCredentials}
+                                                        passwordsMatch={this.state.passwordsMatch} validPassword={this.state.validPassword}/>
                                     </div>
-                                    <div>
-                                        <label htmlFor='firstName'>Enter first name</label>
-                                        <Field name='firstName' component='input' type='text' required={true}/>
-                                    </div>
-                                    <div>
-                                        <label htmlFor='firstName'>Enter last name</label>
-                                        <Field name='firstName' component='input' type='text' required={true}/>
-                                    </div>
-                                    <div>
-                                        <label htmlFor='firstName'>Enter username</label>
-                                        <Field name='firstName' component='input' type='text' required={true}/>
-                                    </div>
-                                    <div>
-                                        <label htmlFor='firstName'>Enter points</label>
-                                        <Field name='firstName' component='input' type='text' required={true}/>
-                                    </div>
-                                    <div>
-                                        <label htmlFor='password'>Enter password</label>
-                                        <Field name='password' component='input' type='password' required={true}/>
-                                    </div>
-                                    <div>
-                                        <label htmlFor='confirmPassword'>Re-enter password</label>
-                                        <Field name='confirmPassword' component='input' type='password' required={true}/>
-                                    </div>
-                                    <button type='submit'>Submit</button>
-                                </form>
+                                }
                             </div>
                         </Col>
                     </Row>
                 </Container>
-            </Container>
-        </main>
-    );
-};
+            </main>
+        );
+    }
+}
 
-SignUp = reduxForm({
-    // a unique name for the form
-    form: 'signup'
-})(SignUp);
+const mapStateToProps = state => { return { badCredentials: state.user.badCredentials, registered: state.user.registered }; };
 
-export default SignUp;
+const mapDispatchToProps = dispatch => { return { signup: (values) => dispatch(actions.signup(values)) }; };
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

@@ -1,6 +1,6 @@
 @import '../../assets/scss/variables';
 
-.sign-up {
+.verify-account {
 
   min-height: 100vh;
 
@@ -10,7 +10,7 @@
     min-height: 100vh;
   }
 
-  &__ver {
+  &__msg {
     font-size: 1.5rem;
     border: 2px solid $btn-bg-color;
   }
@@ -19,7 +19,7 @@
 // media quieries for responsiveness
 
 @media screen and (max-width: 578px) {
-  .login {
+  .verify-account {
 
     &__aside-col {
       display: none;

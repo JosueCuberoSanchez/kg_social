@@ -1,4 +1,6 @@
 export const BASE_URL = 'http://localhost:7777/api/';
+export const SIGNUP = 'signup';
+export const VERIFY = 'verify';
 export const LOGIN = 'login';
 export const LOGOUT = 'logout';
 export const EVENT = 'event';

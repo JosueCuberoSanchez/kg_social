@@ -33,6 +33,48 @@ export const login = (credentials) => {
     }
 };
 
+export const signup = (credentials) => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_SIGNUP_REQUEST
+        });
+        try {
+            await axios.post(`${Constants.BASE_URL}${Constants.SIGNUP}`, credentials);
+            dispatch({
+                type: t.GET_SIGNUP_SUCCESS,
+                payload: null
+            })
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_SIGNUP_FAILURE,
+                error: err
+            })
+        }
+    }
+};
+
+export const verifyAccount = (code) => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_VERIFY_REQUEST
+        });
+        try {
+            await axios.get(`${Constants.BASE_URL}${Constants.VERIFY}`, {params: {code: code}});
+            dispatch({
+                type: t.GET_VERIFY_SUCCESS,
+                payload: null
+            })
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_VERIFY_FAILURE,
+                error: err
+            })
+        }
+    }
+};
+
 export const logout = () => {
     return async dispatch => {
         dispatch({

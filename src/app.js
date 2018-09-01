@@ -31,6 +31,7 @@ import EnrolledEvents from './pages/enrolled-events';
 import TopEvents from './pages/top-events';
 import Event from './pages/event';
 import Profile from './pages/profile';
+import VerifyAccount from './pages/verifyAccount';
 
 // Font awesome
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -53,6 +54,7 @@ const App = () => {
                         <Route exact path='/createEvent' component={includeNavs(CreateEvent)} />
                         <Route exact path='/event/:id' component={includeNavs(withRouter(Event))}/>
                         <Route exact path='/profile' component={includeNavs(Profile)} />
+                        <Route exact path='/verify/:code' component={VerifyAccount} />
                     </Switch>
             </BrowserRouter>
         </Provider>

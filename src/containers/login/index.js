@@ -12,8 +12,7 @@ import {Container, Row, Col} from 'reactstrap';
 import logo from '../../assets/img/logo.png';
 
 // Router
-import Link from 'react-router-dom/es/Link';
-import Redirect from "react-router-dom/es/Redirect";
+import { Link, Redirect } from 'react-router-dom';
 
 //Redux
 import { connect } from 'react-redux';
@@ -51,7 +50,7 @@ class LoginContainer extends Component {
                             <div className='my-auto mt-5 pt-5'>
                                 <img src={logo} alt='Logo' className='w-75 d-block mx-auto'/>
                                 <LoginForm onSubmit={this.submit} badCredentials={badCredentials}/>
-                                <p className='mt-5'>Don't have an account yet? &nbsp;
+                                <p className='mt-4'>Don't have an account yet? &nbsp;
                                     <Link to={'/signup'}>
                                         sign up here
                                     </Link>
