@@ -91,7 +91,7 @@ class Header extends Component {
                                         Logout <FontAwesomeIcon icon="sign-out-alt" className='ml-1' alt='Logout button'/>
                                     </DropdownItem>
                                     <DropdownItem divider/>
-                                    <Link to={'/profile'} className='header__link'>
+                                    <Link to={`/profile/${JSON.parse(localStorage.getItem('user')).username}`} className='header__link'>
                                         <DropdownItem>
                                             My profile <FontAwesomeIcon icon="user-cog" className='ml-1' alt='My profile link'/>
                                         </DropdownItem>

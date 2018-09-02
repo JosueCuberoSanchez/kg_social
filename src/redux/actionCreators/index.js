@@ -441,3 +441,26 @@ export const submitVote = (stars, id, username) => {
         }
     }
 };
+
+export const getUser = (username) => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_USER_REQUEST
+        });
+        try {
+            const result = await axios.get(`${Constants.BASE_URL}${Constants.USER}`, {params: {username: username}});
+            const user = await result;
+            // Update payload in reducer on success
+            dispatch({
+                type: t.GET_USER_SUCCESS,
+                payload: user.data
+            })
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_USER_FAILURE,
+                error: err
+            })
+        }
+    }
+};

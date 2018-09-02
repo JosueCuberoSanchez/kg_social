@@ -1,0 +1,16 @@
+@import '../../assets/scss/variables';
+
+.profile {
+
+  &__info {
+    border: 1px solid $header-bg-color;
+
+    a {
+      color: #000 !important;
+    }
+  }
+
+  &__social-media-link {
+    font-size: 2.5rem;
+  }
+}

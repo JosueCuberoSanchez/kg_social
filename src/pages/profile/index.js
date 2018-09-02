@@ -3,15 +3,21 @@
  * @author Josué David Cubero Sánchez.
  */
 
-import React from 'react';
+import React, { Component } from 'react';
 
 import ProfileContainer from "../../containers/profile/";
 
-const Profile = ()  => {
+class Profile extends Component {
 
-    return (
-        <ProfileContainer />
-    );
-};
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <ProfileContainer username={this.props.match.params.username} userLoading={true}/>
+        );
+    }
+}
 
 export default Profile;

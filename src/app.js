@@ -39,8 +39,9 @@ import ResetPassword from './pages/reset-password';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUser, faSignOutAlt, faUserCog, faCalendar, faCalendarAlt, faCalendarMinus,
     faCalendarCheck, faCalendarPlus, faEdit, faPencilAlt, faStar } from '@fortawesome/free-solid-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 library.add(faUser, faSignOutAlt, faUserCog, faCalendar, faCalendarAlt,
-    faCalendarMinus, faCalendarCheck, faCalendarPlus, faEdit, faPencilAlt, faStar);
+    faCalendarMinus, faCalendarCheck, faCalendarPlus, faEdit, faPencilAlt, faStar, fab);
 
 const App = () => {
     return (
@@ -55,7 +56,7 @@ const App = () => {
                         <Route exact path='/topEvents' component={includeNavs(TopEvents)} />
                         <Route exact path='/createEvent' component={includeNavs(CreateEvent)} />
                         <Route exact path='/event/:id' component={includeNavs(withRouter(Event))}/>
-                        <Route exact path='/profile' component={includeNavs(Profile)} />
+                        <Route exact path='/profile/:username' component={includeNavs(withRouter(Profile))} />
                         <Route exact path='/verify/:code' component={VerifyAccount} />
                         <Route exact path='/forgotPassword' component={ForgotPassword} />
                         <Route exact path='/resetPassword/:code' component={ResetPassword} />

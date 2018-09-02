@@ -32,6 +32,7 @@ class Aside extends Component {
 
         return (
             <aside className='aside pt-5'>
+                <h6>Recent activity</h6>
                 {
                     areLoading
                         ? <p>Loading...</p>

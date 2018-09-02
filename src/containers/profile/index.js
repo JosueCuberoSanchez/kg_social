@@ -22,11 +22,43 @@ import Redirect from "react-router-dom/es/Redirect";
 // Components
 import Aside from "../aside";
 
+// Helpers
+import { isEmpty } from "../../helpers/functions";
+
+// Font awesome
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 class ProfileContainer extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {user: JSON.parse(localStorage.getItem('user')), ownProfile: false}
     }
+
+    componentDidMount() {
+        const { username } = this.props;
+        if(this.state.user.username !== username) // if I am the user, I don't want to query the server again
+            this.props.getUser(username);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(this.props.username !== nextProps.username) {
+            if (nextProps.username === this.state.user.username) {
+                this.setState({ownProfile: true});
+            } else {
+                this.props.getUser(nextProps.username);
+            }
+        }
+    }
+
+    toggleImageModal = () => {
+      console.log('Image modal');
+    };
+
+    toggleDataModal = () => {
+        console.log('Data modal');
+    };
 
     submit = (values) => {
         //this.props.login(values);
@@ -34,23 +66,74 @@ class ProfileContainer extends Component {
 
     render() {
 
-        const { loggedOut } = this.props;
+        const { username, userLoading, error, currentUser } = this.props;
+
+        let user;
+        if(isEmpty(currentUser) || this.state.ownProfile) {
+            user = this.state.user;
+        } else {
+            if(userLoading)
+                return (<p>Loading...</p>);
+            user = currentUser;
+        }
 
         if (localStorage.getItem('user') === null)
             return (<Redirect to='/'/>);
 
+        if(error)
+            return (<p>Error</p>);
+
         return (
-            <main className='dashboard'>
-                <Container fluid={true} className='pl-0'>
-                    <Container className='pl-4 ml-0'>
+            <main className='profile'>
+                <h1 className='sr-only'>Profile page</h1>
+                <Container fluid={true}>
+                    <Container>
                         <Row>
+                            <Col xs='12' sm='12' md='9' lg='9'>
+                                <Row>
+                                    <Col xs='12' sm='12' md='5' lg='5' className='text-center'>
+                                        <img src={user.image} alt={`${username} profile picture`} className='d-block mx-auto w-100 mt-5 mb-3'/>
+                                        {
+                                            this.state.user.username === user.username
+                                            ? <button onClick={this.toggleImageModal}>Edit</button>
+                                            : null
+                                        }
+                                    </Col>
+                                    <Col xs='12' sm='12' md='7' lg='7'>
+                                        <h2 className='mt-5'>{user.username}</h2>
+                                        <div className='profile__info mt-3 p-3'>
+                                            <p><strong>Name: </strong>{user.firstName+' '+user.lastName}</p>
+                                            <p><strong>Email: </strong>{user.email}</p>
+                                            <p><strong>Phone number: </strong>{user.phone}</p>
+                                            <p><strong>Points earned: </strong>{user.points}</p>
+                                            <div className='d-flex justify-content-between pt-2'>
+                                                {
+                                                    user.facebook !== ''
+                                                        ? <a href={user.facebook}><FontAwesomeIcon icon={['fab', 'facebook']} className='mr-2 profile__social-media-link' alt='Facebook profile link'/></a>
+                                                        : null
+                                                }
+                                                {
+                                                    user.twitter !== ''
+                                                        ? <a href={user.twitter}><FontAwesomeIcon icon={['fab', 'twitter']} className='mr-2 profile__social-media-link' alt='Facebook profile link'/></a>
+                                                        : null
+                                                }
+                                                {
+                                                    user.instagram !== ''
+                                                        ? <a href={user.instagram}><FontAwesomeIcon icon={['fab', 'instagram']} className='mr-2 profile__social-media-link' alt='Facebook profile link'/></a>
+                                                        : null
+                                                }
+                                            </div>
+                                            {
+                                                this.state.user.username === user.username
+                                                    ? <button onClick={this.toggleDataModal} className='mt-4'>Edit</button>
+                                                    : null
+                                            }
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Col>
                             <Col xs='12' sm='12' md='3' lg='3'>
                                 <Aside />
-                            </Col>
-                            <Col xs='12' sm='12' md='9' lg='9' className='pl-4'>
-                                <div className='pt-4 pl-3'>
-                                    HOLA
-                                </div>
                             </Col>
                         </Row>
                     </Container>
@@ -62,12 +145,12 @@ class ProfileContainer extends Component {
 }
 
 const mapStateToProps = state => {
-    return { loggedOut: state.user.loggedOut, redirectLogin: state.user.redirectLogin };
+    return { loggedOut: state.user.loggedOut, redirectLogin: state.user.redirectLogin, currentUser: state.user.currentUser, error: state.user.error, userLoading: state.user.userLoading };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        //login: (values) => dispatch(actions.login(values))
+        getUser: (username) => dispatch(actions.getUser(username))
     };
 };
 
