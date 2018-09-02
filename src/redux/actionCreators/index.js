@@ -202,7 +202,7 @@ export const updateEvent = (values, create, id) => {
             dispatch(getLogs());
             dispatch({
                 type: t.GET_CREATE_SUCCESS,
-                payload: newEvent.data.event
+                payload: newEvent.data
             });
         } catch (err) {
             // Update error in reducer on failure
@@ -223,9 +223,10 @@ export const getEvent = (filter, id) => {
             const user = JSON.parse(localStorage.getItem('user')).email;
             const result = await axios.get(`${Constants.BASE_URL}${Constants.EVENT}`, {params: {filter: filter,user: user, id: id}});
             const event = await result;
+            console.log(event.data);
             dispatch({
                 type: t.GET_EVENT_SUCCESS,
-                payload: event.data.events
+                payload: event.data
             });
         } catch (err) {
             // Update error in reducer on failure

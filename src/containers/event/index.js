@@ -49,7 +49,6 @@ class EventContainer extends Component {
         const vote = await actions.checkVote(id, this.state.user.username);
         if(!vote)
             this.setState({voteModal: true});
-        await this.props.getAttendees(id);
         this.props.getEvent(filters.ID, id); // Get event info
     }
 
@@ -289,7 +288,6 @@ const mapDispatchToProps = dispatch => {
         updateEvent: (values, create, id) => dispatch(actions.updateEvent(values, create, id)),
         enrollToEvent: (username, eventId) => dispatch(actions.enrollToEvent(username, eventId)),
         unenrollToEvent: (username, eventId) => dispatch(actions.unenrollToEvent(username, eventId)),
-        getAttendees: (id) => dispatch(actions.getAttendees(id)),
         submitVote: (stars, id, username) => dispatch(actions.submitVote(stars, id, username))
     };
 };

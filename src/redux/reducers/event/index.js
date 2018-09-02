@@ -18,27 +18,27 @@ const EventReducer = (state = INITIAL_STATE, action) => {
         case a.GET_EVENTS_REQUEST:
             return { ...state, eventsLoading: true };
         case a.GET_EVENT_REQUEST:
-            return { ...state, eventLoading: true };
         case a.GET_EVENT_IMAGE_REQUEST:
+            return { ...state, eventLoading: true };
         case a.GET_CREATE_REQUEST:
         case a.GET_ENROLL_REQUEST:
         case a.GET_UNENROLL_REQUEST:
-        case a.GET_ATTENDEES_REQUEST:
         case a.GET_VOTE_REQUEST:
             return { ...state };
 
         // Successful events
         case a.GET_CREATE_SUCCESS:
-        case a.GET_EVENT_IMAGE_SUCCESS:
+            return { ...state, currentEvent: action.payload.event, attendees: action.payload.attendees};
         case a.GET_VOTE_SUCCESS:
             return { ...state, currentEvent: action.payload};
+        case a.GET_EVENT_IMAGE_SUCCESS:
+            return { ...state, eventLoading: false, currentEvent: action.payload};
         case a.GET_EVENTS_SUCCESS:
             return { ...state, events: action.payload, eventsLoading: false};
         case a.GET_EVENT_SUCCESS:
-            return { ...state, currentEvent: action.payload, isOwner: action.payload.isOwner, eventLoading: false};
+            return { ...state, currentEvent: action.payload.event, attendees: action.payload.attendees, isOwner: action.payload.isOwner, eventLoading: false};
         case a.GET_LOGOUT_SUCCESS:
             return { ...state, eventLoading: true};
-        case a.GET_ATTENDEES_SUCCESS:
         case a.GET_ENROLL_SUCCESS:
         case a.GET_UNENROLL_SUCCESS:
             return { ...state, attendees: action.payload};
@@ -49,7 +49,6 @@ const EventReducer = (state = INITIAL_STATE, action) => {
         case a.GET_ENROLL_FAILURE:
         case a.GET_UNENROLL_FAILURE:
         case a.GET_EVENT_IMAGE_FAILURE:
-        case a.GET_ATTENDEES_FAILURE:
         case a.GET_VOTE_FAILURE:
             return { ...state, error: true};
 
