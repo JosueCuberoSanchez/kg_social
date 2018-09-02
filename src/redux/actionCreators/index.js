@@ -57,18 +57,81 @@ export const signup = (credentials) => {
 export const verifyAccount = (code) => {
     return async dispatch => {
         dispatch({
-            type: t.GET_VERIFY_REQUEST
+            type: t.GET_VERIFY_SIGNUP_CODE_REQUEST
         });
         try {
-            await axios.get(`${Constants.BASE_URL}${Constants.VERIFY}`, {params: {code: code}});
+            await axios.get(`${Constants.BASE_URL}${Constants.VERIFY_SIGNUP_CODE}`, {params: {code: code}});
             dispatch({
-                type: t.GET_VERIFY_SUCCESS,
+                type: t.GET_VERIFY_SIGNUP_CODE_SUCCESS,
                 payload: null
             })
         } catch (err) {
             // Update error in reducer on failure
             dispatch({
-                type: t.GET_VERIFY_FAILURE,
+                type: t.GET_VERIFY_SIGNUP_CODE_FAILURE,
+                error: err
+            })
+        }
+    }
+};
+
+export const forgotPassword = (email) => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_FORGOT_PASSWORD_REQUEST
+        });
+        try {
+            await axios.post(`${Constants.BASE_URL}${Constants.FORGOT_PASSWORD}`, {email: email});
+            dispatch({
+                type: t.GET_FORGOT_PASSWORD_SUCCESS,
+                payload: null
+            })
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_FORGOT_PASSWORD_FAILURE,
+                error: err
+            })
+        }
+    }
+};
+
+export const verifyForgotPassword = (code) => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_VERIFY_FORGOT_PASSWORD_CODE_REQUEST
+        });
+        try {
+            await axios.get(`${Constants.BASE_URL}${Constants.VERIFY_FORGOT_PASSWORD_CODE}`, {params: {code: code}});
+            dispatch({
+                type: t.GET_VERIFY_FORGOT_PASSWORD_CODE_SUCCESS,
+                payload: null
+            })
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_VERIFY_FORGOT_PASSWORD_CODE_FAILURE,
+                error: err
+            })
+        }
+    }
+};
+
+export const resetPassword = (code, password) => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_RESET_PASSWORD_REQUEST
+        });
+        try {
+            await axios.post(`${Constants.BASE_URL}${Constants.RESET_PASSWORD}`, {code: code, password: password});
+            dispatch({
+                type: t.GET_RESET_PASSWORD_SUCCESS,
+                payload: null
+            })
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_RESET_PASSWORD_FAILURE,
                 error: err
             })
         }

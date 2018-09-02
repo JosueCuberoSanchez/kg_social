@@ -1,6 +1,9 @@
 export const BASE_URL = 'http://localhost:7777/api/';
 export const SIGNUP = 'signup';
-export const VERIFY = 'verify';
+export const FORGOT_PASSWORD = 'forgot-password';
+export const RESET_PASSWORD = 'reset-password';
+export const VERIFY_SIGNUP_CODE = 'verify-signup-code';
+export const VERIFY_FORGOT_PASSWORD_CODE = 'reset-password';
 export const LOGIN = 'login';
 export const LOGOUT = 'logout';
 export const EVENT = 'event';

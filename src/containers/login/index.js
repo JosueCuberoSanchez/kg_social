@@ -55,6 +55,11 @@ class LoginContainer extends Component {
                                         sign up here
                                     </Link>
                                 </p>
+                                <p className='mt-4'>Forgot your password? &nbsp;
+                                    <Link to={'/forgotPassword'}>
+                                        click here
+                                    </Link>
+                                </p>
                             </div>
                         </Col>
                     </Row>

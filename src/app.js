@@ -31,7 +31,9 @@ import EnrolledEvents from './pages/enrolled-events';
 import TopEvents from './pages/top-events';
 import Event from './pages/event';
 import Profile from './pages/profile';
-import VerifyAccount from './pages/verifyAccount';
+import VerifyAccount from './pages/verify-account';
+import ForgotPassword from './pages/forgot-password';
+import ResetPassword from './pages/reset-password';
 
 // Font awesome
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -55,6 +57,8 @@ const App = () => {
                         <Route exact path='/event/:id' component={includeNavs(withRouter(Event))}/>
                         <Route exact path='/profile' component={includeNavs(Profile)} />
                         <Route exact path='/verify/:code' component={VerifyAccount} />
+                        <Route exact path='/forgotPassword' component={ForgotPassword} />
+                        <Route exact path='/resetPassword/:code' component={ResetPassword} />
                     </Switch>
             </BrowserRouter>
         </Provider>

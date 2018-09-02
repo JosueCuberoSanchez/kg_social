@@ -5,7 +5,7 @@
 
 import React, { Component } from 'react';
 
-import VerifyAccountContainer from "../../containers/verifyAccount/";
+import VerifyAccountContainer from "../../containers/verify-account/";
 
 class VerifyAccount extends Component{
 
