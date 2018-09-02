@@ -185,29 +185,54 @@ export const getEvents = (filter) => {
     }
 };
 
-export const updateEvent = (values, create, id) => {
+export const createEvent = (values) => {
     return async dispatch => {
         dispatch({
-            type: t.GET_CREATE_REQUEST
+            type: t.GET_CREATE_EVENT_REQUEST
         });
         try {
             let body = values;
             body['owner'] = JSON.parse(localStorage.getItem('user')).username;
-            body['create'] = create;
-            body['id'] = id;
             if(body.private === undefined)
                 body['private'] = false;
             const result = await axios.post(`${Constants.BASE_URL}${Constants.EVENT}`, body);
             const newEvent = await result;
             dispatch(getLogs());
             dispatch({
-                type: t.GET_CREATE_SUCCESS,
+                type: t.GET_CREATE_EVENT_SUCCESS,
                 payload: newEvent.data
             });
         } catch (err) {
             // Update error in reducer on failure
             dispatch({
-                type: t.GET_CREATE_FAILURE,
+                type: t.GET_CREATE_EVENT_FAILURE,
+                error: err
+            })
+        }
+    }
+};
+
+export const updateEvent = (values, id) => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_UPDATE_EVENT_REQUEST
+        });
+        try {
+            let body = values;
+            body['id'] = id;
+            if(body.private === undefined)
+                body['private'] = false;
+            const result = await axios.put(`${Constants.BASE_URL}${Constants.EVENT}`, {body: body, id: id});
+            const newEvent = await result;
+            dispatch(getLogs());
+            dispatch({
+                type: t.GET_UPDATE_EVENT_SUCCESS,
+                payload: newEvent.data.event
+            });
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_UPDATE_EVENT_FAILURE,
                 error: err
             })
         }

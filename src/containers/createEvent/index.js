@@ -28,7 +28,7 @@ class CreateEventContainer extends Component {
         this.state = {redirect: false};
     }
 
-    submitData = (values) => { this.props.updateEvent(values, true, null); };
+    submitData = (values) => { this.props.createEvent(values); };
 
     componentWillUpdate(nextProps) { // check if on submit we should redirect the user to the newly creatd event page
         if(!this.state.redirect) {
@@ -79,7 +79,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateEvent: (values, create, id) => dispatch(actions.updateEvent(values, create, id))
+        createEvent: (values) => dispatch(actions.createEvent(values))
     };
 };
 

@@ -89,7 +89,7 @@ class EventContainer extends Component {
     };
 
     submitData = (values) => {
-        this.props.updateEvent(values, false, this.props.id);
+        this.props.updateEvent(values, this.props.id);
     };
 
     checkEnroll = (attendees) => {
@@ -285,7 +285,7 @@ const mapDispatchToProps = dispatch => {
         updateEventImage: (values, id) => dispatch(actions.updateEventImage(values, id)),
         getEvent: (filter, id) => dispatch(actions.getEvent(filter, id)),
         createComment: (comment, author, id) => dispatch(actions.createComment(comment, author, id)),
-        updateEvent: (values, create, id) => dispatch(actions.updateEvent(values, create, id)),
+        updateEvent: (values, id) => dispatch(actions.updateEvent(values, id)),
         enrollToEvent: (username, eventId) => dispatch(actions.enrollToEvent(username, eventId)),
         unenrollToEvent: (username, eventId) => dispatch(actions.unenrollToEvent(username, eventId)),
         submitVote: (stars, id, username) => dispatch(actions.submitVote(stars, id, username))
