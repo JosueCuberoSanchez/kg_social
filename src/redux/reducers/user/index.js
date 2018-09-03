@@ -34,6 +34,7 @@ const UserReducer = (state = INITIAL_STATE, action) => {
         case a.GET_VERIFY_FORGOT_PASSWORD_CODE_REQUEST:
         case a.GET_RESET_PASSWORD_REQUEST:
         case a.GET_UPDATE_USER_INFO_REQUEST:
+        case a.GET_UPDATE_USER_IMAGE_REQUEST:
             return { ...state };
         case a.GET_USER_REQUEST:
             return { ...state, currentUser: {} };
@@ -54,6 +55,7 @@ const UserReducer = (state = INITIAL_STATE, action) => {
             return { ...state, resetSent: true };
         case a.GET_USER_SUCCESS:
         case a.GET_UPDATE_USER_INFO_SUCCESS:
+        case a.GET_UPDATE_USER_IMAGE_SUCCESS:
             return { ...state, currentUser: action.payload, userLoading: false };
 
 
@@ -70,6 +72,7 @@ const UserReducer = (state = INITIAL_STATE, action) => {
             return { ...state, verifyLoading: false, verified: false };
         case a.GET_USER_FAILURE:
         case a.GET_UPDATE_USER_INFO_FAILURE:
+        case a.GET_UPDATE_USER_IMAGE_FAILURE:
             return { ...state, error: true, userLoading: false };
         default:
             return state;

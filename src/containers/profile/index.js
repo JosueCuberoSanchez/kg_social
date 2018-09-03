@@ -3,10 +3,10 @@
  * @author Josué David Cubero Sánchez.
  */
 
-import React, { Component } from 'react';
+import React, {Component, Fragment} from 'react';
 
 // Reactstrap
-import {Container, Row, Col, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import {Container, Row, Col, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 //Redux
 import { reduxForm } from 'redux-form'
@@ -21,20 +21,26 @@ import Redirect from "react-router-dom/es/Redirect";
 
 // Components
 import Aside from "../aside";
+import UpdateProfileForm from "../../components/forms/update-profile-form";
 
 // Helpers
 import { isEmpty } from "../../helpers/functions";
 
 // Font awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import UpdateProfileForm from "../../components/forms/update-profile-form";
+
+// Amazon S3
+import S3FileUpload from 'react-s3';
+import * as s3 from '../../private/aws';
+import ReactDropzone from 'react-dropzone';
+import dnd from '../../assets/img/dnd.png';
 
 class ProfileContainer extends Component {
 
     constructor(props) {
         super(props);
 
-        this.state = {user: JSON.parse(localStorage.getItem('user')), ownProfile: false, dataModal: false}
+        this.state = {user: JSON.parse(localStorage.getItem('user')), ownProfile: false,imageModal: false, dataModal: false, files: []}
     }
 
     componentDidMount() {
@@ -54,16 +60,32 @@ class ProfileContainer extends Component {
     }
 
     toggleImageModal = () => {
-      console.log('Image modal');
+        this.setState({imageModal: !this.state.imageModal});
+        if (this.state.imageModal && this.state.files.length > 0)
+            this.submitImage();
     };
 
     toggleDataModal = () => {
         this.setState({dataModal: !this.state.dataModal});
     };
 
+    submitImage = () => {
+        console.log('HOLA!!!');
+        const file = this.state.files[0];
+        S3FileUpload.uploadFile(file, s3.config).then(data => {
+            console.log(data);
+            this.props.updateUserImage(data, this.state.user.id);
+            this.setState({files: []});
+        }).catch(err => console.error(err));
+    };
+
     submitData = (values) => {
         this.props.updateUser(values, this.state.user.id);
         this.toggleDataModal();
+    };
+
+    onPreviewDrop = (files) => {
+        this.setState({files: this.state.files.concat(files)});
     };
 
     render() {
@@ -94,7 +116,7 @@ class ProfileContainer extends Component {
                             <Col xs='12' sm='12' md='9' lg='9'>
                                 <Row>
                                     <Col xs='12' sm='12' md='5' lg='5' className='text-center'>
-                                        <img src={user.image} alt={`${username} profile picture`} className='d-block mx-auto w-100 mt-5 mb-3'/>
+                                        <img src={user.image} alt={`${username} profile picture`} className='d-block mx-auto w-100 mt-5 mb-3 rounded-circle'/>
                                         {
                                             this.state.user.username === user.username
                                             ? <button onClick={this.toggleImageModal}>Edit</button>
@@ -131,12 +153,39 @@ class ProfileContainer extends Component {
                                                     : null
                                             }
                                         </div>
+
+
                                         <Modal isOpen={this.state.dataModal} toggle={this.toggleDataModal} className={this.props.className}>
                                             <ModalHeader toggle={this.toggleDataModal}>Change event photo</ModalHeader>
-                                            <ModalBody className='event__modal-body'>
+                                            <ModalBody>
                                                 <UpdateProfileForm onSubmit={this.submitData} toggleDataModal={this.toggleDataModal} user={user}/>
                                             </ModalBody>
                                         </Modal>
+
+                                        <Modal isOpen={this.state.imageModal} toggle={this.toggleImageModal}
+                                               className={this.props.className}>
+                                            <ModalHeader toggle={this.toggleImageModal}>Change event photo</ModalHeader>
+                                            <ModalBody className='profile__modal-body'>
+                                                <ReactDropzone accept='image/*' onDrop={this.onPreviewDrop}>
+                                                    <img src={dnd} className='d-block mx-auto w-75'/>
+                                                </ReactDropzone>
+                                                {this.state.files.length > 0 &&
+                                                <Fragment>
+                                                    <h3 className='text-center'>Preview</h3>
+                                                    {this.state.files.map((file) => (
+                                                        <img alt='Preview' key={file.preview} src={file.preview}
+                                                             className='d-block mx-auto profile__preview-img'/>
+                                                    ))}
+                                                </Fragment>
+                                                }
+                                            </ModalBody>
+                                            <ModalFooter>
+                                                <button onClick={this.toggleImageModal}>Update</button>{' '}
+                                                <button onClick={this.toggleImageModal}>Cancel</button>
+                                            </ModalFooter>
+                                        </Modal>
+
+
                                     </Col>
                                 </Row>
                             </Col>
@@ -159,7 +208,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getUser: (username) => dispatch(actions.getUser(username)),
-        updateUser: (values, id) => dispatch(actions.updateUser(values, id))
+        updateUser: (values, id) => dispatch(actions.updateUser(values, id)),
+        updateUserImage: (data, id) => dispatch(actions.updateUserImage(data, id))
     };
 };
 

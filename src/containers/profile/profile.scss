@@ -13,4 +13,16 @@
   &__social-media-link {
     font-size: 2.5rem;
   }
+
+  &__modal-body > div {
+    margin: 0 auto;
+    width: 80% !important;
+    border: 1px solid #e9ecef !important;
+  }
+
+  &__preview-img {
+    display: inline;
+    width: 100px;
+    height: 100px;
+  }
 }

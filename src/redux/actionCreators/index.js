@@ -493,3 +493,28 @@ export const updateUser = (values, id) => {
         }
     }
 };
+
+export const updateUserImage = (data, id) => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_UPDATE_USER_IMAGE_REQUEST
+        });
+        try {
+            const result = await axios.put(`${Constants.BASE_URL}${Constants.USER_IMAGE}`, {data: {image: data.location}, id: id});
+            const user = await result;
+            localStorage.removeItem('user');
+            localStorage.setItem('user', JSON.stringify(user.data));
+
+            dispatch({
+                type: t.GET_UPDATE_USER_IMAGE_SUCCESS,
+                payload: user.data
+            })
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_UPDATE_USER_IMAGE_FAILURE,
+                error: err
+            })
+        }
+    }
+};
