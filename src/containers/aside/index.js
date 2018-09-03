@@ -38,7 +38,7 @@ class Aside extends Component {
                         ? <p>Loading...</p>
                         : error
                         ? <p>Error!!!</p>
-                        : <ul className='list-unstyled'>
+                        : <ul className='list-unstyled aside__logs'>
                             {map(this.logCreator, logs)}
                         </ul>
                 }

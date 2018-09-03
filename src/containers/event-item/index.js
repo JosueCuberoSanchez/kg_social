@@ -39,50 +39,54 @@ class EventItemContainer extends Component {
 
     render() {
 
-        const { event } = this.props;
+        const {event, filter} = this.props;
         const starFull = require('../../assets/img/star-full.png');
         const starEmpty = require('../../assets/img/star-empty.png');
 
-        if(this.state.attendeesLoading)
+        if (this.state.attendeesLoading)
             return <p>Loading</p>;
 
-        return (
-            <li className='mb-4 event-item'>
-                <article>
-                    <Card className='event-item__card'>
-                        <Row>
-                            <Col xs='12' sm='12' md='4' lg='4' className='d-flex'>
-                                <Link to={`/event/${event._id}`}>
-                                    <CardImg className='justify-content-center align-self-center p-4 h-100'
-                                             src={event.image} alt='Event image'/>
-                                </Link>
-                            </Col>
-                            <Col xs='12' sm='12' md='8' lg='8'>
-                                <CardBody>
-                                    <CardTitle className='mb-3'>
-                                        <Row>
-                                            <Col xs='12' sm='7' md='12' lg='7'>
-                                                <p className='mb-0'>{event.title}</p>
-                                            </Col>
-                                            <Col xs='12' sm='5' md='12' lg='5'>
-                                                <Rating initialRating={getEventRating(event)} readonly className='event-item__stars'
-                                                        emptySymbol={<img src={starEmpty} className="icon" />}
-                                                        fullSymbol={<img src={starFull} className="icon" />}/>
-                                            </Col>
-                                        </Row>
-                                    </CardTitle>
-                                    <CardText>{event.description}</CardText>
-                                    <CardText>{this.state.attendees}</CardText>
-                                    <CardSubtitle className='mb-2'>{event.hashtags}</CardSubtitle>
-                                </CardBody>
-                            </Col>
-                        </Row>
-                    </Card>
-                </article>
-            </li>
-        )
+        if (event.hashtags.toLowerCase().includes(filter.toLowerCase()) || event.title.toLowerCase().includes(filter.toLowerCase())) {
+            return (
+                <li className='mb-4 event-item'>
+                    <article>
+                        <Card className='event-item__card'>
+                            <Row>
+                                <Col xs='12' sm='12' md='4' lg='4' className='d-flex'>
+                                    <Link to={`/event/${event._id}`}>
+                                        <CardImg className='justify-content-center align-self-center p-4 h-100'
+                                                 src={event.image} alt='Event image'/>
+                                    </Link>
+                                </Col>
+                                <Col xs='12' sm='12' md='8' lg='8'>
+                                    <CardBody>
+                                        <CardTitle className='mb-3'>
+                                            <Row>
+                                                <Col xs='12' sm='7' md='12' lg='7'>
+                                                    <p className='mb-0'>{event.title}</p>
+                                                </Col>
+                                                <Col xs='12' sm='5' md='12' lg='5'>
+                                                    <Rating initialRating={getEventRating(event)} readonly
+                                                            className='event-item__stars'
+                                                            emptySymbol={<img src={starEmpty} className="icon"/>}
+                                                            fullSymbol={<img src={starFull} className="icon"/>}/>
+                                                </Col>
+                                            </Row>
+                                        </CardTitle>
+                                        <CardText>{event.description}</CardText>
+                                        <CardText>{this.state.attendees}</CardText>
+                                        <CardSubtitle className='mb-2'>{event.hashtags}</CardSubtitle>
+                                    </CardBody>
+                                </Col>
+                            </Row>
+                        </Card>
+                    </article>
+                </li>
+            )
+        } else {
+            return null;
+        }
     }
-
 }
 
 export default EventItemContainer;

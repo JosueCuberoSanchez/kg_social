@@ -23,7 +23,8 @@ import './dashboard.scss';
 
 // Components
 import Aside from '../aside';
-import EventItemContainer from '../event-item';
+import EventItemContainer from '../event-item/';
+import SearchBar from '../../components/search-bar/';
 
 // Filters
 import * as filters from '../../helpers/filters';
@@ -31,11 +32,21 @@ import * as filters from '../../helpers/filters';
 
 class DashboardContainer extends Component {
 
-    constructor(props) { super(props); }
+    constructor(props) {
+        super(props);
+
+        this.state = { searchTerm: ''};
+    }
 
     async componentDidMount () { this.props.getEvents(filters.ALL); }
 
-    eventCreator = event => <EventItemContainer key={event.title} event={event} />;
+    search = (searchTerm) => {
+        this.setState({searchTerm: searchTerm});
+        if (searchTerm.length > 1)
+            console.log('HUE');
+    };
+
+    eventCreator = event => <EventItemContainer key={event.title} event={event} filter={this.state.searchTerm}/>;
 
     render() {
 
@@ -56,6 +67,7 @@ class DashboardContainer extends Component {
                         <Container>
                             <Row>
                                 <Col xs='12' sm='12' md='9' lg='9'>
+                                    <SearchBar onSearchTermChange={this.search} />
                                     <div className='dashboard__events pt-4'>
                                         <ul className='list-unstyled'>
                                             {map(this.eventCreator, events)}

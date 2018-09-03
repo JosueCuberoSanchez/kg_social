@@ -133,7 +133,7 @@ class EventContainer extends Component {
                 <h1 className='sr-only'>{event.title} page</h1>
                 <Container fluid={true}>
                         <Row>
-                            <Col xs='12' sm='12' md='10' lg='10' className='mt-5'>
+                            <Col xs='12' sm='12' md='9' lg='9' className='mt-5'>
                                 <article className='p-3 event__info'>
                                     {
                                         event.owner === this.state.user.username
@@ -209,18 +209,18 @@ class EventContainer extends Component {
                                         </Col>
                                     </Row>
                                 </article>
-                                <Row>
-                                    <Col xs='12' sm='12' md='12' lg='12'>
-                                        <CommentsContainer id={this.props.id}/>
-                                    </Col>
-                                </Row>
                             </Col>
-                            <Col xs='12' sm='12' md='2' lg='2'>
+                            <Col xs='12' sm='12' md='3' lg='3'>
                                 <Aside/>
                             </Col>
                         </Row>
                 </Container>
                 <Container fluid={true}>
+                    <Row>
+                        <Col xs='12' sm='12' md='12' lg='12'>
+                            <CommentsContainer id={this.props.id}/>
+                        </Col>
+                    </Row>
                     <Row>
                         <Col xs='12' sm='12' md='12' lg='12'>
                             <div className='event__comment-box mt-4 p-4'>
