@@ -1,0 +1,14 @@
+.image-modal {
+
+  &__body > div {
+    margin: 0 auto;
+    width: 80% !important;
+    border: 1px solid #e9ecef !important;
+  }
+
+  &__preview-img {
+    display: inline;
+    width: 100px;
+    height: 100px;
+  }
+}

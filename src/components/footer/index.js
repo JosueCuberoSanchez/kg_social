@@ -26,10 +26,7 @@ const Footer = () => {
                 <Container fluid={true}>
                     <Container >
                         <Row className='p-4'>
-                            <Col xs='12' sm='12' md='3' lg='3'>
-                                <img src={logo} alt='KG Social logo' className='footer__logo d-block mx-auto'/>
-                            </Col>
-                            <Col xs='12' sm='12' md='9' lg='9'>
+                            <Col xs='12' sm='12' md='12' lg='12'>
                                 <div className='text-center pt-4'>
                                     <div>
                                         <p className='d-inline-block footer__slogan-big'><strong>Never</strong> miss&nbsp;</p>

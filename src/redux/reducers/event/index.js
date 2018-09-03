@@ -19,6 +19,7 @@ const EventReducer = (state = INITIAL_STATE, action) => {
             return { ...state, eventsLoading: true };
         case a.GET_EVENT_REQUEST:
         case a.GET_EVENT_IMAGE_REQUEST:
+        case a.GET_UPDATE_EVENT_PICS_REQUEST:
             return { ...state, eventLoading: true };
         case a.GET_CREATE_EVENT_REQUEST:
         case a.GET_UPDATE_EVENT_REQUEST:
@@ -35,6 +36,7 @@ const EventReducer = (state = INITIAL_STATE, action) => {
         case a.GET_VOTE_SUCCESS:
             return { ...state, currentEvent: action.payload};
         case a.GET_EVENT_IMAGE_SUCCESS:
+        case a.GET_UPDATE_EVENT_PICS_SUCCESS:
             return { ...state, eventLoading: false, currentEvent: action.payload};
         case a.GET_EVENTS_SUCCESS:
             return { ...state, events: action.payload, eventsLoading: false};
@@ -53,6 +55,7 @@ const EventReducer = (state = INITIAL_STATE, action) => {
         case a.GET_ENROLL_FAILURE:
         case a.GET_UNENROLL_FAILURE:
         case a.GET_EVENT_IMAGE_FAILURE:
+        case a.GET_UPDATE_EVENT_PICS_FAILURE:
         case a.GET_VOTE_FAILURE:
             return { ...state, error: true};
 

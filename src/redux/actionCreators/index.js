@@ -286,6 +286,29 @@ export const updateEventImage = (image,id) => {
     }
 };
 
+export const updateEventPics = (image,id) => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_UPDATE_EVENT_PICS_REQUEST
+        });
+        try {
+            const result = await axios.post(`${Constants.BASE_URL}${Constants.EVENT_PICS}`,{image: image.location, id: id});
+            const event = await result;
+            dispatch(getLogs());
+            dispatch({
+                type: t.GET_UPDATE_EVENT_PICS_SUCCESS,
+                payload: event.data.event
+            });
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_UPDATE_EVENT_PICS_FAILURE,
+                error: err
+            })
+        }
+    }
+};
+
 export const createComment = (text, author, id) => {
     return async dispatch => {
         dispatch({

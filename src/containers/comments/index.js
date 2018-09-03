@@ -32,7 +32,7 @@ class CommentsContainer extends Component {
                     commentsLoading
                             ? <p>Loading comments...</p>
                         :
-                        <div className='mt-4 py-4 px-4'>
+                        <div className='px-4'>
                             <h3>Comments</h3>
                             {
                                 comments.length === 0

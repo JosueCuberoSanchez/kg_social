@@ -20,6 +20,7 @@ import EventForm from '../../components/forms/event-form/';
 import CommentForm from '../../components/forms/comment-form/';
 import CommentsContainer from '../../containers/comments/';
 import EventAttendees from '../../components/event-attendees/';
+import EventImages from '../../components/event-images/';
 
 // Filters
 import * as filters from '../../helpers/filters';
@@ -91,6 +92,12 @@ class EventContainer extends Component {
         S3FileUpload.uploadFile(file, s3.config).then(data => {
             this.props.updateEventImage(data, this.props.id);
             this.setState({files: []});
+        }).catch(err => console.error(err));
+    };
+
+    submitEventPic = (file) => {
+        S3FileUpload.uploadFile(file, s3.config).then(data => {
+            this.props.updateEventPics(data, this.props.id);
         }).catch(err => console.error(err));
     };
 
@@ -216,20 +223,26 @@ class EventContainer extends Component {
                         </Row>
                 </Container>
                 <Container fluid={true}>
-                    <Row>
-                        <Col xs='12' sm='12' md='12' lg='12'>
-                            <CommentsContainer id={this.props.id}/>
+                    <Row className='mt-4 py-4'>
+                        <Col xs='12' sm='7' md='7' lg='7'>
+                            <EventImages images={event.images} upload={this.submitEventPic}/>
                         </Col>
+                        <Col xs='12' sm='5' md='5' lg='5'>
+                        <Row>
+                            <Col xs='12' sm='12' md='12' lg='12'>
+                                <CommentsContainer id={this.props.id}/>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs='12' sm='12' md='12' lg='12'>
+                                <div className='event__comment-box mt-4 p-4'>
+                                    <h4>Write a comment</h4>
+                                    <CommentForm onSubmit={this.submitComment}/>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Col>
                     </Row>
-                    <Row>
-                        <Col xs='12' sm='12' md='12' lg='12'>
-                            <div className='event__comment-box mt-4 p-4'>
-                                <h4>Write a comment</h4>
-                                <CommentForm onSubmit={this.submitComment}/>
-                            </div>
-                        </Col>
-                    </Row>
-
 
                     <Modal isOpen={this.state.imageModal} toggle={this.toggleImageModal}
                            className={this.props.className}>
@@ -300,6 +313,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         updateEventImage: (values, id) => dispatch(actions.updateEventImage(values, id)),
+        updateEventPics: (values, id) => dispatch(actions.updateEventPics(values, id)),
         getEvent: (filter, id) => dispatch(actions.getEvent(filter, id)),
         createComment: (comment, author, id) => dispatch(actions.createComment(comment, author, id)),
         updateEvent: (values, id) => dispatch(actions.updateEvent(values, id)),
