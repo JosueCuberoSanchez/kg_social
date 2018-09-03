@@ -7,7 +7,7 @@ const ReduxFormReducer = formReducer.plugin({
                 case a.GET_CREATE_COMMENT_SUCCESS:
                     return undefined;       // <--- blow away form data
                 default:
-                    return state;
+                    return { ...state };
             }
         }});
 

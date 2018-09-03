@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 
 // Reactstrap
-import {Container, Row, Col} from 'reactstrap';
+import {Container, Row, Col, Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 //Redux
 import { reduxForm } from 'redux-form'
@@ -27,13 +27,14 @@ import { isEmpty } from "../../helpers/functions";
 
 // Font awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import UpdateProfileForm from "../../components/forms/update-profile-form";
 
 class ProfileContainer extends Component {
 
     constructor(props) {
         super(props);
 
-        this.state = {user: JSON.parse(localStorage.getItem('user')), ownProfile: false}
+        this.state = {user: JSON.parse(localStorage.getItem('user')), ownProfile: false, dataModal: false}
     }
 
     componentDidMount() {
@@ -57,11 +58,12 @@ class ProfileContainer extends Component {
     };
 
     toggleDataModal = () => {
-        console.log('Data modal');
+        this.setState({dataModal: !this.state.dataModal});
     };
 
-    submit = (values) => {
-        //this.props.login(values);
+    submitData = (values) => {
+        this.props.updateUser(values, this.state.user.id);
+        this.toggleDataModal();
     };
 
     render() {
@@ -129,6 +131,12 @@ class ProfileContainer extends Component {
                                                     : null
                                             }
                                         </div>
+                                        <Modal isOpen={this.state.dataModal} toggle={this.toggleDataModal} className={this.props.className}>
+                                            <ModalHeader toggle={this.toggleDataModal}>Change event photo</ModalHeader>
+                                            <ModalBody className='event__modal-body'>
+                                                <UpdateProfileForm onSubmit={this.submitData} toggleDataModal={this.toggleDataModal} user={user}/>
+                                            </ModalBody>
+                                        </Modal>
                                     </Col>
                                 </Row>
                             </Col>
@@ -150,7 +158,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getUser: (username) => dispatch(actions.getUser(username))
+        getUser: (username) => dispatch(actions.getUser(username)),
+        updateUser: (values, id) => dispatch(actions.updateUser(values, id))
     };
 };
 

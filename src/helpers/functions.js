@@ -30,7 +30,7 @@ export const getFirstAttendees = (attendees) => {
         case 1:
             return <ul className='list-unstyled list-inline'>
                 <li className='list-inline-item event__attendee'>
-                    <Link to={`profile/${attendees[0].username}`}>
+                    <Link to={`/profile/${attendees[0].username}`}>
                         <img src={attendees[0].image} alt={`${attendees[0].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
@@ -38,12 +38,12 @@ export const getFirstAttendees = (attendees) => {
         case 2:
             return <ul className='list-unstyled list-inline'>
                 <li className='list-inline-item event__attendee'>
-                    <Link to={`profile/${attendees[0].username}`}>
+                    <Link to={`/profile/${attendees[0].username}`}>
                         <img src={attendees[0].image} alt={`${attendees[0].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
                 <li className='list-inline-item event__attendee'>
-                    <Link to={`profile/${attendees[1].username}`}>
+                    <Link to={`/profile/${attendees[1].username}`}>
                         <img src={attendees[1].image} alt={`${attendees[1].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
@@ -51,17 +51,17 @@ export const getFirstAttendees = (attendees) => {
         case 3:
             return <ul className='list-unstyled list-inline'>
                 <li className='list-inline-item event__attendee'>
-                    <Link to={`profile/${attendees[0].username}`}>
+                    <Link to={`/profile/${attendees[0].username}`}>
                         <img src={attendees[0].image} alt={`${attendees[0].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
                 <li className='list-inline-item event__attendee'>
-                    <Link to={`profile/${attendees[1].username}`}>
+                    <Link to={`/profile/${attendees[1].username}`}>
                         <img src={attendees[1].image} alt={`${attendees[1].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
                 <li className='list-inline-item event__attendee'>
-                    <Link to={`profile/${attendees[2].username}`}>
+                    <Link to={`/profile/${attendees[2].username}`}>
                         <img src={attendees[2].image} alt={`${attendees[2].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
@@ -69,22 +69,22 @@ export const getFirstAttendees = (attendees) => {
         case 4:
             return <ul className='list-unstyled list-inline'>
                 <li className='list-inline-item event__attendee'>
-                    <Link to={`profile/${attendees[0].username}`}>
+                    <Link to={`/profile/${attendees[0].username}`}>
                         <img src={attendees[0].image} alt={`${attendees[0].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
                 <li className='list-inline-item event__attendee'>
-                    <Link to={`profile/${attendees[1].username}`}>
+                    <Link to={`/profile/${attendees[1].username}`}>
                         <img src={attendees[1].image} alt={`${attendees[1].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
                 <li className='list-inline-item event__attendee'>
-                    <Link to={`profile/${attendees[2].username}`}>
+                    <Link to={`/profile/${attendees[2].username}`}>
                         <img src={attendees[2].image} alt={`${attendees[2].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
                 <li className='list-inline-item event__attendee'>
-                    <Link to={`profile/${attendees[3].username}`}>
+                    <Link to={`/profile/${attendees[3].username}`}>
                         <img src={attendees[3].image} alt={`${attendees[3].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
@@ -93,27 +93,27 @@ export const getFirstAttendees = (attendees) => {
         default:
             return <ul className='list-unstyled list-inline'>
                 <li className='list-inline-item event__attendee'>
-                    <Link to={`profile/${attendees[0].username}`}>
+                    <Link to={`/profile/${attendees[0].username}`}>
                         <img src={attendees[0].image} alt={`${attendees[0].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
                 <li className='list-inline-item event__attendee'>
-                    <Link to={`profile/${attendees[1].username}`}>
+                    <Link to={`/profile/${attendees[1].username}`}>
                         <img src={attendees[1].image} alt={`${attendees[1].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
                 <li className='list-inline-item event__attendee'>
-                    <Link to={`profile/${attendees[2].username}`}>
+                    <Link to={`/profile/${attendees[2].username}`}>
                         <img src={attendees[2].image} alt={`${attendees[2].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
                 <li className='list-inline-item event__attendee'>
-                    <Link to={`profile/${attendees[3].username}`}>
+                    <Link to={`/profile/${attendees[3].username}`}>
                         <img src={attendees[3].image} alt={`${attendees[3].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
                 <li className='list-inline-item event__attendee'>
-                    <Link to={`profile/${attendees[4].username}`}>
+                    <Link to={`/profile/${attendees[4].username}`}>
                         <img src={attendees[4].image} alt={`${attendees[4].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>

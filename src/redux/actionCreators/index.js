@@ -36,18 +36,18 @@ export const login = (credentials) => {
 export const signup = (credentials) => {
     return async dispatch => {
         dispatch({
-            type: t.GET_SIGNUP_REQUEST
+            type: t.GET_CREATE_USER_REQUEST
         });
         try {
-            await axios.post(`${Constants.BASE_URL}${Constants.SIGNUP}`, credentials);
+            await axios.post(`${Constants.BASE_URL}${Constants.USER}`, credentials);
             dispatch({
-                type: t.GET_SIGNUP_SUCCESS,
+                type: t.GET_CREATE_USER_SUCCESS,
                 payload: null
             })
         } catch (err) {
             // Update error in reducer on failure
             dispatch({
-                type: t.GET_SIGNUP_FAILURE,
+                type: t.GET_CREATE_USER_FAILURE,
                 error: err
             })
         }
@@ -403,28 +403,6 @@ export const getLogs = () => {
     }
 };
 
-export const getAttendees = (id) => {
-    return async dispatch => {
-        dispatch({
-            type: t.GET_ATTENDEES_REQUEST
-        });
-        try {
-            const result = await axios.get(`${Constants.BASE_URL}${Constants.ATTENDEES}`, {params: {id: id}});
-            const attendees = await result;
-            dispatch({
-                type: t.GET_ATTENDEES_SUCCESS,
-                payload: attendees.data.attendees
-            });
-        } catch (err) {
-            // Update error in reducer on failure
-            dispatch({
-                type: t.GET_ATTENDEES_FAILURE,
-                error: err
-            })
-        }
-    }
-};
-
 export const getNumberOfAttendees = async (id) => {
     try {
         const result = await axios.get(`${Constants.BASE_URL}${Constants.ATTENDEES}`, {params: {id: id}});
@@ -485,6 +463,31 @@ export const getUser = (username) => {
             // Update error in reducer on failure
             dispatch({
                 type: t.GET_USER_FAILURE,
+                error: err
+            })
+        }
+    }
+};
+
+export const updateUser = (values, id) => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_UPDATE_USER_INFO_REQUEST
+        });
+        try {
+            const result = await axios.put(`${Constants.BASE_URL}${Constants.USER}`, {values: values, id: id});
+            const user = await result;
+            localStorage.removeItem('user');
+            localStorage.setItem('user', JSON.stringify(user.data));
+
+            dispatch({
+                type: t.GET_UPDATE_USER_INFO_SUCCESS,
+                payload: user.data
+            })
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_UPDATE_USER_INFO_FAILURE,
                 error: err
             })
         }

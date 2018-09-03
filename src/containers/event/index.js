@@ -52,6 +52,12 @@ class EventContainer extends Component {
         this.props.getEvent(filters.ID, id); // Get event info
     }
 
+    componentWillReceiveProps(nextProps) {
+        const { id } = this.props;
+        if(nextProps.id !== id)
+            this.props.getEvent(filters.ID, nextProps.id); // Get event info
+    }
+
     toggleImageModal = () => {
         this.setState({imageModal: !this.state.imageModal});
         if (this.state.imageModal && this.state.files.length > 0)
@@ -154,6 +160,7 @@ class EventContainer extends Component {
                                                 <p className='event__date--day mb-0npo'>{getEventDay(event)}</p>
                                                 <p className='event__date--month'>{getEventMonth(event)}</p>
                                                 <p className='event__location mt-4'>{event.location}</p>
+                                                <p className='event__description mt-4'>{event.description}</p>
                                             </div>
                                         </Col>
                                         <Col xs='12' sm='8' md='8' lg='8' className='mb-4'>
@@ -222,6 +229,8 @@ class EventContainer extends Component {
                             </div>
                         </Col>
                     </Row>
+
+
                     <Modal isOpen={this.state.imageModal} toggle={this.toggleImageModal}
                            className={this.props.className}>
                         <ModalHeader toggle={this.toggleImageModal}>Change event photo</ModalHeader>
@@ -244,6 +253,8 @@ class EventContainer extends Component {
                             <button onClick={this.toggleImageModal}>Cancel</button>
                         </ModalFooter>
                     </Modal>
+
+
                     <Modal isOpen={this.state.dataModal} toggle={this.toggleDataModal} className={this.props.className}>
                         <ModalHeader toggle={this.toggleDataModal}>Change event photo</ModalHeader>
                         <ModalBody className='event__modal-body'>
@@ -251,12 +262,16 @@ class EventContainer extends Component {
                                        event={event}/>
                         </ModalBody>
                     </Modal>
+
+
                     <Modal isOpen={this.state.attendeesModal} toggle={this.toggleAttendeesModal} className={this.props.className}>
                         <ModalHeader toggle={this.toggleAttendeesModal}>Event attendees</ModalHeader>
                         <ModalBody>
                             <EventAttendees attendees={attendees}/>
                         </ModalBody>
                     </Modal>
+
+
                     <Modal isOpen={this.state.voteModal} toggle={this.toggleVoteModal} className={this.props.className}>
                         <ModalHeader toggle={this.toggleVoteModal}>Please rate this event</ModalHeader>
                         <ModalBody className='d-flex justify-content-center'>
@@ -268,6 +283,8 @@ class EventContainer extends Component {
                             <button onClick={this.toggleVoteModal}>Cancel</button>
                         </ModalFooter>
                     </Modal>
+
+
                 </Container>
             </main>
         );

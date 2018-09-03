@@ -16,7 +16,7 @@ const LogItem = ({log}) => {
 
     return (
         <li className='mb-3 log-item'>
-            <Link to={`${log.link}`}>
+            <Link to={`/${log.link}`} replace>
                 <article className='p-2'>
                     <Row>
                         <Col xs='3' sm='3' md='3' lg='3' className='pr-0'>

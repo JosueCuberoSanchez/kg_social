@@ -27,7 +27,7 @@ const CommentReducer = (state = INITIAL_STATE, action) => {
             return { ...state, commentsError: true };
         // Default
         default:
-            return state;
+            return { ... state };
     }
 };
 

@@ -15,7 +15,7 @@ const LogReducer = (state = INITIAL_STATE, action) => {
         case a.GET_LOG_FAILURE:
             return { ...state, error: true };
         default:
-            return state;
+            return { ...state };
     }
 };
 

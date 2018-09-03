@@ -46,7 +46,7 @@ library.add(faUser, faSignOutAlt, faUserCog, faCalendar, faCalendarAlt,
 const App = () => {
     return (
         <Provider store={store}>
-            <BrowserRouter>
+            <BrowserRouter basename='/'>
                     <Switch>
                         <Route exact path='/' component={Login} />
                         <Route exact path='/signup' component={SignUp} />
