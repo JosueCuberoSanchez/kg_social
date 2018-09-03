@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component } from 'react';
 
 // Redux
 import {connect} from 'react-redux';
@@ -6,21 +6,27 @@ import * as actions from '../../redux/actionCreators';
 
 // Styles
 import './event.scss';
-import dnd from '../../assets/img/dnd.png';
 
 // Router
 import {Redirect} from 'react-router-dom';
 
 // Reactstrap
-import {Container, Row, Col, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import {Container, Row, Col } from 'reactstrap';
 
 // Components
 import Aside from '../aside';
-import EventForm from '../../components/forms/event-form/';
 import CommentForm from '../../components/forms/comment-form/';
 import CommentsContainer from '../../containers/comments/';
-import EventAttendees from '../../components/event-attendees/';
 import EventImages from '../../components/event-images/';
+import EventHeader from '../../components/event-header/';
+import EventBody from '../../components/event-body/';
+import EventFooter from '../../components/event-footer/';
+
+// Modals
+import ImageModal from "../../components/modals/image-modal";
+import EditEventModal from '../../components/modals/edit-event-modal';
+import AttendeesModal from '../../components/modals/attendees-modal';
+import VoteEventModal from '../../components/modals/vote-event-modal';
 
 // Filters
 import * as filters from '../../helpers/filters';
@@ -28,13 +34,6 @@ import * as filters from '../../helpers/filters';
 // Amazon S3
 import S3FileUpload from 'react-s3';
 import * as s3 from '../../private/aws';
-import ReactDropzone from 'react-dropzone';
-
-// Helpers
-import { getFirstAttendees, getEventDay, getEventDate, getEventMonth, getEventRating } from '../../helpers/functions';
-
-// Rating
-import Rating from "react-rating";
 
 class EventContainer extends Component {
 
@@ -132,9 +131,6 @@ class EventContainer extends Component {
         if (eventLoading || eventLoading === undefined)
             return (<p>Loading...</p>);
 
-        const starFull = require('../../assets/img/star-full.png');
-        const starEmpty = require('../../assets/img/star-empty.png');
-
         return (
             <main className='event'>
                 <h1 className='sr-only'>{event.title} page</h1>
@@ -142,79 +138,12 @@ class EventContainer extends Component {
                         <Row>
                             <Col xs='12' sm='12' md='9' lg='9' className='mt-5'>
                                 <article className='p-3 event__info'>
-                                    {
-                                        event.owner === this.state.user.username
-                                            ? <div className='d-flex justify-content-between'>
-                                                <div/>
-                                                <button onClick={this.toggleDataModal}>Edit event info</button>
-                                            </div>
-                                            : null
-                                    }
-                                    <Row className='mb-4 mt-2 pt-4'>
-                                        <Col xs='12' sm='12' md='7' lg='7'>
-                                            <h2 className='event__title'><strong>{event.title}</strong></h2>
-                                        </Col>
-                                        <Col xs='12' sm='12' md='5' lg='5'>
-                                            <Rating initialRating={getEventRating(event)} readonly className='event__stars'
-                                                    emptySymbol={<img src={starEmpty} className="icon" />}
-                                                    fullSymbol={<img src={starFull} className="icon" />}/>
-                                        </Col>
-                                    </Row>
-                                    <Row className='event__main-content'>
-                                        <Col xs='12' sm='4' md='4' lg='4' className='mb-4'>
-                                            <div className='event__date h-100 p-2'>
-                                                <p className='event__date--date mb-0'>{getEventDate(event)}</p>
-                                                <p className='event__date--day mb-0npo'>{getEventDay(event)}</p>
-                                                <p className='event__date--month'>{getEventMonth(event)}</p>
-                                                <p className='event__location mt-4'>{event.location}</p>
-                                                <p className='event__description mt-4'>{event.description}</p>
-                                            </div>
-                                        </Col>
-                                        <Col xs='12' sm='8' md='8' lg='8' className='mb-4'>
-                                            <img src={event.image} className='d-block mx-auto w-100 h-100' alt={`${event.title} main photo`}/>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col xs='12' sm='12' md='12' lg='12'>
-                                            <Row>
-                                                <Col xs='12' sm='4' md='4' lg='4' className='order-sm-2 order-1'>
-                                                    <div className='float-right event__edit-img-container mb-4'>
-                                                        {
-                                                            event.owner === this.state.user.username
-                                                                ? <button onClick={this.toggleImageModal}>Edit event
-                                                                    photo</button>
-                                                                : null
-                                                        }
-                                                    </div>
-                                                </Col>
-                                                <Col xs='12' sm='8' md='8' lg='8' className='order-sm-1 order-2'>
-                                                    <p className='mb-4'>{event.hashtags}</p>
-                                                </Col>
-                                            </Row>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col xs='12' sm='12' md='12' lg='12'>
-                                            <Row>
-                                                <Col xs='12' sm='8' md='8' lg='8' className='mb-3'>
-                                                    <p>Attendees:</p>
-                                                    {getFirstAttendees(attendees)}
-                                                    <button onClick={this.toggleAttendeesModal} className='event__attendees-btn pt-0 pb-3'>...</button>
-                                                </Col>
-                                                <Col xs='12' sm='4' md='4' lg='4' className='mb-3'>
-                                                    <div className='float-right'>
-                                                        {
-                                                            event.owner === this.state.user.username
-                                                                ? null
-                                                                : this.checkEnroll(attendees)
-                                                                ? <button onClick={this.unenrollToEvent}>Unenroll!</button>
-                                                                : <button onClick={this.enrollToEvent}>Enroll!</button>
-                                                        }
-                                                    </div>
-                                                </Col>
-                                            </Row>
-                                        </Col>
-                                    </Row>
+                                    <EventHeader owner={event.owner} username={this.state.user.username} toggle={this.toggleDataModal}
+                                        title={event.title} stars={event.stars} votes={event.votes} />
+                                    <EventBody date={event.date} location={event.location} description={event.description} image={event.image} />
+                                    <EventFooter owner={event.owner} username={this.state.user.username} toggleImageModal={this.toggleImageModal}
+                                                 hashtags={event.hashtags} attendees={attendees} toggleAttendeesModal={this.toggleAttendeesModal}
+                                                 enroll={this.enrollToEvent} unenrroll={this.unenrollToEvent} checkEnroll={this.checkEnroll}/>
                                 </article>
                             </Col>
                             <Col xs='12' sm='12' md='3' lg='3'>
@@ -243,62 +172,12 @@ class EventContainer extends Component {
                         </Row>
                     </Col>
                     </Row>
-
-                    <Modal isOpen={this.state.imageModal} toggle={this.toggleImageModal}
-                           className={this.props.className}>
-                        <ModalHeader toggle={this.toggleImageModal}>Change event photo</ModalHeader>
-                        <ModalBody className='event__modal-body'>
-                            <ReactDropzone accept='image/*' onDrop={this.onPreviewDrop}>
-                                <img src={dnd} className='d-block mx-auto w-75'/>
-                            </ReactDropzone>
-                            {this.state.files.length > 0 &&
-                            <Fragment>
-                                <h3 className='text-center'>Preview</h3>
-                                {this.state.files.map((file) => (
-                                    <img alt='Preview' key={file.preview} src={file.preview}
-                                         className='d-block mx-auto event__preview-img'/>
-                                ))}
-                            </Fragment>
-                            }
-                        </ModalBody>
-                        <ModalFooter>
-                            <button onClick={this.toggleImageModal}>Update</button>{' '}
-                            <button onClick={this.toggleImageModal}>Cancel</button>
-                        </ModalFooter>
-                    </Modal>
-
-
-                    <Modal isOpen={this.state.dataModal} toggle={this.toggleDataModal} className={this.props.className}>
-                        <ModalHeader toggle={this.toggleDataModal}>Change event photo</ModalHeader>
-                        <ModalBody className='event__modal-body'>
-                            <EventForm onSubmit={this.submitData} update={true} toggleDataModal={this.toggleDataModal}
-                                       event={event}/>
-                        </ModalBody>
-                    </Modal>
-
-
-                    <Modal isOpen={this.state.attendeesModal} toggle={this.toggleAttendeesModal} className={this.props.className}>
-                        <ModalHeader toggle={this.toggleAttendeesModal}>Event attendees</ModalHeader>
-                        <ModalBody>
-                            <EventAttendees attendees={attendees}/>
-                        </ModalBody>
-                    </Modal>
-
-
-                    <Modal isOpen={this.state.voteModal} toggle={this.toggleVoteModal} className={this.props.className}>
-                        <ModalHeader toggle={this.toggleVoteModal}>Please rate this event</ModalHeader>
-                        <ModalBody className='d-flex justify-content-center'>
-                            <Rating initialRating={0} onChange={this.submitVoteStars}
-                                    emptySymbol={<img src={starEmpty} className="icon event__vote-stars" />}
-                                    fullSymbol={<img src={starFull} className="icon event__vote-stars" />}/>
-                        </ModalBody>
-                        <ModalFooter>
-                            <button onClick={this.toggleVoteModal}>Cancel</button>
-                        </ModalFooter>
-                    </Modal>
-
-
                 </Container>
+
+                <ImageModal isOpen={this.state.imageModal} toggle={this.toggleImageModal} className={this.props.className} files={this.state.files} onPreviewDrop={this.onPreviewDrop}/>
+                <EditEventModal isOpen={this.state.dataModal} toggle={this.toggleDataModal} className={this.props.className} submitData={this.submitData} event={event} />
+                <AttendeesModal isOpen={this.state.attendeesModal} toggle={this.toggleAttendeesModal} className={this.props.className} attendees={attendees} />
+                <VoteEventModal isOpen={this.state.voteModal} toggle={this.toggleVoteModal} className={this.props.className} submit={this.submitVoteStars} />
             </main>
         );
     }

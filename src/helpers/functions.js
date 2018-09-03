@@ -29,7 +29,7 @@ export const getFirstAttendees = (attendees) => {
     switch (attendees.length) {
         case 1:
             return <ul className='list-unstyled list-inline'>
-                <li className='list-inline-item event__attendee'>
+                <li className='list-inline-item event-footer__attendee'>
                     <Link to={`/profile/${attendees[0].username}`}>
                         <img src={attendees[0].image} alt={`${attendees[0].username} profile picture`} className='w-100'/>
                     </Link>
@@ -37,12 +37,12 @@ export const getFirstAttendees = (attendees) => {
             </ul>;
         case 2:
             return <ul className='list-unstyled list-inline'>
-                <li className='list-inline-item event__attendee'>
+                <li className='list-inline-item event-footer__attendee'>
                     <Link to={`/profile/${attendees[0].username}`}>
                         <img src={attendees[0].image} alt={`${attendees[0].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
-                <li className='list-inline-item event__attendee'>
+                <li className='list-inline-item event-footer__attendee'>
                     <Link to={`/profile/${attendees[1].username}`}>
                         <img src={attendees[1].image} alt={`${attendees[1].username} profile picture`} className='w-100'/>
                     </Link>
@@ -50,17 +50,17 @@ export const getFirstAttendees = (attendees) => {
             </ul>;
         case 3:
             return <ul className='list-unstyled list-inline'>
-                <li className='list-inline-item event__attendee'>
+                <li className='list-inline-item event-footer__attendee'>
                     <Link to={`/profile/${attendees[0].username}`}>
                         <img src={attendees[0].image} alt={`${attendees[0].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
-                <li className='list-inline-item event__attendee'>
+                <li className='list-inline-item event-footer__attendee'>
                     <Link to={`/profile/${attendees[1].username}`}>
                         <img src={attendees[1].image} alt={`${attendees[1].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
-                <li className='list-inline-item event__attendee'>
+                <li className='list-inline-item event-footer__attendee'>
                     <Link to={`/profile/${attendees[2].username}`}>
                         <img src={attendees[2].image} alt={`${attendees[2].username} profile picture`} className='w-100'/>
                     </Link>
@@ -68,22 +68,22 @@ export const getFirstAttendees = (attendees) => {
             </ul>;
         case 4:
             return <ul className='list-unstyled list-inline'>
-                <li className='list-inline-item event__attendee'>
+                <li className='list-inline-item event-footer__attendee'>
                     <Link to={`/profile/${attendees[0].username}`}>
                         <img src={attendees[0].image} alt={`${attendees[0].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
-                <li className='list-inline-item event__attendee'>
+                <li className='list-inline-item event-footer__attendee'>
                     <Link to={`/profile/${attendees[1].username}`}>
                         <img src={attendees[1].image} alt={`${attendees[1].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
-                <li className='list-inline-item event__attendee'>
+                <li className='list-inline-item event-footer__attendee'>
                     <Link to={`/profile/${attendees[2].username}`}>
                         <img src={attendees[2].image} alt={`${attendees[2].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
-                <li className='list-inline-item event__attendee'>
+                <li className='list-inline-item event-footer__attendee'>
                     <Link to={`/profile/${attendees[3].username}`}>
                         <img src={attendees[3].image} alt={`${attendees[3].username} profile picture`} className='w-100'/>
                     </Link>
@@ -92,27 +92,27 @@ export const getFirstAttendees = (attendees) => {
         case 5:
         default:
             return <ul className='list-unstyled list-inline'>
-                <li className='list-inline-item event__attendee'>
+                <li className='list-inline-item event-footer__attendee'>
                     <Link to={`/profile/${attendees[0].username}`}>
                         <img src={attendees[0].image} alt={`${attendees[0].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
-                <li className='list-inline-item event__attendee'>
+                <li className='list-inline-item event-footer__attendee'>
                     <Link to={`/profile/${attendees[1].username}`}>
                         <img src={attendees[1].image} alt={`${attendees[1].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
-                <li className='list-inline-item event__attendee'>
+                <li className='list-inline-item event-footer__attendee'>
                     <Link to={`/profile/${attendees[2].username}`}>
                         <img src={attendees[2].image} alt={`${attendees[2].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
-                <li className='list-inline-item event__attendee'>
+                <li className='list-inline-item event-footer__attendee'>
                     <Link to={`/profile/${attendees[3].username}`}>
                         <img src={attendees[3].image} alt={`${attendees[3].username} profile picture`} className='w-100'/>
                     </Link>
                 </li>
-                <li className='list-inline-item event__attendee'>
+                <li className='list-inline-item event-footer__attendee'>
                     <Link to={`/profile/${attendees[4].username}`}>
                         <img src={attendees[4].image} alt={`${attendees[4].username} profile picture`} className='w-100'/>
                     </Link>
@@ -121,10 +121,10 @@ export const getFirstAttendees = (attendees) => {
     }
 };
 
-export const getEventDate = (event) => { return new Date(event.date).getDate(); };
+export const getEventDate = (date) => { return new Date(date).getDate(); };
 
-export const getEventDay = (event) => {
-    switch (new Date(event.date).getDay()) {
+export const getEventDay = (date) => {
+    switch (new Date(date).getDay()) {
         case 1: return 'Monday';
         case 2: return 'Tuesday';
         case 3: return 'Wednesday';
@@ -135,8 +135,8 @@ export const getEventDay = (event) => {
     }
 };
 
-export const getEventMonth = (event) => {
-    switch (new Date(event.date).getMonth()+1) {
+export const getEventMonth = (date) => {
+    switch (new Date(date).getMonth()+1) {
         case 1: return 'January';
         case 2: return 'February';
         case 3: return 'March';
@@ -187,8 +187,8 @@ const getMinuteDifference = (eventDate, now) => {
     return `${minDiff} minutes ago.`
 };
 
-export const getEventRating = (event) => {
-    if(event.votes === 0)
+export const getEventRating = (votes, stars) => {
+    if(votes === 0)
         return 0;
-    return Math.floor(event.stars / event.votes);
+    return Math.floor(stars / votes);
 };

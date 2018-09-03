@@ -66,7 +66,7 @@ class EventItemContainer extends Component {
                                                     <p className='mb-0'>{event.title}</p>
                                                 </Col>
                                                 <Col xs='12' sm='5' md='12' lg='5'>
-                                                    <Rating initialRating={getEventRating(event)} readonly
+                                                    <Rating initialRating={getEventRating(event.votes, event.stars)} readonly
                                                             className='event-item__stars'
                                                             emptySymbol={<img src={starEmpty} className="icon"/>}
                                                             fullSymbol={<img src={starFull} className="icon"/>}/>

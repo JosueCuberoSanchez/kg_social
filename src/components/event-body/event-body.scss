@@ -1,0 +1,31 @@
+@import '../../assets/scss/variables';
+
+.event-body {
+
+  &__date {
+    background-color: $date-box-color;
+  }
+
+  &__date--date {
+    font-size: 4rem;
+    color: $anchor-color !important;
+  }
+
+  &__date--day {
+    font-size: 1.8rem;
+  }
+
+  &__date--month {
+    font-size: 1.5rem;
+  }
+
+  &__location {
+    font-size: 1.2rem;
+    color: $anchor-color;
+  }
+
+  &__description {
+    font-size: 1rem;
+    color: $anchor-color;
+  }
+}

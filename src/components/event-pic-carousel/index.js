@@ -9,7 +9,7 @@ import { map } from 'ramda';
 // Styles
 import './event-pic-carousel.scss';
 
-const imageCreator = image => <div key={event.title}><img src={image} alt='Event image' className='carousel__image'/></div>;
+const imageCreator = image => <div key={image}><img src={image} alt='Event image' className='carousel__image'/></div>;
 
 const EventPicCarousel = ({images}) => {
 

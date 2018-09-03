@@ -42,8 +42,6 @@ class DashboardContainer extends Component {
 
     search = (searchTerm) => {
         this.setState({searchTerm: searchTerm});
-        if (searchTerm.length > 1)
-            console.log('HUE');
     };
 
     eventCreator = event => <EventItemContainer key={event.title} event={event} filter={this.state.searchTerm}/>;

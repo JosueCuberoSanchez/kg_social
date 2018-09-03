@@ -1,0 +1,22 @@
+.event-footer {
+
+  &__attendees-btn {
+    height: 20%;
+  }
+
+  &__attendee {
+    width: 7%;
+  }
+}
+
+// media queries for responsiveness
+@media screen and (max-width: 578px) {
+
+  .event-footer {
+
+    &__edit-img-container {
+      float: none !important;
+      text-align: center;
+    }
+  }
+}
