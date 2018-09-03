@@ -1,11 +1,11 @@
 import React from 'react';
 
 // Reactstrap
-import { Row, Col } from "reactstrap";
+import { Row, Col } from 'reactstrap';
 
 // Helpers
-import Rating from "react-rating";
-import {getEventRating} from "../../helpers/functions";
+import Rating from 'react-rating';
+import {getEventRating} from '../../helpers/functions';
 
 // Styles
 import './event-header.scss';
@@ -30,8 +30,8 @@ const EventHeader = ({owner, username, toggle, title, votes, stars }) => {
             </Col>
             <Col xs='12' sm='12' md='4' lg='4'>
                 <Rating initialRating={getEventRating(votes, stars)} readonly className='event-header__stars'
-                        emptySymbol={<img src={starEmpty} className="icon" />}
-                        fullSymbol={<img src={starFull} className="icon" />}/>
+                        emptySymbol={<img src={starEmpty} className='icon' />}
+                        fullSymbol={<img src={starFull} className='icon' />}/>
             </Col>
         </Row>
     </div>);

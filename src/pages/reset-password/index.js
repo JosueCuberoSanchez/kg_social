@@ -5,7 +5,7 @@
 
 import React, { Component } from 'react';
 
-import ResetPasswordContainer from "../../containers/reset-password/";
+import ResetPasswordContainer from '../../containers/reset-password/';
 
 class ResetPassword extends Component{
 

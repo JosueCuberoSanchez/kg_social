@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import CreateEventContainer from "../../containers/createEvent/";
+import CreateEventContainer from '../../containers/createEvent/';
 
 let CreateEvent = ()  => {
 

@@ -1,10 +1,10 @@
 import React from 'react';
 
 // Reactstrap
-import { ModalHeader, ModalBody, Modal } from "reactstrap";
+import { ModalHeader, ModalBody, Modal } from 'reactstrap';
 
 // Components
-import EventAttendees from "../../event-attendees";
+import EventAttendees from '../../event-attendees';
 
 const AttendeesModal = ({isOpen, toggle, className, attendees}) => {
     return(

@@ -26,9 +26,6 @@ import Login from './pages/login/';
 import SignUp from './pages/signup/';
 import Dashboard from './pages/dashboard';
 import CreateEvent from './pages/createEvent';
-import MyEvents from './pages/my-events';
-import EnrolledEvents from './pages/enrolled-events';
-import TopEvents from './pages/top-events';
 import Event from './pages/event';
 import Profile from './pages/profile';
 import VerifyAccount from './pages/verify-account';
@@ -37,11 +34,9 @@ import ResetPassword from './pages/reset-password';
 
 // Font awesome
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faUser, faSignOutAlt, faUserCog, faCalendar, faCalendarAlt, faCalendarMinus,
-    faCalendarCheck, faCalendarPlus, faEdit, faPencilAlt, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faSignOutAlt, faUserCog, faCalendar, faCalendarAlt, faCalendarMinus, faCalendarCheck, faCalendarPlus, faEdit, faPencilAlt, faStar } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
-library.add(faUser, faSignOutAlt, faUserCog, faCalendar, faCalendarAlt,
-    faCalendarMinus, faCalendarCheck, faCalendarPlus, faEdit, faPencilAlt, faStar, fab);
+library.add(faUser, faSignOutAlt, faUserCog, faCalendar, faCalendarAlt, faCalendarMinus, faCalendarCheck, faCalendarPlus, faEdit, faPencilAlt, faStar, fab);
 
 const App = () => {
     return (
@@ -50,10 +45,7 @@ const App = () => {
                     <Switch>
                         <Route exact path='/' component={Login} />
                         <Route exact path='/signup' component={SignUp} />
-                        <Route exact path='/dashboard' component={includeNavs(Dashboard)} />
-                        <Route exact path='/myEvents' component={includeNavs(MyEvents)} />
-                        <Route exact path='/enrolledEvents' component={includeNavs(EnrolledEvents)} />
-                        <Route exact path='/topEvents' component={includeNavs(TopEvents)} />
+                        <Route exact path='/dashboard/:filter' component={includeNavs(withRouter(Dashboard))} />
                         <Route exact path='/createEvent' component={includeNavs(CreateEvent)} />
                         <Route exact path='/event/:id' component={includeNavs(withRouter(Event))}/>
                         <Route exact path='/profile/:username' component={includeNavs(withRouter(Profile))} />

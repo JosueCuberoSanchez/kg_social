@@ -1,10 +1,10 @@
 import React from 'react';
 
 // Reactstrap
-import { ModalHeader, ModalBody, Modal } from "reactstrap";
+import { ModalHeader, ModalBody, Modal } from 'reactstrap';
 
 // Components
-import EventForm from "../../forms/event-form";
+import EventForm from '../../forms/event-form';
 
 // Styles
 

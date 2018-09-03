@@ -1,14 +1,11 @@
-import React from "react";
+import React from 'react';
 
 // Components
-import Header from "../containers/header";
-import Footer from "../components/footer";
-
-// Font awesome
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import Header from '../containers/header';
+import Footer from '../components/footer';
 
 // Helpers
-import { MS_PER_DAY } from "./constants";
+import { MS_PER_DAY } from './constants';
 
 // Router
 import { Link } from 'react-router-dom';

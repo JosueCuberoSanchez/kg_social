@@ -5,7 +5,7 @@
 
 import React, { Component } from 'react';
 
-import ProfileContainer from "../../containers/profile/";
+import ProfileContainer from '../../containers/profile/';
 
 class Profile extends Component {
 

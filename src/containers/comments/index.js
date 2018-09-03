@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
 // Ramda
-import {map} from "ramda";
+import {map} from 'ramda';
 
 // Components
-import CommentItem from "../../components/comment-item";
-import * as actions from "../../redux/actionCreators";
+import CommentItem from '../../components/comment-item';
+import * as actions from '../../redux/actionCreators';
 
 // Redux
 import { connect } from 'react-redux';

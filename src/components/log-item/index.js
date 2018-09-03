@@ -4,7 +4,7 @@ import React from 'react';
 import './log-item.scss';
 
 // Helpers
-import { getLogDate } from "../../helpers/functions";
+import { getLogDate } from '../../helpers/functions';
 
 // Router
 import { Link } from 'react-router-dom';

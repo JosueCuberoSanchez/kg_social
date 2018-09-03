@@ -24,8 +24,8 @@ class SearchBar extends Component {
 
     render() {
         return (
-            <InputGroup className='mt-5 w-50 mx-auto'>
-                <InputGroupAddon addonType="prepend">#</InputGroupAddon>
+            <InputGroup className='mt-5 w-50'>
+                <InputGroupAddon addonType='prepend'>#</InputGroupAddon>
                 <Input value={this.state.searchTerm} placeholder='Search' onChange={event => this.onInputChange(event.target.value)} />
             </InputGroup>
         );

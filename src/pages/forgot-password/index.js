@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import ForgotPasswordContainer from "../../containers/forgot-password/";
+import ForgotPasswordContainer from '../../containers/forgot-password/';
 
 let ForgotPassword = ()  => {
 

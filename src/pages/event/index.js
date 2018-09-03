@@ -5,7 +5,7 @@
 
 import React, { Component } from 'react';
 
-import EventContainer from "../../containers/event/";
+import EventContainer from '../../containers/event/';
 
 class Event extends Component{
 

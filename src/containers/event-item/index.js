@@ -10,11 +10,11 @@ import { Row, Col, Card, CardImg, CardBody, CardTitle, CardSubtitle, CardText } 
 import { Link } from 'react-router-dom';
 
 // Helpers
-import * as actions from "../../redux/actionCreators";
-import {getEventRating} from "../../helpers/functions";
+import * as actions from '../../redux/actionCreators';
+import {getEventRating} from '../../helpers/functions';
 
 // Rating
-import Rating from "react-rating";
+import Rating from 'react-rating';
 
 
 class EventItemContainer extends Component {
@@ -68,8 +68,8 @@ class EventItemContainer extends Component {
                                                 <Col xs='12' sm='5' md='12' lg='5'>
                                                     <Rating initialRating={getEventRating(event.votes, event.stars)} readonly
                                                             className='event-item__stars'
-                                                            emptySymbol={<img src={starEmpty} className="icon"/>}
-                                                            fullSymbol={<img src={starFull} className="icon"/>}/>
+                                                            emptySymbol={<img src={starEmpty} className='icon'/>}
+                                                            fullSymbol={<img src={starFull} className='icon'/>}/>
                                                 </Col>
                                             </Row>
                                         </CardTitle>

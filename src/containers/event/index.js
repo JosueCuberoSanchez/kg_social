@@ -23,13 +23,10 @@ import EventBody from '../../components/event-body/';
 import EventFooter from '../../components/event-footer/';
 
 // Modals
-import ImageModal from "../../components/modals/image-modal";
+import ImageModal from '../../components/modals/image-modal';
 import EditEventModal from '../../components/modals/edit-event-modal';
 import AttendeesModal from '../../components/modals/attendees-modal';
 import VoteEventModal from '../../components/modals/vote-event-modal';
-
-// Filters
-import * as filters from '../../helpers/filters';
 
 // Amazon S3
 import S3FileUpload from 'react-s3';
@@ -49,13 +46,13 @@ class EventContainer extends Component {
         const vote = await actions.checkVote(id, this.state.user.username);
         if(!vote)
             this.setState({voteModal: true});
-        this.props.getEvent(filters.ID, id); // Get event info
+        this.props.getEvent('id', id); // Get event info
     }
 
     componentWillReceiveProps(nextProps) {
         const { id } = this.props;
         if(nextProps.id !== id)
-            this.props.getEvent(filters.ID, nextProps.id); // Get event info
+            this.props.getEvent('id', nextProps.id); // Get event info
     }
 
     toggleImageModal = () => {

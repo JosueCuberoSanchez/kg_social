@@ -9,11 +9,11 @@ import React, { Component } from 'react';
 import './aside.scss';
 
 // Ramda
-import {map} from "ramda";
+import {map} from 'ramda';
 
 // Components
-import LogItem from "../../components/log-item";
-import * as actions from "../../redux/actionCreators";
+import LogItem from '../../components/log-item';
+import * as actions from '../../redux/actionCreators';
 
 // Redux
 import { connect } from 'react-redux';

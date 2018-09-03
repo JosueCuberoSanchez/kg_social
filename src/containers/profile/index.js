@@ -9,7 +9,6 @@ import React, {Component, Fragment} from 'react';
 import {Container, Row, Col, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 //Redux
-import { reduxForm } from 'redux-form'
 import { connect } from 'react-redux';
 import * as actions from '../../redux/actionCreators/index';
 
@@ -17,14 +16,14 @@ import * as actions from '../../redux/actionCreators/index';
 import './profile.scss';
 
 // Router
-import Redirect from "react-router-dom/es/Redirect";
+import Redirect from 'react-router-dom/es/Redirect';
 
 // Components
-import Aside from "../aside";
-import UpdateProfileForm from "../../components/forms/update-profile-form";
+import Aside from '../aside';
+import UpdateProfileForm from '../../components/forms/update-profile-form';
 
 // Helpers
-import { isEmpty } from "../../helpers/functions";
+import { isEmpty } from '../../helpers/functions';
 
 // Font awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

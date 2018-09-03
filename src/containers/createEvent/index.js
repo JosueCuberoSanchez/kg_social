@@ -15,10 +15,10 @@ import './create-event.scss';
 import { Container, Row, Col } from 'reactstrap';
 
 // Helpers
-import { isEmpty } from "../../helpers/functions";
+import { isEmpty } from '../../helpers/functions';
 
 // Router
-import Redirect from "react-router-dom/es/Redirect";
+import Redirect from 'react-router-dom/es/Redirect';
 
 class CreateEventContainer extends Component {
 

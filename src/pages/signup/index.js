@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import SignUpContainer from "../../containers/signup/";
+import SignUpContainer from '../../containers/signup/';
 
 let SignUp = ()  => {
 

@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 
 // Drag and drop
-import ReactDropzone from "react-dropzone";
-import dnd from "../../../assets/img/dnd.png";
+import ReactDropzone from 'react-dropzone';
+import dnd from '../../../assets/img/dnd.png';
 
 // Reactstrap
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';

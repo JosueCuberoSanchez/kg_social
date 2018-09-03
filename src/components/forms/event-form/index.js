@@ -66,7 +66,7 @@ class EventForm extends Component {
                 <div className='mb-4'>
                     <Label htmlFor='date'>Date</Label>
                     <div className='ml-2 d-inline-block'>
-                        <Field name="date" id="data" component={renderDatePicker} />
+                        <Field name='date' id='data' component={renderDatePicker} />
                     </div>
                 </div>
                 <div className='mb-4'>
@@ -77,7 +77,7 @@ class EventForm extends Component {
                 <div className='mb-4'>
                     <Label htmlFor='private'>Private</Label>
                     <div className='ml-2 d-inline-block'>
-                        <Field name="private" id="private" component='input' type="checkbox"/>
+                        <Field name='private' id='private' component='input' type='checkbox'/>
                     </div>
                 </div>
                     {
@@ -97,7 +97,7 @@ class EventForm extends Component {
 
 const renderDatePicker = ({input, placeholder, defaultValue, meta: {touched, error} }) => (
     <div>
-        <DatePicker {...input} dateForm="MM-DD-YYYY" selected={input.value ? moment(input.value) : null} className='form__date-picker'/>
+        <DatePicker {...input} dateForm='MM-DD-YYYY' selected={input.value ? moment(input.value) : null} className='form__date-picker'/>
         {touched && error && <span>{error}</span>}
     </div>
 );

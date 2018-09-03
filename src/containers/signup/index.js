@@ -12,14 +12,14 @@ import {Container, Row, Col} from 'reactstrap';
 import logo from '../../assets/img/logo.png';
 
 // Components
-import SignUpForm from "../../components/forms/signUp-form/";
+import SignUpForm from '../../components/forms/signUp-form/';
 
 //  Styles
 import './signup.scss';
 
 // Redux
 import { connect } from 'react-redux';
-import * as actions from "../../redux/actionCreators";
+import * as actions from '../../redux/actionCreators';
 
 class SignUp extends Component {
 

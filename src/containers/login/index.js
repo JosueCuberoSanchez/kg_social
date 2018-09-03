@@ -35,7 +35,7 @@ class LoginContainer extends Component {
         const { badCredentials, redirectDash } = this.props;
 
         if(redirectDash || (localStorage.getItem('user') !== null))
-            return (<Redirect to='/dashboard' />);
+            return (<Redirect to='/dashboard/all' />);
 
         return (
             <main className='login'>

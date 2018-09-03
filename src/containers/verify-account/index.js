@@ -12,7 +12,7 @@ import {Container, Row, Col} from 'reactstrap';
 import logo from '../../assets/img/logo.png';
 
 // Router
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 //Redux
 import { connect } from 'react-redux';

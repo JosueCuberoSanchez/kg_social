@@ -12,7 +12,7 @@ import { Container, Row, Col } from 'reactstrap';
 import { map } from 'ramda';
 
 // Router
-import Redirect from "react-router-dom/es/Redirect";
+import Redirect from 'react-router-dom/es/Redirect';
 
 // Redux
 import { connect } from 'react-redux';
@@ -26,10 +26,6 @@ import Aside from '../aside';
 import EventItemContainer from '../event-item/';
 import SearchBar from '../../components/search-bar/';
 
-// Filters
-import * as filters from '../../helpers/filters';
-
-
 class DashboardContainer extends Component {
 
     constructor(props) {
@@ -38,7 +34,15 @@ class DashboardContainer extends Component {
         this.state = { searchTerm: ''};
     }
 
-    async componentDidMount () { this.props.getEvents(filters.ALL); }
+    async componentDidMount () {
+        console.log(this.props.filter);
+        this.props.getEvents(this.props.filter);
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(this.props.filter !== nextProps.filter)
+            this.props.getEvents(this.props.filter);
+    }
 
     search = (searchTerm) => {
         this.setState({searchTerm: searchTerm});

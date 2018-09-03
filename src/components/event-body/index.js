@@ -1,10 +1,10 @@
 import React from 'react';
 
 // Reactstrap
-import { Row, Col } from "reactstrap";
+import { Row, Col } from 'reactstrap';
 
 // Helpers
-import {getEventDate, getEventDay, getEventMonth} from "../../helpers/functions";
+import {getEventDate, getEventDay, getEventMonth} from '../../helpers/functions';
 
 // Styles
 import './event-body.scss';

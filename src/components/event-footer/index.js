@@ -1,10 +1,10 @@
 import React from 'react';
 
 // Reactstrap
-import { Row, Col } from "reactstrap";
+import { Row, Col } from 'reactstrap';
 
 // Helpers
-import { getFirstAttendees } from "../../helpers/functions";
+import { getFirstAttendees } from '../../helpers/functions';
 
 // Styles
 import './event-footer.scss';

@@ -3,15 +3,19 @@
  * @author Josué David Cubero Sánchez.
  */
 
-import React from 'react';
+import React, { Component } from 'react';
 
-import DashboardContainer from "../../containers/dashboard/";
+import DashboardContainer from '../../containers/dashboard/';
 
-let Dashboard = ()  => {
+class Dashboard extends Component {
 
-    return (
-        <DashboardContainer isLoading={true}/>
-    );
-};
+    constructor(props) { super(props); }
+
+    render() {
+        return (
+            <DashboardContainer filter={this.props.match.params.filter} isLoading={true}/>
+        );
+    }
+}
 
 export default Dashboard;
