@@ -20,7 +20,7 @@ const LogItem = ({log}) => {
                 <article className='p-2'>
                     <Row>
                         <Col xs='3' sm='3' md='3' lg='3' className='pr-0'>
-                            <img src={log.author} alt={`${log.author} profile picture`} className='w-100'/>
+                            <img src={log.author} alt='profile picture' className='w-100'/>
                         </Col>
                         <Col xs='9' sm='9' md='9' lg='9' className='d-flex'>
                              <p className='log-item__text mb-0 justify-content-center align-self-center'>{ log.action }</p>

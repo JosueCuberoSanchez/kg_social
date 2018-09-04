@@ -69,8 +69,15 @@ class DashboardContainer extends Component {
                         <Container>
                             <Row>
                                 <Col xs='12' sm='12' md='9' lg='9'>
-                                    <SearchBar onSearchTermChange={this.search} />
-                                    <div className='dashboard__events pt-4'>
+                                    <Row className='mt-5 pb-4'>
+                                        <Col xs='12' sm='6' md='6' lg='6'>
+                                            <h2>Upcoming Events</h2>
+                                        </Col>
+                                        <Col xs='12' sm='6' md='6' lg='6'>
+                                            <SearchBar onSearchTermChange={this.search} />
+                                        </Col>
+                                    </Row>
+                                    <div className='dashboard__events'>
                                         <ul className='list-unstyled'>
                                             {map(this.eventCreator, events)}
                                         </ul>

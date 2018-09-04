@@ -32,7 +32,7 @@ class Aside extends Component {
 
         return (
             <aside className='aside pt-5'>
-                <h6>Recent activity</h6>
+                <h2 className='aside__title'><strong>Recent activity</strong></h2>
                 {
                     areLoading
                         ? <p>Loading...</p>

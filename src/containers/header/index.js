@@ -51,46 +51,46 @@ class Header extends Component {
                     <NavbarToggler onClick={this.toggle}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className='ml-auto' navbar>
-                            <Link to='/createEvent' className='header__link'>
-                                <NavItem className='py-2 pl-3 mr-1'>
+                            <NavItem className='py-2 pl-3 mr-1'>
+                                <Link to='/createEvent' className='header__link'>
                                     <FontAwesomeIcon icon='calendar' className='mr-2' alt='Create event link'/>Create
-                                </NavItem>
-                            </Link>
-                            <Link to='/dashboard/owned' className='header__link'>
-                                <NavItem className='py-2 pl-3 mr-1'>
+                                </Link>
+                            </NavItem>
+                            <NavItem className='py-2 pl-3 mr-1'>
+                                <Link to='/dashboard/owned' className='header__link'>
                                     <FontAwesomeIcon icon='calendar-alt' className='mr-2' alt='My events link'/>My events
-                                </NavItem>
-                            </Link>
-                            <Link to='/dashboard/enrolled' className='header__link'>
-                                <NavItem className='py-2 pl-3 mr-1'>
+                                 </Link>
+                            </NavItem>
+                            <NavItem className='py-2 pl-3 mr-1'>
+                                <Link to='/dashboard/enrolled' className='header__link'>
                                     <FontAwesomeIcon icon='calendar-check' className='mr-2' alt='Enrolled events link'/>Enrolled
-                                </NavItem>
-                            </Link>
-                            <Link to='/dashboard/top' className='header__link'>
-                                <NavItem className='py-2 pl-3 mr-1'>
+                                </Link>
+                            </NavItem>
+                            <NavItem className='py-2 pl-3 mr-1'>
+                                <Link to='/dashboard/top' className='header__link'>
                                     <FontAwesomeIcon icon='calendar-plus' className='mr-2' alt='Top rated events link'/>Top rated
-                                </NavItem>
-                            </Link>
-                            <Link to='/' className='header__link header__user-dropdown-item' onClick={this.logout}>
-                                <NavItem className='py-2 pl-3 mr-1'>
+                                </Link>
+                            </NavItem>
+                            <NavItem className='py-2 pl-3 mr-1'>
+                                <Link to='/' className='header__link header__user-dropdown-item' onClick={this.logout}>
                                     <FontAwesomeIcon icon='sign-out-alt' className='mr-2' alt='Logout button'/>Logout
-                                </NavItem>
-                            </Link>
-                            <Link to='/profile' className='header__link'>
-                                <NavItem className='py-2 pl-3 mr-1 header__user-dropdown-item'>
+                                </Link>
+                            </NavItem>
+                            <NavItem className='py-2 pl-3 mr-1 header__user-dropdown-item'>
+                                <Link to='/profile' className='header__link' aria-label="Profile link">
                                     <FontAwesomeIcon icon='user-cog' className='mr-2' alt='Profile link'/>Profile
-                                </NavItem>
-                            </Link>
-                            <UncontrolledDropdown nav inNavbar className='mr-5 pr-3 header__user-dropdown'>
-                                <DropdownToggle nav caret className='pl-3'>
-                                    <FontAwesomeIcon icon='user' alt='User dropdown'/>
+                                </Link>
+                            </NavItem>
+                            <UncontrolledDropdown nav inNavbar className='mr-5 pr-3 header__user-dropdown' role='menu'>
+                                <DropdownToggle nav caret className='pl-3' aria-label="User profile and logout dropdown" role='menuitem'>
+                                    <FontAwesomeIcon icon='user' alt='User dropdown' />
                                 </DropdownToggle>
-                                <DropdownMenu right>
-                                    <DropdownItem onClick={this.logout}>
+                                <DropdownMenu right role='menu'>
+                                    <DropdownItem onClick={this.logout} role='menuitem'>
                                         Logout <FontAwesomeIcon icon='sign-out-alt' className='ml-1' alt='Logout button'/>
                                     </DropdownItem>
                                     <DropdownItem divider/>
-                                    <Link to={`/profile/${JSON.parse(localStorage.getItem('user')).username}`} className='header__link'>
+                                    <Link to={`/profile/${JSON.parse(localStorage.getItem('user')).username}`} className='header__link' role='menuitem'>
                                         <DropdownItem>
                                             My profile <FontAwesomeIcon icon='user-cog' className='ml-1' alt='My profile link'/>
                                         </DropdownItem>

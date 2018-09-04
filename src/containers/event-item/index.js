@@ -54,28 +54,24 @@ class EventItemContainer extends Component {
                             <Row>
                                 <Col xs='12' sm='12' md='4' lg='4' className='d-flex'>
                                     <Link to={`/event/${event._id}`}>
-                                        <CardImg className='justify-content-center align-self-center p-4 h-100'
-                                                 src={event.image} alt='Event image'/>
+                                        <CardImg className='justify-content-center align-self-center p-4 h-100' src={event.image} alt='Event image'/>
                                     </Link>
                                 </Col>
                                 <Col xs='12' sm='12' md='8' lg='8'>
                                     <CardBody>
-                                        <CardTitle className='mb-3'>
+                                        <div className='mb-3'>
                                             <Row>
-                                                <Col xs='12' sm='7' md='12' lg='7'>
-                                                    <p className='mb-0'>{event.title}</p>
+                                                <Col xs='12' sm='8' md='12' lg='8'>
+                                                    <h3 className='mb-0 event-item__title'><strong>{event.title}</strong></h3>
                                                 </Col>
-                                                <Col xs='12' sm='5' md='12' lg='5'>
-                                                    <Rating initialRating={getEventRating(event.votes, event.stars)} readonly
-                                                            className='event-item__stars'
-                                                            emptySymbol={<img src={starEmpty} className='icon'/>}
-                                                            fullSymbol={<img src={starFull} className='icon'/>}/>
+                                                <Col xs='12' sm='4' md='12' lg='4'>
+                                                    <Rating initialRating={getEventRating(event.votes, event.stars)} readonly className='event-item__stars' emptySymbol={<img src={starEmpty} className='icon' alt='Empty rating star'/>} fullSymbol={<img src={starFull} className='icon' alt='Full rating star'/>}/>
                                                 </Col>
                                             </Row>
-                                        </CardTitle>
+                                        </div>
                                         <CardText>{event.description}</CardText>
                                         <CardText>{this.state.attendees}</CardText>
-                                        <CardSubtitle className='mb-2'>{event.hashtags}</CardSubtitle>
+                                        <em className='mb-2'>{event.hashtags}</em>
                                     </CardBody>
                                 </Col>
                             </Row>

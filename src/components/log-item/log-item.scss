@@ -6,7 +6,7 @@
 
 .log-item {
 
-  background-color: $anchor-color;
+  background-color: #fff;
 
   a {
     text-decoration: none;
@@ -14,6 +14,6 @@
 
   &__text {
     font-size: 0.75rem;
-    color: #777777 !important;
+    color: #757575 !important;
   }
 }
