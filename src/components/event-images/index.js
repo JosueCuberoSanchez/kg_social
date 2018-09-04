@@ -2,10 +2,7 @@ import React, {Component} from 'react';
 
 // Components
 import ImageModal from '../modals/image-modal/';
-import EventPicCarousel from '../event-pic-carousel/';
-
-// Styles
-import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
+import Carousel from '../carousel/';
 
 class EventImages extends Component {
 
@@ -44,7 +41,7 @@ class EventImages extends Component {
                 {
                     images.length === 0
                         ? <p>This event does not have any pic yet</p>
-                        : <EventPicCarousel images={images} />
+                        : <Carousel images={images} />
                 }
                 <ImageModal isOpen={this.state.imageModal} toggle={this.toggleImageModal} className={this.props.className}
                             files={this.state.files} onPreviewDrop={this.onPreviewDrop}/>

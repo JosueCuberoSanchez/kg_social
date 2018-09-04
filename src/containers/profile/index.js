@@ -43,6 +43,7 @@ class ProfileContainer extends Component {
     }
 
     componentDidMount() {
+        document.title = 'KGS | Profile';
         const { username } = this.props;
         if(this.state.user.username !== username) // if I am the user, I don't want to query the server again
             this.props.getUser(username);

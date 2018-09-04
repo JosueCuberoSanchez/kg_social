@@ -33,6 +33,7 @@ class ResetPasswordContainer extends Component {
     }
 
     componentDidMount() {
+        document.title = 'KGS | Reset Password';
         const { code } = this.props;
         this.props.verifyForgotPassword(code);
     }

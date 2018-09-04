@@ -22,7 +22,7 @@ let CommentForm = (props)  => {
         <form onSubmit={handleSubmit} className='mt-3 form'>
             <div className='mb-4'>
                 <Label htmlFor='comment'>Comment</Label>
-                <Field name='comment' component='textarea' type='text'
+                <Field name='comment' id='comment' component='textarea' type='text'
                        required={true} className='w-100 pl-2 form__field' placeholder='Enter comment'/>
             </div>
             <button type='submit' className='form__button'>Publish your comment!</button>

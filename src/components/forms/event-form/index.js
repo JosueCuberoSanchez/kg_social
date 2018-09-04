@@ -65,9 +65,7 @@ class EventForm extends Component {
                 </div>
                 <div className='mb-4'>
                     <Label htmlFor='date'>Date</Label>
-                    <div className='ml-2 d-inline-block'>
-                        <Field name='date' id='data' component={renderDatePicker} />
-                    </div>
+                    <Field name='date' id='date' component={renderDatePicker} />
                 </div>
                 <div className='mb-4'>
                     <Label htmlFor='hashtags'>Hashtags</Label>
@@ -97,7 +95,7 @@ class EventForm extends Component {
 
 const renderDatePicker = ({input, placeholder, defaultValue, meta: {touched, error} }) => (
     <div>
-        <DatePicker {...input} dateForm='MM-DD-YYYY' selected={input.value ? moment(input.value) : null} className='form__date-picker'/>
+        <DatePicker {...input} dateForm='MM-DD-YYYY' selected={input.value ? moment(input.value) : null} className='form__date-picker' placeholderText='Enter event date' id='date'/>
         {touched && error && <span>{error}</span>}
     </div>
 );

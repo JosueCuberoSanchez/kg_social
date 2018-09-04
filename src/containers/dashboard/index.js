@@ -35,6 +35,7 @@ class DashboardContainer extends Component {
     }
 
     async componentDidMount () {
+        document.title = 'KGS | Dashboard';
         console.log(this.props.filter);
         this.props.getEvents(this.props.filter);
     }

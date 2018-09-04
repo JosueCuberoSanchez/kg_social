@@ -30,6 +30,10 @@ class LoginContainer extends Component {
 
     submit = (values) => { this.props.login(values); };
 
+    componentDidMount() {
+        document.title = 'KGS | Login';
+    }
+
     render() {
 
         const { badCredentials, redirectDash } = this.props;

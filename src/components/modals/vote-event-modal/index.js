@@ -6,6 +6,9 @@ import { ModalHeader, ModalBody, ModalFooter, Modal } from 'reactstrap';
 // Rating
 import Rating from 'react-rating';
 
+// Styles
+import './vote-event-modal.scss';
+
 const VoteEventModal = ({isOpen, toggle, className, submit}) => {
 
     const starFull = require('../../../assets/img/star-full.png');

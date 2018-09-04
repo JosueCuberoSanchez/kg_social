@@ -42,6 +42,7 @@ class EventContainer extends Component {
     }
 
     async componentDidMount() {
+        document.title = 'KGS | Event';
         const {id} = this.props;
         const vote = await actions.checkVote(id, this.state.user.username);
         if(!vote)

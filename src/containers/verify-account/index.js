@@ -30,6 +30,7 @@ class VerifyAccountContainer extends Component {
     }
 
     componentDidMount() {
+        document.title = 'KGS | Verify account';
         const { code } = this.props;
         this.props.verifyAccount(code);
     }

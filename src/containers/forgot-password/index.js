@@ -30,6 +30,10 @@ class ForgotPasswordContainer extends Component {
 
     submit = (values) => { this.props.forgotPassword(values.email); };
 
+    componentDidMount() {
+        document.title = 'KGS | Forgot Password';
+    }
+
     render() {
 
         const { redirectDash, resetSent } = this.props;

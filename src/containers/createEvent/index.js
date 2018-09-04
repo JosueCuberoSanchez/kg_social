@@ -43,6 +43,10 @@ class CreateEventContainer extends Component {
         }
     }
 
+    componentDidMount() {
+        document.title = 'KGS | Create event'
+    }
+
     render() {
 
         const { loggedOut, newEvent } = this.props;

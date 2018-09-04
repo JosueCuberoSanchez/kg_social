@@ -18,3 +18,16 @@ export const ATTENDEES = 'attendees';
 export const VOTES = 'votes';
 
 export const MS_PER_DAY = 1000 * 60 * 60 * 24;
+
+export const CAROUSEL_SETTINGS = {
+    accessibility: true,
+    adaptiveHeight: true,
+    autoplay: true,
+    draggable: true,
+    fade: true,
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+};

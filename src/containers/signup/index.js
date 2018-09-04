@@ -29,6 +29,10 @@ class SignUp extends Component {
         this.state = {passwordsMatch: true, validPassword: true};
     }
 
+    componentDidMount() {
+        document.title = 'KGS | Sign up';
+    }
+
     submit = (values) => {
         if(values.password !== values.repassword){
             this.setState({passwordsMatch:false, validPassword: true});
