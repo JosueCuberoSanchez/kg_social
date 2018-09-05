@@ -541,3 +541,11 @@ export const updateUserImage = (data, id) => {
         }
     }
 };
+
+export const inviteUsers = (users, event) => {
+    try {
+        axios.post(`${Constants.BASE_URL}${Constants.INVITE}`, {users: users, event: event});
+    } catch (err) {
+        console.log(err);
+    }
+};

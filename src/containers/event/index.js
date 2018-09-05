@@ -27,6 +27,7 @@ import ImageModal from '../../components/modals/image-modal';
 import EditEventModal from '../../components/modals/edit-event-modal';
 import AttendeesModal from '../../components/modals/attendees-modal';
 import VoteEventModal from '../../components/modals/vote-event-modal';
+import InviteModal from '../../components/modals/invite-modal';
 
 // Amazon S3
 import S3FileUpload from 'react-s3';
@@ -37,7 +38,7 @@ class EventContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {imageModal: false, dataModal: false, attendeesModal: false, voteModal: false,
+        this.state = {imageModal: false, dataModal: false, attendeesModal: false, voteModal: false, inviteModal: false,
             files: [], user: JSON.parse(localStorage.getItem('user'))};
     }
 
@@ -114,6 +115,15 @@ class EventContainer extends Component {
         this.props.unenrollToEvent(this.state.user.username, this.props.id);
     };
 
+    submitInvites = (values) => {
+        const { id } = this.props;
+        actions.inviteUsers(values.invites, id);
+    };
+
+    toggleInviteModal = () => {
+        this.setState({inviteModal: !this.state.inviteModal});
+    };
+
     submitComment = async (values) => {
         const {id} = this.props;
         await this.props.createComment(values.comment, this.state.user.username, id);
@@ -121,7 +131,7 @@ class EventContainer extends Component {
 
     render() {
 
-        const {event, eventLoading, attendees} = this.props;
+        const {event, eventLoading, attendees, usernames} = this.props;
 
         if (localStorage.getItem('user') === null)
             return (<Redirect to='/'/>);
@@ -141,7 +151,8 @@ class EventContainer extends Component {
                                     <EventBody date={event.date} location={event.location} description={event.description} image={event.image} />
                                     <EventFooter owner={event.owner} username={this.state.user.username} toggleImageModal={this.toggleImageModal}
                                                  hashtags={event.hashtags} attendees={attendees} toggleAttendeesModal={this.toggleAttendeesModal}
-                                                 enroll={this.enrollToEvent} unenrroll={this.unenrollToEvent} checkEnroll={this.checkEnroll}/>
+                                                 enroll={this.enrollToEvent} unenrroll={this.unenrollToEvent} checkEnroll={this.checkEnroll}
+                                                 toggleInviteModal={this.toggleInviteModal}/>
                                 </article>
                             </Col>
                             <Col xs='12' sm='12' md='3' lg='3'>
@@ -176,6 +187,7 @@ class EventContainer extends Component {
                 <EditEventModal isOpen={this.state.dataModal} toggle={this.toggleDataModal} className={this.props.className} submitData={this.submitData} event={event} />
                 <AttendeesModal isOpen={this.state.attendeesModal} toggle={this.toggleAttendeesModal} className={this.props.className} attendees={attendees} />
                 <VoteEventModal isOpen={this.state.voteModal} toggle={this.toggleVoteModal} className={this.props.className} submit={this.submitVoteStars} />
+                <InviteModal isOpen={this.state.inviteModal} toggle={this.toggleInviteModal} className={this.props.className} submit={this.submitInvites} usernames={usernames}/>
             </main>
         );
     }

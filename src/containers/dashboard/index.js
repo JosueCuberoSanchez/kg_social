@@ -36,13 +36,13 @@ class DashboardContainer extends Component {
 
     async componentDidMount () {
         document.title = 'KGS | Dashboard';
-        console.log(this.props.filter);
         this.props.getEvents(this.props.filter);
     }
 
     componentWillReceiveProps(nextProps){
-        if(this.props.filter !== nextProps.filter)
-            this.props.getEvents(this.props.filter);
+        if(this.props.filter !== nextProps.filter) {
+            this.props.getEvents(nextProps.filter);
+        }
     }
 
     search = (searchTerm) => {

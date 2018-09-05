@@ -9,7 +9,7 @@ import { getFirstAttendees } from '../../helpers/functions';
 // Styles
 import './event-footer.scss';
 
-const EventFooter = ({owner, username, toggleImageModal, hashtags, attendees, toggleAttendeesModal, enroll, unenroll, checkEnroll}) => {
+const EventFooter = ({owner, username, toggleImageModal, hashtags, attendees, toggleAttendeesModal, enroll, unenroll, checkEnroll, toggleInviteModal}) => {
 
     return (
         <div className='event-footer'>
@@ -40,10 +40,10 @@ const EventFooter = ({owner, username, toggleImageModal, hashtags, attendees, to
                             <button onClick={toggleAttendeesModal} className='event-footer__attendees-btn pt-0 pb-3'>...</button>
                         </Col>
                         <Col xs='12' sm='4' md='4' lg='4' className='mb-3'>
-                            <div className='float-right'>
+                            <div className='float-right d-flex h-100'>
                                 {
                                     owner === username
-                                        ? null
+                                        ? <button onClick={toggleInviteModal} className='align-self-center'>Invite people</button>
                                         : checkEnroll(attendees)
                                          ? <button onClick={unenroll}>Unenroll!</button>
                                          : <button onClick={enroll}>Enroll!</button>

@@ -16,6 +16,7 @@ export const UNENROLL = 'unenroll';
 export const LOG = 'log';
 export const ATTENDEES = 'attendees';
 export const VOTES = 'votes';
+export const INVITE = 'invite';
 
 export const MS_PER_DAY = 1000 * 60 * 60 * 24;
 
