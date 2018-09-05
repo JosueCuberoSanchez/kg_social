@@ -33,7 +33,7 @@ class EventImages extends Component {
         const { images } = this.props;
 
         return (
-            <div className='px-4'>
+            <div className='px-4 mb-5'>
                 <div className='d-flex justify-content-between mb-4'>
                     <h3>Event pics</h3>
                     <button onClick={this.toggleImageModal}>Upload pic</button>

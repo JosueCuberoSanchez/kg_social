@@ -133,17 +133,17 @@ class ProfileContainer extends Component {
                                             <div className='d-flex justify-content-between pt-2'>
                                                 {
                                                     user.facebook !== ''
-                                                        ? <a href={user.facebook}><FontAwesomeIcon icon={['fab', 'facebook']} className='mr-2 profile__social-media-link' alt='Facebook profile link'/></a>
+                                                        ? <a href={user.facebook} aria-label='Facebook profile link'><FontAwesomeIcon icon={['fab', 'facebook']} className='mr-2 profile__social-media-link' alt='Facebook profile link'/></a>
                                                         : null
                                                 }
                                                 {
                                                     user.twitter !== ''
-                                                        ? <a href={user.twitter}><FontAwesomeIcon icon={['fab', 'twitter']} className='mr-2 profile__social-media-link' alt='Facebook profile link'/></a>
+                                                        ? <a href={user.twitter} aria-label='Twitter profile link'><FontAwesomeIcon icon={['fab', 'twitter']} className='mr-2 profile__social-media-link' alt='Facebook profile link'/></a>
                                                         : null
                                                 }
                                                 {
                                                     user.instagram !== ''
-                                                        ? <a href={user.instagram}><FontAwesomeIcon icon={['fab', 'instagram']} className='mr-2 profile__social-media-link' alt='Facebook profile link'/></a>
+                                                        ? <a href={user.instagram} aria-label=' profile link'><FontAwesomeIcon icon={['fab', 'instagram']} className='mr-2 profile__social-media-link' alt='Facebook profile link'/></a>
                                                         : null
                                                 }
                                             </div>

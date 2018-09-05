@@ -18,7 +18,7 @@ class Carousel extends Component {
 
     constructor (props) {super(props);}
 
-    imageCreator = image =>  <div key={image} className='carousel__img'><img src={image} alt='Event pic' className='w-100'/></div>;
+    imageCreator = image =>  <div key={image}><img src={image} alt='Event pic' className='w-100 '/></div>;
 
     render () {
 

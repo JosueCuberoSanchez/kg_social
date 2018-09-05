@@ -63,9 +63,12 @@ class SignUp extends Component {
                                 <img src={logo} alt='Logo' className='w-75 d-block mx-auto mb-5'/>
                                 {
                                     registered
-                                    ? <p className='sign-up__ver p-5'>
-                                            We've sent a verification email, please click on the link to validate your account.
-                                        </p>
+                                    ? <div>
+                                            <h1 className='sr-only'>Sign up confirmation</h1>
+                                            <p className='sign-up__ver p-5'>
+                                                We've sent a verification email, please click on the link to validate your account.
+                                            </p>
+                                        </div>
                                     : <div>
                                         <h1>Sign up here</h1>
                                         <SignUpForm onSubmit={this.submit} badCredentials={badCredentials}
