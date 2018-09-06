@@ -15,7 +15,7 @@ class Profile extends Component {
 
     render() {
         return (
-            <ProfileContainer username={this.props.match.params.username} userLoading={true}/>
+            <ProfileContainer user={this.props.match.params.user} userLoading={true}/>
         );
     }
 }

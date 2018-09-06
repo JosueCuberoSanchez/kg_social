@@ -192,7 +192,7 @@ export const createEvent = (values) => {
         });
         try {
             let body = values;
-            body['owner'] = JSON.parse(localStorage.getItem('user')).username;
+            body['owner'] = JSON.parse(localStorage.getItem('user')).id;
             if(body.private === undefined)
                 body['private'] = false;
             const result = await axios.post(`${Constants.BASE_URL}${Constants.EVENT}`, body);
@@ -248,7 +248,6 @@ export const getEvent = (filter, id) => {
             const user = JSON.parse(localStorage.getItem('user')).email;
             const result = await axios.get(`${Constants.BASE_URL}${Constants.EVENT}`, {params: {filter: filter,user: user, id: id}});
             const event = await result;
-            console.log(event.data);
             dispatch({
                 type: t.GET_EVENT_SUCCESS,
                 payload: event.data
@@ -263,13 +262,13 @@ export const getEvent = (filter, id) => {
     }
 };
 
-export const updateEventImage = (image,id) => {
+export const updateEventImage = (body,id) => {
     return async dispatch => {
         dispatch({
             type: t.GET_EVENT_IMAGE_REQUEST
         });
         try {
-            const result = await axios.post(`${Constants.BASE_URL}${Constants.EVENT_IMAGE}`,{image: image.location, id: id});
+            const result = await axios.put(`${Constants.BASE_URL}${Constants.EVENT}`,{body: body, id: id});
             const event = await result;
             dispatch(getLogs());
             dispatch({
@@ -292,7 +291,7 @@ export const updateEventPics = (image,id) => {
             type: t.GET_UPDATE_EVENT_PICS_REQUEST
         });
         try {
-            const result = await axios.post(`${Constants.BASE_URL}${Constants.EVENT_PICS}`,{image: image.location, id: id});
+            const result = await axios.put(`${Constants.BASE_URL}${Constants.EVENT_PICS}`,{image: image.location, id: id});
             const event = await result;
             dispatch(getLogs());
             dispatch({
@@ -309,15 +308,15 @@ export const updateEventPics = (image,id) => {
     }
 };
 
-export const createComment = (text, author, id) => {
+export const createComment = (text, authorId, eventId) => {
     return async dispatch => {
         dispatch({
             type: t.GET_CREATE_COMMENT_REQUEST
         });
         try {
-            const result = await axios.post(`${Constants.BASE_URL}${Constants.COMMENT}`,{text: text, author: author, eventId: id});
+            const result = await axios.post(`${Constants.BASE_URL}${Constants.COMMENT}`,{text: text, author: authorId, event: eventId});
             const comment = await result;
-            dispatch(getComments(id));
+            dispatch(getComments(eventId));
             dispatch({
                 type: t.GET_CREATE_COMMENT_SUCCESS,
                 payload: comment
@@ -344,7 +343,7 @@ export const getComments = (id) => {
             // Update payload in reducer on success
             dispatch({
                 type: t.GET_COMMENT_SUCCESS,
-                payload: comments.data.commentList
+                payload: comments.data.comments
             })
         } catch (err) {
             // Update error in reducer on failure
@@ -436,9 +435,9 @@ export const getNumberOfAttendees = async (id) => {
     }
 };
 
-export const checkVote = async (event, username) => {
+export const checkVote = async (event, user) => {
     try {
-        const result = await axios.get(`${Constants.BASE_URL}${Constants.VOTES}`, {params: {event: event, username: username}});
+        const result = await axios.get(`${Constants.BASE_URL}${Constants.VOTES}`, {params: {event: event, user: user}});
         const vote = await result;
         return vote.data !== 'false';
     } catch (err) {
@@ -446,14 +445,14 @@ export const checkVote = async (event, username) => {
     }
 };
 
-export const submitVote = (stars, id, username) => {
+export const submitVote = (stars, eventId, userId) => {
     return async dispatch => {
         dispatch({
             type: t.GET_VOTE_REQUEST
         });
         try {
             const result = await axios.post(`${Constants.BASE_URL}${Constants.VOTES}`, {
-                stars: stars, event: id, username: username
+                stars: stars, event: eventId, user: userId
             });
             const event = await result;
             dispatch({
@@ -495,7 +494,7 @@ export const getUser = (username) => {
 export const updateUser = (values, id) => {
     return async dispatch => {
         dispatch({
-            type: t.GET_UPDATE_USER_INFO_REQUEST
+            type: t.GET_UPDATE_USER_REQUEST
         });
         try {
             const result = await axios.put(`${Constants.BASE_URL}${Constants.USER}`, {values: values, id: id});
@@ -504,38 +503,13 @@ export const updateUser = (values, id) => {
             localStorage.setItem('user', JSON.stringify(user.data));
 
             dispatch({
-                type: t.GET_UPDATE_USER_INFO_SUCCESS,
+                type: t.GET_UPDATE_USER_SUCCESS,
                 payload: user.data
             })
         } catch (err) {
             // Update error in reducer on failure
             dispatch({
-                type: t.GET_UPDATE_USER_INFO_FAILURE,
-                error: err
-            })
-        }
-    }
-};
-
-export const updateUserImage = (data, id) => {
-    return async dispatch => {
-        dispatch({
-            type: t.GET_UPDATE_USER_IMAGE_REQUEST
-        });
-        try {
-            const result = await axios.put(`${Constants.BASE_URL}${Constants.USER_IMAGE}`, {data: {image: data.location}, id: id});
-            const user = await result;
-            localStorage.removeItem('user');
-            localStorage.setItem('user', JSON.stringify(user.data));
-
-            dispatch({
-                type: t.GET_UPDATE_USER_IMAGE_SUCCESS,
-                payload: user.data
-            })
-        } catch (err) {
-            // Update error in reducer on failure
-            dispatch({
-                type: t.GET_UPDATE_USER_IMAGE_FAILURE,
+                type: t.GET_UPDATE_USER_FAILURE,
                 error: err
             })
         }

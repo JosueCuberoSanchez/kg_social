@@ -48,7 +48,7 @@ const App = () => {
                         <Route exact path='/dashboard/:filter' component={includeNavs(withRouter(Dashboard))} />
                         <Route exact path='/createEvent' component={includeNavs(CreateEvent)} />
                         <Route exact path='/event/:id' component={includeNavs(withRouter(Event))}/>
-                        <Route exact path='/profile/:username' component={includeNavs(withRouter(Profile))} />
+                        <Route exact path='/profile/:user' component={includeNavs(withRouter(Profile))} />
                         <Route exact path='/verify/:code' component={VerifyAccount} />
                         <Route exact path='/forgotPassword' component={ForgotPassword} />
                         <Route exact path='/resetPassword/:code' component={ResetPassword} />

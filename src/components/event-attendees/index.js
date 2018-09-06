@@ -10,11 +10,11 @@ import './event-attendees.scss';
 import { Link } from 'react-router-dom';
 
 const attendeeCreator = attendee =>
-    <li key={attendee.username} className='attendee d-flex mb-3'>
-        <Link to={`/profile/${attendee.username}`}>
-            <img src={attendee.image} alt={`${attendee.username} profile picture`} className='attendee__image'/>
+    <li key={attendee.user.username} className='attendee d-flex mb-3'>
+        <Link to={`/profile/${attendee.user.username}`}>
+            <img src={attendee.user.image} alt={`${attendee.user.username} profile picture`} className='attendee__image rounded-circle'/>
         </Link>
-        <p className='my-auto ml-3'>{attendee.username}</p>
+        <p className='my-auto ml-3'>{attendee.user.username}</p>
     </li>;
 
 const EventAttendees = ({attendees}) => {

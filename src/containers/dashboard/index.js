@@ -99,7 +99,7 @@ class DashboardContainer extends Component {
 const mapDispatchToProps = dispatch => { return { getEvents: (filter) => dispatch(actions.getEvents(filter)) }; };
 
 const mapStateToProps = state => {
-    return { loggedOut: state.user.loggedOut, redirectLogin: state.user.redirectLogin, events: state.events.events,
+    return { events: state.events.events,
     error: state.events.error, isLoading: state.events.eventsLoading};
 };
 

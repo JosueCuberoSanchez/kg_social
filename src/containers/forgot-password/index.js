@@ -30,15 +30,13 @@ class ForgotPasswordContainer extends Component {
 
     submit = (values) => { this.props.forgotPassword(values.email); };
 
-    componentDidMount() {
-        document.title = 'KGS | Forgot Password';
-    }
+    componentDidMount() { document.title = 'KGS | Forgot Password'; }
 
     render() {
 
-        const { redirectDash, resetSent } = this.props;
+        const { resetSent } = this.props;
 
-        if(redirectDash || (localStorage.getItem('user') !== null))
+        if(localStorage.getItem('user') !== null)
             return (<Redirect to='/dashboard' />);
 
         return (
@@ -68,7 +66,7 @@ class ForgotPasswordContainer extends Component {
     }
 }
 
-const mapStateToProps = state => { return { resetSent: state.user.resetSent }; };
+const mapStateToProps = state => { return { resetSent: state.passwordVerification.resetSent }; };
 
 const mapDispatchToProps = dispatch => { return { forgotPassword: (email) => dispatch(actions.forgotPassword(email)) }; };
 

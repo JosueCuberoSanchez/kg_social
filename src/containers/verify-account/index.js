@@ -92,7 +92,7 @@ class VerifyAccountContainer extends Component {
     }
 }
 
-const mapStateToProps = state => { return { verifyLoading: state.user.verifyLoading, verified: state.user.verified }; };
+const mapStateToProps = state => { return { verifyLoading: state.accountVerification.verifyLoading, verified: state.accountVerification.verified }; };
 
 const mapDispatchToProps = dispatch => { return { verifyAccount: (code) => dispatch(actions.verifyAccount(code)) }; };
 

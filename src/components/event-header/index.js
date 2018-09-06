@@ -10,14 +10,14 @@ import {getEventRating} from '../../helpers/functions';
 // Styles
 import './event-header.scss';
 
-const EventHeader = ({owner, username, toggle, title, votes, stars }) => {
+const EventHeader = ({owner, userId, toggle, title, votes, stars }) => {
 
     const starFull = require('../../assets/img/star-full.png');
     const starEmpty = require('../../assets/img/star-empty.png');
 
     return (<div className='event-header'>
         {
-            owner === username
+            owner === userId
                 ? <div className='d-flex justify-content-between'>
                     <div/>
                     <button onClick={toggle}>Edit event info</button>

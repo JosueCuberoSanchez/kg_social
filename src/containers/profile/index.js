@@ -22,9 +22,6 @@ import Redirect from 'react-router-dom/es/Redirect';
 import Aside from '../aside';
 import UpdateProfileForm from '../../components/forms/update-profile-form';
 
-// Helpers
-import { isEmpty } from '../../helpers/functions';
-
 // Font awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -39,24 +36,23 @@ class ProfileContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {user: JSON.parse(localStorage.getItem('user')), ownProfile: false,imageModal: false, dataModal: false, files: []}
+        this.state = {user: JSON.parse(localStorage.getItem('user')), imageModal: false, dataModal: false, files: []}
     }
 
     componentDidMount() {
         document.title = 'KGS | Profile';
-        const { username } = this.props;
-        if(this.state.user.username !== username) // if I am the user, I don't want to query the server again
-            this.props.getUser(username);
+        const { user } = this.props;
+        if(this.state.user.username !== user) // if I am the user, I don't want to query the server again
+            this.props.getUser(user);
     }
 
     componentWillReceiveProps(nextProps) {
-        if(this.props.username !== nextProps.username) {
-            if (nextProps.username === this.state.user.username) {
-                this.setState({ownProfile: true});
-            } else {
-                this.props.getUser(nextProps.username);
+        if(this.props.user !== nextProps.user) { // if it's a different link
+            if (nextProps.user !== this.state.user.user) { // if it's a different user than me
+                this.props.getUser(nextProps.user);
             }
         }
+        this.setState({user: JSON.parse(localStorage.getItem('user'))});
     }
 
     toggleImageModal = () => {
@@ -70,11 +66,10 @@ class ProfileContainer extends Component {
     };
 
     submitImage = () => {
-        console.log('HOLA!!!');
         const file = this.state.files[0];
         S3FileUpload.uploadFile(file, s3.config).then(data => {
-            console.log(data);
-            this.props.updateUserImage(data, this.state.user.id);
+            const body = {image: data.location};
+            this.props.updateUser(body, this.state.user.id);
             this.setState({files: []});
         }).catch(err => console.error(err));
     };
@@ -90,22 +85,26 @@ class ProfileContainer extends Component {
 
     render() {
 
-        const { username, userLoading, error, currentUser } = this.props;
-
-        let user;
-        if(isEmpty(currentUser) || this.state.ownProfile) {
-            user = this.state.user;
-        } else {
-            if(userLoading)
-                return (<p>Loading...</p>);
-            user = currentUser;
-        }
+        const { userLoading, error, username, firstName } = this.props;
 
         if (localStorage.getItem('user') === null)
             return (<Redirect to='/'/>);
 
         if(error)
             return (<p>Error</p>);
+
+        let user;
+        if(this.props.user === this.state.user.username) {
+            user = this.state.user;
+        } else {
+            if(userLoading)
+                return (<p>Loading...</p>);
+            user = {
+                username: username, firstName: firstName, lastName: this.props.lastName, email: this.props.email,
+                points: this.props.points, facebook: this.props.facebook, twitter: this.props.twitter, instagram: this.props.instagram,
+                image: this.props.image, phone: this.props.phone
+            };
+        }
 
         return (
             <main className='profile'>
@@ -116,7 +115,7 @@ class ProfileContainer extends Component {
                             <Col xs='12' sm='12' md='9' lg='9'>
                                 <Row>
                                     <Col xs='12' sm='12' md='5' lg='5' className='text-center'>
-                                        <img src={user.image} alt={`${username} profile picture`} className='d-block mx-auto w-100 mt-5 mb-3 rounded-circle'/>
+                                        <img src={user.image} alt={`${user.username} profile picture`} className='d-block mx-auto w-100 mt-5 mb-3 rounded-circle'/>
                                         {
                                             this.state.user.username === user.username
                                             ? <button onClick={this.toggleImageModal}>Edit</button>
@@ -202,14 +201,15 @@ class ProfileContainer extends Component {
 }
 
 const mapStateToProps = state => {
-    return { loggedOut: state.user.loggedOut, redirectLogin: state.user.redirectLogin, currentUser: state.user.currentUser, error: state.user.error, userLoading: state.user.userLoading };
+    return { username: state.user.username, firstName: state.user.firstName, lastName: state.user.lastName, email: state.user.email,
+        points: state.user.points, facebook: state.user.facebook, twitter: state.user.twitter, instagram: state.user.instagram,
+        image: state.user.image, phone: state.user.phone, error: state.user.error, userLoading: state.user.userLoading };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         getUser: (username) => dispatch(actions.getUser(username)),
-        updateUser: (values, id) => dispatch(actions.updateUser(values, id)),
-        updateUserImage: (data, id) => dispatch(actions.updateUserImage(data, id))
+        updateUser: (values, id) => dispatch(actions.updateUser(values, id))
     };
 };
 

@@ -45,7 +45,7 @@ class EventContainer extends Component {
     async componentDidMount() {
         document.title = 'KGS | Event';
         const {id} = this.props;
-        const vote = await actions.checkVote(id, this.state.user.username);
+        const vote = await actions.checkVote(id, this.state.user.id);
         if(!vote)
             this.setState({voteModal: true});
         this.props.getEvent('id', id); // Get event info
@@ -78,7 +78,7 @@ class EventContainer extends Component {
     submitVoteStars = (e) => {
         const { id } = this.props;
         this.toggleVoteModal();
-        this.props.submitVote(e, id, this.state.user.username);
+        this.props.submitVote(e, id, this.state.user.id);
     };
 
     onPreviewDrop = (files) => {
@@ -88,7 +88,8 @@ class EventContainer extends Component {
     submitImage = () => {
         const file = this.state.files[0];
         S3FileUpload.uploadFile(file, s3.config).then(data => {
-            this.props.updateEventImage(data, this.props.id);
+            const body = {image: data.location};
+            this.props.updateEventImage(body, this.props.id);
             this.setState({files: []});
         }).catch(err => console.error(err));
     };
@@ -104,7 +105,7 @@ class EventContainer extends Component {
     };
 
     checkEnroll = (attendees) => {
-        return attendees.filter(attendee => attendee.username === this.state.user.username).length !== 0;
+        return attendees.filter(attendee => attendee.user === this.state.user.id).length !== 0;
     };
 
     enrollToEvent = () => {
@@ -126,7 +127,7 @@ class EventContainer extends Component {
 
     submitComment = async (values) => {
         const {id} = this.props;
-        await this.props.createComment(values.comment, this.state.user.username, id);
+        await this.props.createComment(values.comment, this.state.user.id, id);
     };
 
     render() {
@@ -146,10 +147,10 @@ class EventContainer extends Component {
                         <Row>
                             <Col xs='12' sm='12' md='9' lg='9' className='mt-5'>
                                 <article className='p-3 event__info'>
-                                    <EventHeader owner={event.owner} username={this.state.user.username} toggle={this.toggleDataModal}
+                                    <EventHeader owner={event.owner} userId={this.state.user.id} toggle={this.toggleDataModal}
                                         title={event.title} stars={event.stars} votes={event.votes} />
                                     <EventBody date={event.date} location={event.location} description={event.description} image={event.image} />
-                                    <EventFooter owner={event.owner} username={this.state.user.username} toggleImageModal={this.toggleImageModal}
+                                    <EventFooter owner={event.owner} userId={this.state.user.id} toggleImageModal={this.toggleImageModal}
                                                  hashtags={event.hashtags} attendees={attendees} toggleAttendeesModal={this.toggleAttendeesModal}
                                                  enroll={this.enrollToEvent} unenrroll={this.unenrollToEvent} checkEnroll={this.checkEnroll}
                                                  toggleInviteModal={this.toggleInviteModal}/>
@@ -204,11 +205,11 @@ const mapDispatchToProps = dispatch => {
         updateEventImage: (values, id) => dispatch(actions.updateEventImage(values, id)),
         updateEventPics: (values, id) => dispatch(actions.updateEventPics(values, id)),
         getEvent: (filter, id) => dispatch(actions.getEvent(filter, id)),
-        createComment: (comment, author, id) => dispatch(actions.createComment(comment, author, id)),
+        createComment: (comment, authorId, eventId) => dispatch(actions.createComment(comment, authorId, eventId)),
         updateEvent: (values, id) => dispatch(actions.updateEvent(values, id)),
         enrollToEvent: (username, eventId) => dispatch(actions.enrollToEvent(username, eventId)),
         unenrollToEvent: (username, eventId) => dispatch(actions.unenrollToEvent(username, eventId)),
-        submitVote: (stars, id, username) => dispatch(actions.submitVote(stars, id, username))
+        submitVote: (stars, eventId, userId) => dispatch(actions.submitVote(stars, eventId, userId))
     };
 };
 

@@ -61,9 +61,9 @@ class ResetPasswordContainer extends Component {
 
     render() {
 
-        const { redirectDash, verifyLoading, verified, passwordReset } = this.props;
+        const { verifyLoading, verified, passwordReset } = this.props;
 
-        if(redirectDash || (localStorage.getItem('user') !== null))
+        if(localStorage.getItem('user') !== null)
             return (<Redirect to='/dashboard' />);
 
         if(verifyLoading)
@@ -110,7 +110,11 @@ class ResetPasswordContainer extends Component {
     }
 }
 
-const mapStateToProps = state => { return { verifyLoading: state.user.verifyLoading, verified: state.user.verified, passwordReset: state.user.passwordReset }; };
+const mapStateToProps = state => { return {
+    verifyLoading: state.passwordVerification.verifyLoading,
+    verified: state.passwordVerification.verified,
+    passwordReset: state.passwordVerification.passwordReset
+}; };
 
 const mapDispatchToProps = dispatch => { return {
     verifyForgotPassword: (code) => dispatch(actions.verifyForgotPassword(code)),

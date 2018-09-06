@@ -48,7 +48,7 @@ let SignUpForm = (props)  => {
             }
             {
                 badCredentials
-                ? <p className='form__warning mt-3'>Username or password invalid</p>
+                ? <p className='form__warning mt-3'>Username or password already taken</p>
                 : null
             }
             <div className='mt-3'>

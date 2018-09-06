@@ -9,7 +9,7 @@ import { getFirstAttendees } from '../../helpers/functions';
 // Styles
 import './event-footer.scss';
 
-const EventFooter = ({owner, username, toggleImageModal, hashtags, attendees, toggleAttendeesModal, enroll, unenroll, checkEnroll, toggleInviteModal}) => {
+const EventFooter = ({owner, userId, toggleImageModal, hashtags, attendees, toggleAttendeesModal, enroll, unenroll, checkEnroll, toggleInviteModal}) => {
 
     return (
         <div className='event-footer'>
@@ -19,7 +19,7 @@ const EventFooter = ({owner, username, toggleImageModal, hashtags, attendees, to
                         <Col xs='12' sm='4' md='4' lg='4' className='order-sm-2 order-1'>
                             <div className='float-right event-footer__edit-img-container mb-4'>
                                 {
-                                    owner === username
+                                    owner === userId
                                         ? <button onClick={toggleImageModal}>Edit event photo</button>
                                         : null
                                 }
@@ -42,11 +42,11 @@ const EventFooter = ({owner, username, toggleImageModal, hashtags, attendees, to
                         <Col xs='12' sm='4' md='4' lg='4' className='mb-3'>
                             <div className='float-right d-flex h-100'>
                                 {
-                                    owner === username
+                                    owner === userId
                                         ? <button onClick={toggleInviteModal} className='align-self-center'>Invite people</button>
                                         : checkEnroll(attendees)
-                                         ? <button onClick={unenroll}>Unenroll!</button>
-                                         : <button onClick={enroll}>Enroll!</button>
+                                         ? <button onClick={unenroll} className='align-self-center'>Unenroll!</button>
+                                         : <button onClick={enroll} className='align-self-center'>Enroll!</button>
                                 }
                             </div>
                         </Col>
