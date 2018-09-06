@@ -30,7 +30,7 @@ const UserReducer = (state = INITIAL_STATE, action) => {
         case a.GET_CREATE_USER_REQUEST:
         case a.GET_UPDATE_USER_REQUEST:
         case a.GET_USER_REQUEST:
-            return { ...state };
+            return { ...state, error: false };
 
         // Success
         case a.GET_CREATE_USER_SUCCESS:

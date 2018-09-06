@@ -167,7 +167,7 @@ export const getEvents = (filter) => {
             type: t.GET_EVENTS_REQUEST
         });
         try {
-            const user = JSON.parse(localStorage.getItem('user')).username;
+            const user = JSON.parse(localStorage.getItem('user')).id;
             const result = await axios.get(`${Constants.BASE_URL}${Constants.EVENT}`, {params: {filter: filter,user: user}});
             const events = await result;
             // Update payload in reducer on success

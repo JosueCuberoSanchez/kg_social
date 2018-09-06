@@ -25,6 +25,8 @@ import './dashboard.scss';
 import Aside from '../aside';
 import EventItemContainer from '../event-item/';
 import SearchBar from '../../components/search-bar/';
+import Error from '../../components/error/';
+import Loading from "../../components/loading";
 
 class DashboardContainer extends Component {
 
@@ -59,9 +61,9 @@ class DashboardContainer extends Component {
             return (<Redirect to='/'/>);
 
         if(isLoading) {
-            return (<p>Loading...</p>)
+            return <Loading />;
         } else if (error) {
-            return (<p>Error!!!</p>)
+            return <Error />;
         } else {
             return (
                 <main className='dashboard'>

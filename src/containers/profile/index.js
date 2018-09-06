@@ -21,6 +21,8 @@ import Redirect from 'react-router-dom/es/Redirect';
 // Components
 import Aside from '../aside';
 import UpdateProfileForm from '../../components/forms/update-profile-form';
+import Error from "../../components/error";
+import Loading from "../../components/loading";
 
 // Font awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -91,14 +93,14 @@ class ProfileContainer extends Component {
             return (<Redirect to='/'/>);
 
         if(error)
-            return (<p>Error</p>);
+            return <Error />;
 
         let user;
         if(this.props.user === this.state.user.username) {
             user = this.state.user;
         } else {
             if(userLoading)
-                return (<p>Loading...</p>);
+                return (<Loading />);
             user = {
                 username: username, firstName: firstName, lastName: this.props.lastName, email: this.props.email,
                 points: this.props.points, facebook: this.props.facebook, twitter: this.props.twitter, instagram: this.props.instagram,

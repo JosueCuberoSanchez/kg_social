@@ -17,18 +17,18 @@ const EventReducer = (state = INITIAL_STATE, action) => {
 
         // Requests
         case a.GET_EVENTS_REQUEST:
-            return { ...state, eventsLoading: true };
+            return { ...state, eventsLoading: true, error: false };
         case a.GET_EVENT_REQUEST:
         case a.GET_EVENT_IMAGE_REQUEST:
         case a.GET_UPDATE_EVENT_PICS_REQUEST:
-            return { ...state, eventLoading: true, canceled: false };
+            return { ...state, eventLoading: true, canceled: false, error: false };
         case a.GET_CREATE_EVENT_REQUEST:
         case a.GET_DELETE_EVENT_REQUEST:
         case a.GET_UPDATE_EVENT_REQUEST:
         case a.GET_ENROLL_REQUEST:
         case a.GET_UNENROLL_REQUEST:
         case a.GET_VOTE_REQUEST:
-            return { ...state };
+            return { ...state, error: false };
 
         // Successful events
         case a.GET_CREATE_EVENT_SUCCESS:

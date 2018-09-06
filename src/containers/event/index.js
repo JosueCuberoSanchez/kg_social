@@ -21,6 +21,8 @@ import EventImages from '../../components/event-images/';
 import EventHeader from '../../components/event-header/';
 import EventBody from '../../components/event-body/';
 import EventFooter from '../../components/event-footer/';
+import Error from "../../components/error";
+import Loading from "../../components/loading";
 
 // Modals
 import ImageModal from '../../components/modals/image-modal';
@@ -132,13 +134,16 @@ class EventContainer extends Component {
 
     render() {
 
-        const {event, eventLoading, attendees, usernames, eventCanceled} = this.props;
+        const {event, eventLoading, attendees, usernames, eventCanceled, error} = this.props;
 
         if (localStorage.getItem('user') === null || eventCanceled)
             return (<Redirect to='/'/>);
 
         if (eventLoading || eventLoading === undefined)
-            return (<p>Loading...</p>);
+            return <Loading />;
+
+        if(error)
+            return <Error />;
 
         return (
             <main className='event'>
@@ -199,7 +204,7 @@ class EventContainer extends Component {
 
 const mapStateToProps = state => {
     return {
-        event: state.events.currentEvent, eventLoading: state.events.eventLoading, attendees: state.events.attendees, eventCanceled: state.events.canceled
+        event: state.events.currentEvent, eventLoading: state.events.eventLoading, attendees: state.events.attendees, eventCanceled: state.events.canceled, error: state.events.error
     };
 };
 
