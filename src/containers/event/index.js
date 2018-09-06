@@ -132,9 +132,9 @@ class EventContainer extends Component {
 
     render() {
 
-        const {event, eventLoading, attendees, usernames} = this.props;
+        const {event, eventLoading, attendees, usernames, eventCanceled} = this.props;
 
-        if (localStorage.getItem('user') === null)
+        if (localStorage.getItem('user') === null || eventCanceled)
             return (<Redirect to='/'/>);
 
         if (eventLoading || eventLoading === undefined)
@@ -144,43 +144,46 @@ class EventContainer extends Component {
             <main className='event'>
                 <h1 className='sr-only'>{event.title} page</h1>
                 <Container fluid={true}>
-                        <Row>
-                            <Col xs='12' sm='12' md='9' lg='9' className='mt-5'>
-                                <article className='p-3 event__info'>
-                                    <EventHeader owner={event.owner} userId={this.state.user.id} toggle={this.toggleDataModal}
-                                        title={event.title} stars={event.stars} votes={event.votes} />
-                                    <EventBody date={event.date} location={event.location} description={event.description} image={event.image} />
-                                    <EventFooter owner={event.owner} userId={this.state.user.id} toggleImageModal={this.toggleImageModal}
-                                                 hashtags={event.hashtags} attendees={attendees} toggleAttendeesModal={this.toggleAttendeesModal}
-                                                 enroll={this.enrollToEvent} unenrroll={this.unenrollToEvent} checkEnroll={this.checkEnroll}
-                                                 toggleInviteModal={this.toggleInviteModal}/>
-                                </article>
-                            </Col>
-                            <Col xs='12' sm='12' md='3' lg='3'>
-                                <Aside/>
-                            </Col>
-                        </Row>
-                </Container>
-                <Container fluid={true}>
+                    <Row>
+                        <Col xs='12' sm='12' md='9' lg='9' className='mt-5'>
+                            <article className='p-3 event__info'>
+                                <EventHeader owner={event.owner} userId={this.state.user.id} toggle={this.toggleDataModal}
+                                    title={event.title} stars={event.stars} votes={event.votes} />
+                                <EventBody date={event.date} location={event.location} description={event.description} image={event.image} />
+                                <EventFooter owner={event.owner} userId={this.state.user.id} toggleImageModal={this.toggleImageModal}
+                                             hashtags={event.hashtags} attendees={attendees} toggleAttendeesModal={this.toggleAttendeesModal}
+                                             enroll={this.enrollToEvent} unenrroll={this.unenrollToEvent} checkEnroll={this.checkEnroll}
+                                             toggleInviteModal={this.toggleInviteModal}/>
+                            </article>
+                        </Col>
+                        <Col xs='12' sm='12' md='3' lg='3'>
+                            <Aside/>
+                        </Col>
+                    </Row>
                     <Row className='mt-4 py-4'>
                         <Col xs='12' sm='7' md='7' lg='7'>
                             <EventImages images={event.images} upload={this.submitEventPic}/>
                         </Col>
                         <Col xs='12' sm='5' md='5' lg='5'>
-                        <Row>
-                            <Col xs='12' sm='12' md='12' lg='12'>
-                                <CommentsContainer id={this.props.id}/>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col xs='12' sm='12' md='12' lg='12'>
-                                <div className='event__comment-box mt-4 p-4'>
-                                    <h4>Write a comment</h4>
-                                    <CommentForm onSubmit={this.submitComment}/>
-                                </div>
-                            </Col>
-                        </Row>
-                    </Col>
+                            <Row>
+                                <Col xs='12' sm='12' md='12' lg='12'>
+                                    <CommentsContainer id={this.props.id}/>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs='12' sm='12' md='12' lg='12'>
+                                    <div className='event__comment-box mt-4 p-4'>
+                                        <h4>Write a comment</h4>
+                                        <CommentForm onSubmit={this.submitComment}/>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs='12' sm='12' md='12' lg='12' className='text-center'>
+                            <button className='event__warning-btn' onClick={() => this.props.cancelEvent(event._id)}>Cancel Event</button>
+                        </Col>
                     </Row>
                 </Container>
 
@@ -196,7 +199,7 @@ class EventContainer extends Component {
 
 const mapStateToProps = state => {
     return {
-        event: state.events.currentEvent, eventLoading: state.events.eventLoading, attendees: state.events.attendees
+        event: state.events.currentEvent, eventLoading: state.events.eventLoading, attendees: state.events.attendees, eventCanceled: state.events.canceled
     };
 };
 
@@ -209,7 +212,8 @@ const mapDispatchToProps = dispatch => {
         updateEvent: (values, id) => dispatch(actions.updateEvent(values, id)),
         enrollToEvent: (username, eventId) => dispatch(actions.enrollToEvent(username, eventId)),
         unenrollToEvent: (username, eventId) => dispatch(actions.unenrollToEvent(username, eventId)),
-        submitVote: (stars, eventId, userId) => dispatch(actions.submitVote(stars, eventId, userId))
+        submitVote: (stars, eventId, userId) => dispatch(actions.submitVote(stars, eventId, userId)),
+        cancelEvent: (id) => dispatch(actions.cancelEvent(id))
     };
 };
 

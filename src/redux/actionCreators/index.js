@@ -531,3 +531,24 @@ export const contactUs = (body) => {
         console.log(err);
     }
 };
+
+export const cancelEvent = (id) => {
+    return async dispatch => {
+        dispatch({
+            type: t.GET_DELETE_EVENT_REQUEST
+        });
+        try {
+            await axios.delete(`${Constants.BASE_URL}${Constants.EVENT}`, {params: {id: id}});
+            dispatch({
+                type: t.GET_DELETE_EVENT_SUCCESS,
+                payload: null
+            })
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_DELETE_EVENT_FAILURE,
+                error: err
+            })
+        }
+    }
+};

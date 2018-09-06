@@ -8,7 +8,8 @@ const INITIAL_STATE = {
     currentEvent: {},
     eventLoading: true,
     isOwner: false,
-    attendees: []
+    attendees: [],
+    canceled: false
 };
 
 const EventReducer = (state = INITIAL_STATE, action) => {
@@ -20,8 +21,9 @@ const EventReducer = (state = INITIAL_STATE, action) => {
         case a.GET_EVENT_REQUEST:
         case a.GET_EVENT_IMAGE_REQUEST:
         case a.GET_UPDATE_EVENT_PICS_REQUEST:
-            return { ...state, eventLoading: true };
+            return { ...state, eventLoading: true, canceled: false };
         case a.GET_CREATE_EVENT_REQUEST:
+        case a.GET_DELETE_EVENT_REQUEST:
         case a.GET_UPDATE_EVENT_REQUEST:
         case a.GET_ENROLL_REQUEST:
         case a.GET_UNENROLL_REQUEST:
@@ -47,10 +49,13 @@ const EventReducer = (state = INITIAL_STATE, action) => {
         case a.GET_ENROLL_SUCCESS:
         case a.GET_UNENROLL_SUCCESS:
             return { ...state, attendees: action.payload};
+        case a.GET_DELETE_EVENT_SUCCESS:
+            return { ... state, currentEvent: {}, canceled: true};
 
         // Errors
         case a.GET_EVENTS_FAILURE:
         case a.GET_CREATE_EVENT_FAILURE:
+        case a.GET_DELETE_EVENT_FAILURE:
         case a.GET_UPDATE_EVENT_FAILURE:
         case a.GET_ENROLL_FAILURE:
         case a.GET_UNENROLL_FAILURE:
