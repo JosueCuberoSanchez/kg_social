@@ -24,19 +24,20 @@ import { includeNavs } from './helpers/functions';
 // Pages
 import Login from './pages/login/';
 import SignUp from './pages/signup/';
-import Dashboard from './pages/dashboard';
-import CreateEvent from './pages/createEvent';
-import Event from './pages/event';
-import Profile from './pages/profile';
-import VerifyAccount from './pages/verify-account';
-import ForgotPassword from './pages/forgot-password';
-import ResetPassword from './pages/reset-password';
+import Dashboard from './pages/dashboard/';
+import CreateEvent from './pages/createEvent/';
+import Event from './pages/event/';
+import Profile from './pages/profile/';
+import VerifyAccount from './pages/verify-account/';
+import ForgotPassword from './pages/forgot-password/';
+import ResetPassword from './pages/reset-password/';
+import ContactUs from './pages/contact-us/';
 
 // Font awesome
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faUser, faSignOutAlt, faUserCog, faCalendar, faCalendarAlt, faCalendarMinus, faCalendarCheck, faCalendarPlus, faEdit, faPencilAlt, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faPlus, faMinus, faSignOutAlt, faUserCog, faCalendar, faCalendarAlt, faCalendarMinus, faCalendarCheck, faCalendarPlus, faEdit, faPencilAlt, faStar } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
-library.add(faUser, faSignOutAlt, faUserCog, faCalendar, faCalendarAlt, faCalendarMinus, faCalendarCheck, faCalendarPlus, faEdit, faPencilAlt, faStar, fab);
+library.add(faUser, faPlus, faMinus, faSignOutAlt, faUserCog, faCalendar, faCalendarAlt, faCalendarMinus, faCalendarCheck, faCalendarPlus, faEdit, faPencilAlt, faStar, fab);
 
 const App = () => {
     return (
@@ -52,6 +53,7 @@ const App = () => {
                         <Route exact path='/verify/:code' component={VerifyAccount} />
                         <Route exact path='/forgotPassword' component={ForgotPassword} />
                         <Route exact path='/resetPassword/:code' component={ResetPassword} />
+                        <Route exact path='/contactUs' component={includeNavs(ContactUs)} />
                     </Switch>
             </BrowserRouter>
         </Provider>

@@ -33,7 +33,7 @@ const Footer = () => {
                                         <p className='d-inline-block footer__slogan-medium'>socials&nbsp;</p>
                                         <p className='d-inline-block footer__slogan-small'>again</p>
                                     </div>
-                                    <Link to='/contact'>Need help? Contact us!</Link>
+                                    <Link to='/contactUs'>Need help? Contact us!</Link>
                                 </div>
                             </Col>
                         </Row>

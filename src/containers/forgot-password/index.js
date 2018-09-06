@@ -12,7 +12,7 @@ import {Container, Row, Col} from 'reactstrap';
 import logo from '../../assets/img/logo.png';
 
 // Router
-import { Redirect } from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 
 //Redux
 import { connect } from 'react-redux';
@@ -50,7 +50,7 @@ class ForgotPasswordContainer extends Component {
                         <Col xs='12' sm={{size: 6, order: 2, offset: 1}}
                              md={{size: 6, order: 2, offset: 1}} lg={{size: 6, order: 2, offset: 1}}>
                             <div className='my-auto mt-5 pt-5'>
-                                <img src={logo} alt='Logo' className='w-75 d-block mx-auto mb-5'/>
+                                <Link to='/'><img src={logo} alt='Logo' className='w-75 d-block mx-auto mb-5'/></Link>
                                 {
                                     resetSent
                                     ? <p className='forgot-password__ver p-5'>We've sent a verification email, please click on the link to reset your password.</p>

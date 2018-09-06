@@ -1,0 +1,9 @@
+@import '../../assets/scss/variables';
+
+.contact-us {
+
+  &__ver {
+    font-size: 1.5rem;
+    border: 2px solid $btn-bg-color;
+  }
+}

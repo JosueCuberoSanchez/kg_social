@@ -523,3 +523,11 @@ export const inviteUsers = (users, event) => {
         console.log(err);
     }
 };
+
+export const contactUs = (body) => {
+    try {
+        axios.post(`${Constants.BASE_URL}${Constants.CONTACT_US}`, body);
+    } catch (err) {
+        console.log(err);
+    }
+};

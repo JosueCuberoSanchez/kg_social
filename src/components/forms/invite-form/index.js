@@ -11,6 +11,9 @@ import { Label, Input } from 'reactstrap';
 //Redux
 import { Field, FieldArray, reduxForm } from 'redux-form'
 
+// Font awesome
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 // Styles
 import '../form.scss';
 
@@ -20,19 +23,21 @@ let InviteForm = (props)  => {
 
     const renderInvites = ({ fields, meta: { error, submitFailed } }) => (
         <ul className='list-unstyled'>
-            <li>
-                <button type="button" onClick={() => fields.push({})}>Add invite</button>
-                {submitFailed && error && <span>{error}</span>}
-            </li>
             {fields.map((member, index) => (
                 <li key={index}>
-                    <div className='d-flex justify-content-between mt-3'>
-                        <p>Invite #{index + 1}</p>
-                        <button type="button" title="Remove Invite" onClick={() => fields.remove(index)}>Remove invite</button>
+                    <div className='d-flex justify-content-between'>
+                        <p className='mb-2'>Invite #{index + 1}</p>
+                        <FontAwesomeIcon icon='minus' alt='Add one invite field' title="Remove Invite" className='form__icon'
+                                         onClick={() => fields.remove(index)}>Remove invite</FontAwesomeIcon>
                     </div>
                     <Field name={`${member}.email`} type="text" component={renderField} label="Email" />
                 </li>
             ))}
+            <li>
+                <FontAwesomeIcon icon='plus' alt='Add one invite field' className='form__icon'
+                                 onClick={() => fields.push({})}>Add invite</FontAwesomeIcon>
+                {submitFailed && error && <span>{error}</span>}
+            </li>
         </ul>
     );
 
@@ -40,7 +45,7 @@ let InviteForm = (props)  => {
         <div>
             <Label>{label}</Label>
             <div>
-                <Input {...input} type={type} placeholder={label} />
+                <Input {...input} type={type} placeholder={label} className='mb-3'/>
                 {touched && error && <span>{error}</span>}
             </div>
         </div>

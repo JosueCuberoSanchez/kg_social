@@ -12,7 +12,7 @@ import {Container, Row, Col} from 'reactstrap';
 import logo from '../../assets/img/logo.png';
 
 // Router
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 //Redux
 import { connect } from 'react-redux';
@@ -70,7 +70,7 @@ class VerifyAccountContainer extends Component {
                         <Col xs='12' sm={{size: 6, order: 2, offset: 1}}
                              md={{size: 6, order: 2, offset: 1}} lg={{size: 6, order: 2, offset: 1}}>
                             <div className='my-auto mt-5 pt-5'>
-                                <img src={logo} alt='Logo' className='w-75 d-block mx-auto mb-5'/>
+                                <Link to='/'><img src={logo} alt='Logo' className='w-75 d-block mx-auto mb-5'/></Link>
                                 {
                                     verified
                                     ? <div className='verify-account__msg p-5'>

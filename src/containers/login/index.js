@@ -52,7 +52,7 @@ class LoginContainer extends Component {
                         <Col xs='12' sm={{size: 6, order: 2, offset: 1}}
                              md={{size: 6, order: 2, offset: 1}} lg={{size: 6, order: 2, offset: 1}}>
                             <div className='my-auto mt-5 pt-5'>
-                                <img src={logo} alt='Logo' className='w-75 d-block mx-auto'/>
+                                <Link to='/'><img src={logo} alt='Logo' className='w-75 d-block mx-auto'/></Link>
                                 <LoginForm onSubmit={this.submit} badCredentials={badCredentials}/>
                                 <p className='mt-4'>Don't have an account yet? &nbsp;
                                     <Link to={'/signup'}>
