@@ -44,7 +44,7 @@ class EventItemContainer extends Component {
         const starEmpty = require('../../assets/img/star-empty.png');
 
         if (this.state.attendeesLoading)
-            return <p>Loading</p>;
+            return null;
 
         if (event.hashtags.toLowerCase().includes(filter.toLowerCase()) || event.title.toLowerCase().includes(filter.toLowerCase())) {
             return (

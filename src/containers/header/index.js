@@ -42,6 +42,10 @@ class Header extends Component {
     };
 
     render() {
+
+        if(localStorage.getItem('user') === null)
+            return null;
+
         return (
             <header className='header'>
                 <Navbar expand='md' light>

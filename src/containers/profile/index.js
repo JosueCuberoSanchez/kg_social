@@ -87,10 +87,10 @@ class ProfileContainer extends Component {
 
     render() {
 
-        const { userLoading, error, username, firstName } = this.props;
+        const { userLoading, error, authenticated } = this.props;
 
-        if (localStorage.getItem('user') === null)
-            return (<Redirect to='/'/>);
+        if (localStorage.getItem('user') === null || !authenticated)
+            return <Redirect to='/'/>;
 
         if(error)
             return <Error />;
@@ -102,7 +102,7 @@ class ProfileContainer extends Component {
             if(userLoading)
                 return (<Loading />);
             user = {
-                username: username, firstName: firstName, lastName: this.props.lastName, email: this.props.email,
+                username: this.props.username, firstName: this.props.firstName, lastName: this.props.lastName, email: this.props.email,
                 points: this.props.points, facebook: this.props.facebook, twitter: this.props.twitter, instagram: this.props.instagram,
                 image: this.props.image, phone: this.props.phone
             };
@@ -205,7 +205,7 @@ class ProfileContainer extends Component {
 const mapStateToProps = state => {
     return { username: state.user.username, firstName: state.user.firstName, lastName: state.user.lastName, email: state.user.email,
         points: state.user.points, facebook: state.user.facebook, twitter: state.user.twitter, instagram: state.user.instagram,
-        image: state.user.image, phone: state.user.phone, error: state.user.error, userLoading: state.user.userLoading };
+        image: state.user.image, phone: state.user.phone, error: state.user.error, userLoading: state.user.userLoading, authenticated: state.user.authenticated };
 };
 
 const mapDispatchToProps = dispatch => {

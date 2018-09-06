@@ -49,9 +49,9 @@ class CreateEventContainer extends Component {
 
     render() {
 
-        const { newEvent } = this.props;
+        const { newEvent, authenticated } = this.props;
 
-        if (localStorage.getItem('user') === null)
+        if (localStorage.getItem('user') === null || !authenticated)
             return (<Redirect to='/'/>);
 
         if(this.state.redirect)
@@ -78,7 +78,7 @@ class CreateEventContainer extends Component {
 }
 
 const mapStateToProps = state => {
-    return { newEvent: state.events.currentEvent };
+    return { newEvent: state.events.currentEvent, authenticated: state.user.authenticated };
 };
 
 const mapDispatchToProps = dispatch => {

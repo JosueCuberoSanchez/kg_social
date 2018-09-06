@@ -55,9 +55,9 @@ class DashboardContainer extends Component {
 
     render() {
 
-        const { events, isLoading, error } = this.props;
+        const { events, isLoading, error, authenticated } = this.props;
 
-        if (localStorage.getItem('user') === null)
+        if (localStorage.getItem('user') === null || !authenticated)
             return (<Redirect to='/'/>);
 
         if(isLoading) {
@@ -101,7 +101,7 @@ class DashboardContainer extends Component {
 const mapDispatchToProps = dispatch => { return { getEvents: (filter) => dispatch(actions.getEvents(filter)) }; };
 
 const mapStateToProps = state => {
-    return { events: state.events.events,
+    return { events: state.events.events, authenticated: state.user.authenticated,
     error: state.events.error, isLoading: state.events.eventsLoading};
 };
 

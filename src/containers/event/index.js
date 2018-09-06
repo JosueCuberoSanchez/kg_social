@@ -134,9 +134,9 @@ class EventContainer extends Component {
 
     render() {
 
-        const {event, eventLoading, attendees, usernames, eventCanceled, error} = this.props;
+        const {event, eventLoading, attendees, usernames, eventCanceled, error, authenticated} = this.props;
 
-        if (localStorage.getItem('user') === null || eventCanceled)
+        if (localStorage.getItem('user') === null || eventCanceled || !authenticated)
             return (<Redirect to='/'/>);
 
         if (eventLoading || eventLoading === undefined)
@@ -204,7 +204,8 @@ class EventContainer extends Component {
 
 const mapStateToProps = state => {
     return {
-        event: state.events.currentEvent, eventLoading: state.events.eventLoading, attendees: state.events.attendees, eventCanceled: state.events.canceled, error: state.events.error
+        event: state.events.currentEvent, eventLoading: state.events.eventLoading, attendees: state.events.attendees,
+        eventCanceled: state.events.canceled, error: state.events.error, authenticated: state.user.authenticated
     };
 };
 

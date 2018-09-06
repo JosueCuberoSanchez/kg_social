@@ -15,6 +15,7 @@ const INITIAL_STATE = {
     twitter: '',
     instagram: '',
 
+    authenticated: true,
     badCredentials:false, // incorrect login credentials
     redirectDash: false, // correct login redirect flag
     registered: false, // sign up form success flag
@@ -38,9 +39,9 @@ const UserReducer = (state = INITIAL_STATE, action) => {
         case a.GET_LOGIN_SUCCESS:
             return { ...state, username: action.payload.username, firstName: action.payload.firstName, lastName: action.payload.lastName,
                 points: action.payload.points, phone: action.payload.image, image: action.payload.image, facebook: action.payload.facebook,
-                twitter: action.payload.twitter, instagram: action.payload.instagram, id: action.payload.id, redirectDash:true};
+                twitter: action.payload.twitter, instagram: action.payload.instagram, id: action.payload.id, redirectDash:true, authenticated: true};
         case a.GET_LOGOUT_SUCCESS:
-            return { ...state, redirectDash: false};
+            return { ...state, redirectDash: false, authenticated: false};
         case a.GET_USER_SUCCESS:
         case a.GET_UPDATE_USER_SUCCESS:
             return { ...state, username: action.payload.username, firstName: action.payload.firstName, lastName: action.payload.lastName,
