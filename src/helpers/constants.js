@@ -1,4 +1,5 @@
-export const BASE_URL = 'http://18.222.187.211:7777/api/';
+export const BASE_URL = 'http://localhost:7777/api/';
+//export const BASE_URL = 'http://18.222.187.211:7777/api/';
 export const FORGOT_PASSWORD = 'forgot-password';
 export const RESET_PASSWORD = 'reset-password';
 export const VERIFY_SIGNUP_CODE = 'verify-signup-code';

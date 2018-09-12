@@ -28,6 +28,7 @@ const EventReducer = (state = INITIAL_STATE, action) => {
         case a.GET_ENROLL_REQUEST:
         case a.GET_UNENROLL_REQUEST:
         case a.GET_VOTE_REQUEST:
+        case a.GET_INVITE_REQUEST:
             return { ...state, error: false };
 
         // Successful events
@@ -48,6 +49,7 @@ const EventReducer = (state = INITIAL_STATE, action) => {
             return { ...state, eventLoading: true};
         case a.GET_ENROLL_SUCCESS:
         case a.GET_UNENROLL_SUCCESS:
+        case a.GET_INVITE_SUCCESS:
             return { ...state, attendees: action.payload};
         case a.GET_DELETE_EVENT_SUCCESS:
             return { ... state, currentEvent: {}, canceled: true};
@@ -62,6 +64,7 @@ const EventReducer = (state = INITIAL_STATE, action) => {
         case a.GET_EVENT_IMAGE_FAILURE:
         case a.GET_UPDATE_EVENT_PICS_FAILURE:
         case a.GET_VOTE_FAILURE:
+        case a.GET_INVITE_FAILURE:
             return { ...state, error: true};
 
         // Default

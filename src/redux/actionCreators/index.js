@@ -501,7 +501,7 @@ export const updateUser = (values, id) => {
             const user = await result;
             localStorage.removeItem('user');
             localStorage.setItem('user', JSON.stringify(user.data));
-
+            dispatch(getLogs());
             dispatch({
                 type: t.GET_UPDATE_USER_SUCCESS,
                 payload: user.data
@@ -517,10 +517,24 @@ export const updateUser = (values, id) => {
 };
 
 export const inviteUsers = (users, event) => {
-    try {
-        axios.post(`${Constants.BASE_URL}${Constants.INVITE}`, {users: users, event: event});
-    } catch (err) {
-        console.log(err);
+    return async dispatch => {
+        dispatch({
+            type: t.GET_INVITE_REQUEST
+        });
+        try {
+            const result = await axios.post(`${Constants.BASE_URL}${Constants.INVITE}`, {users: users, event: event});
+            const attendees = await result;
+            dispatch({
+                type: t.GET_INVITE_SUCCESS,
+                payload: attendees.data.attendees
+            })
+        } catch (err) {
+            // Update error in reducer on failure
+            dispatch({
+                type: t.GET_INVITE_FAILURE,
+                error: err
+            })
+        }
     }
 };
 

@@ -107,7 +107,7 @@ class EventContainer extends Component {
     };
 
     checkEnroll = (attendees) => {
-        return attendees.filter(attendee => attendee.user === this.state.user.id).length !== 0;
+        return attendees.filter(attendee => attendee.user._id === this.state.user.id).length !== 0;
     };
 
     enrollToEvent = () => {
@@ -120,7 +120,7 @@ class EventContainer extends Component {
 
     submitInvites = (values) => {
         const { id } = this.props;
-        actions.inviteUsers(values.invites, id);
+        this.props.inviteUsers(values.invites, id);
     };
 
     toggleInviteModal = () => {
@@ -157,7 +157,7 @@ class EventContainer extends Component {
                                 <EventBody date={event.date} location={event.location} description={event.description} image={event.image} />
                                 <EventFooter owner={event.owner} userId={this.state.user.id} toggleImageModal={this.toggleImageModal}
                                              hashtags={event.hashtags} attendees={attendees} toggleAttendeesModal={this.toggleAttendeesModal}
-                                             enroll={this.enrollToEvent} unenrroll={this.unenrollToEvent} checkEnroll={this.checkEnroll}
+                                             enroll={this.enrollToEvent} unenroll={this.unenrollToEvent} checkEnroll={this.checkEnroll}
                                              toggleInviteModal={this.toggleInviteModal}/>
                             </article>
                         </Col>
@@ -219,7 +219,8 @@ const mapDispatchToProps = dispatch => {
         enrollToEvent: (username, eventId) => dispatch(actions.enrollToEvent(username, eventId)),
         unenrollToEvent: (username, eventId) => dispatch(actions.unenrollToEvent(username, eventId)),
         submitVote: (stars, eventId, userId) => dispatch(actions.submitVote(stars, eventId, userId)),
-        cancelEvent: (id) => dispatch(actions.cancelEvent(id))
+        cancelEvent: (id) => dispatch(actions.cancelEvent(id)),
+        inviteUsers: (invites, id) => dispatch(actions.inviteUsers(invites, id))
     };
 };
 
